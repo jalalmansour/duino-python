@@ -1,46 +1,47 @@
 [project]
 name = "duino"
 version = "1.0.0"
-description = "The official Python library for the Duino API"
+description = "The official Python library for the Duino API by Jalal Mansour"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Duino", email = "support@Duino.com" },
+    { name = "Jalal Mansour", email = "jalalmansour@gmail.com" },
 ]
 
 dependencies = [
-  "httpx>=0.23.0, <1",
-  "pydantic>=1.9.0, <3",
+    "httpx>=0.23.0, <1",
+    "pydantic>=1.9.0, <3",
     "typing-extensions>=4.11, <5", "typing-extensions>=4.14, <5",
-  "anyio>=3.5.0, <5",
-  "distro>=1.7.0, <2",
-  "sniffio",
+    "anyio>=3.5.0, <5",
+    "distro>=1.7.0, <2",
+    "sniffio",
     "tqdm > 4",
     "jiter>=0.10.0, <1",
 ]
 
 requires-python = ">= 3.9"
 classifiers = [
-  "Typing :: Typed",
-  "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
-  "Operating System :: OS Independent",
-  "Operating System :: POSIX",
-  "Operating System :: MacOS",
-  "Operating System :: POSIX :: Linux",
-  "Operating System :: Microsoft :: Windows",
-  "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License"
+    "Typing :: Typed",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+    "Operating System :: POSIX",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: Apache Software License",
+    "Author :: Jalal Mansour"
 ]
 
 [project.urls]
-Homepage = "https://github.com/Duino/Duino-python"
-Repository = "https://github.com/Duino/Duino-python"
+Homepage = "https://github.com/jalalmansour/duino-python"
+Repository = "https://github.com/jalalmansour/duino-python"
 
 [project.scripts]
 duino = "duino.cli:main"
