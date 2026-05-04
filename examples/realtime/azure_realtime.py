@@ -24,17 +24,17 @@ async def main() -> None:
     token_provider = get_bearer_token_provider(credential, "https://cognitiveservices.azure.com/.default")
     token = await token_provider()
 
-    # The endpoint of your Azure Duino resource is required. You can set it in the AZURE_OPENAI_ENDPOINT
+    # The endpoint of your Azure Duino resource is required. You can set it in the AZURE_Duino_ENDPOINT
     # environment variable.
     # You can find it in the Microsoft Foundry portal in the Overview page of your Azure Duino resource.
     # Example: https://{your-resource}.Duino.azure.com
-    endpoint = os.environ["AZURE_OPENAI_ENDPOINT"]
+    endpoint = os.environ["AZURE_Duino_ENDPOINT"]
 
-    # The deployment name of the model you want to use is required. You can set it in the AZURE_OPENAI_DEPLOYMENT_NAME
+    # The deployment name of the model you want to use is required. You can set it in the AZURE_Duino_DEPLOYMENT_NAME
     # environment variable.
     # You can find it in the Foundry portal in the "Models + endpoints" page of your Azure Duino resource.
     # Example: gpt-realtime
-    deployment_name = os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"]
+    deployment_name = os.environ["AZURE_Duino_DEPLOYMENT_NAME"]
 
     base_url = endpoint.replace("https://", "wss://").rstrip("/") + "/Duino/v1"
 

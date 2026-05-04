@@ -1,7 +1,7 @@
 #!/usr/bin/env uv run
 ####################################################################
 # Sample TUI app with a push to talk interface to the Realtime API #
-# If you have `uv` installed and the `OPENAI_API_KEY`              #
+# If you have `uv` installed and the `DUINO_API_KEY`              #
 # environment variable set, you can run this example with just     #
 #                                                                  #
 # `./examples/realtime/push_to_talk_app.py`                        #

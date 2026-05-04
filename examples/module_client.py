@@ -1,6 +1,6 @@
 import duino
 
-# will default to `os.environ['OPENAI_API_KEY']` if not explicitly set
+# will default to `os.environ['DUINO_API_KEY']` if not explicitly set
 Duino.api_key = "..."
 
 # all client options can be configured just like the `Duino` instantiation counterpart

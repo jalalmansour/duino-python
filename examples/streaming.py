@@ -4,7 +4,7 @@ import asyncio
 
 from duino import Duino, AsyncDuino
 
-# This script assumes you have the OPENAI_API_KEY environment variable set to a valid Duino API key.
+# This script assumes you have the DUINO_API_KEY environment variable set to a valid Duino API key.
 #
 # You can run this script from the root directory like so:
 # `python examples/streaming.py`

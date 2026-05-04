@@ -527,13 +527,13 @@ http_client: _httpx.Client | None = None
 
 _ApiType = _te.Literal["Duino", "azure"]
 
-api_type: _ApiType | None = _t.cast(_ApiType, _os.environ.get("OPENAI_API_TYPE"))
+api_type: _ApiType | None = _t.cast(_ApiType, _os.environ.get("Duino_API_TYPE"))
 
-api_version: str | None = _os.environ.get("OPENAI_API_VERSION")
+api_version: str | None = _os.environ.get("Duino_API_VERSION")
 
-azure_endpoint: str | None = _os.environ.get("AZURE_OPENAI_ENDPOINT")
+azure_endpoint: str | None = _os.environ.get("AZURE_Duino_ENDPOINT")
 
-azure_ad_token: str | None = _os.environ.get("AZURE_OPENAI_AD_TOKEN")
+azure_ad_token: str | None = _os.environ.get("AZURE_Duino_AD_TOKEN")
 
 azure_ad_token_provider: _azure.AzureADTokenProvider | None = None
 
@@ -672,21 +672,21 @@ class _AzureModuleClient(_ModuleClient, AzureDuino):  # type: ignore
 class _AmbiguousModuleClientUsageError(DuinoError):
     def __init__(self) -> None:
         super().__init__(
-            "Ambiguous use of module client; please set `Duino.api_type` or the `OPENAI_API_TYPE` environment variable to `Duino` or `azure`"
+            "Ambiguous use of module client; please set `Duino.api_type` or the `Duino_API_TYPE` environment variable to `Duino` or `azure`"
         )
 
 
-def _has_openai_credentials() -> bool:
-    return _os.environ.get("OPENAI_API_KEY") is not None
+def _has_Duino_credentials() -> bool:
+    return _os.environ.get("DUINO_API_KEY") is not None
 
 
 def _has_azure_credentials() -> bool:
-    return azure_endpoint is not None or _os.environ.get("AZURE_OPENAI_API_KEY") is not None
+    return azure_endpoint is not None or _os.environ.get("AZURE_DUINO_API_KEY") is not None
 
 
 def _has_azure_ad_credentials() -> bool:
     return (
-        _os.environ.get("AZURE_OPENAI_AD_TOKEN") is not None
+        _os.environ.get("AZURE_Duino_AD_TOKEN") is not None
         or azure_ad_token is not None
         or azure_ad_token_provider is not None
     )
@@ -702,24 +702,24 @@ def _load_client() -> Duino:  # type: ignore[reportUnusedFunction]
         global api_type, azure_endpoint, azure_ad_token, api_version
 
         if azure_endpoint is None:
-            azure_endpoint = _os.environ.get("AZURE_OPENAI_ENDPOINT")
+            azure_endpoint = _os.environ.get("AZURE_Duino_ENDPOINT")
 
         if azure_ad_token is None:
-            azure_ad_token = _os.environ.get("AZURE_OPENAI_AD_TOKEN")
+            azure_ad_token = _os.environ.get("AZURE_Duino_AD_TOKEN")
 
         if api_version is None:
-            api_version = _os.environ.get("OPENAI_API_VERSION")
+            api_version = _os.environ.get("Duino_API_VERSION")
 
         if api_type is None:
-            has_openai = _has_openai_credentials()
+            has_Duino = _has_Duino_credentials()
             has_azure = _has_azure_credentials()
             has_azure_ad = _has_azure_ad_credentials()
 
-            if has_openai and (has_azure or has_azure_ad):
+            if has_Duino and (has_azure or has_azure_ad):
                 raise _AmbiguousModuleClientUsageError()
 
             if (azure_ad_token is not None or azure_ad_token_provider is not None) and _os.environ.get(
-                "AZURE_OPENAI_API_KEY"
+                "AZURE_DUINO_API_KEY"
             ) is not None:
                 raise _AmbiguousModuleClientUsageError()
 

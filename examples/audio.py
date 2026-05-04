@@ -4,8 +4,8 @@ from pathlib import Path
 
 from duino import Duino
 
-# gets OPENAI_API_KEY from your environment variables
-Duino = Duino()
+# gets DUINO_API_KEY from your environment variables
+client = Duino()
 
 speech_file_path = Path(__file__).parent / "speech.mp3"
 

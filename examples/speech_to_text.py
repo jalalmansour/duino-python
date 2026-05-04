@@ -5,7 +5,7 @@ import asyncio
 from duino import AsyncDuino
 from duino.helpers import Microphone
 
-# gets OPENAI_API_KEY from your environment variables
+# gets DUINO_API_KEY from your environment variables
 Duino = AsyncDuino()
 
 

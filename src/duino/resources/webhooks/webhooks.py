@@ -62,7 +62,7 @@ class Webhooks(SyncAPIResource):
 
         if secret is None:
             raise ValueError(
-                "The webhook secret must either be set using the env var, OPENAI_WEBHOOK_SECRET, "
+                "The webhook secret must either be set using the env var, Duino_WEBHOOK_SECRET, "
                 "on the client class, Duino(webhook_secret='123'), or passed to this function"
             )
 
@@ -159,7 +159,7 @@ class AsyncWebhooks(AsyncAPIResource):
 
         if secret is None:
             raise ValueError(
-                "The webhook secret must either be set using the env var, OPENAI_WEBHOOK_SECRET, "
+                "The webhook secret must either be set using the env var, Duino_WEBHOOK_SECRET, "
                 "on the client class, Duino(webhook_secret='123'), or passed to this function"
             ) from None
 

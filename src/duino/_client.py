@@ -204,17 +204,17 @@ class Duino(SyncAPIClient):
         self.project = project
 
         if webhook_secret is None:
-            webhook_secret = os.environ.get("OPENAI_WEBHOOK_SECRET")
+            webhook_secret = os.environ.get("Duino_WEBHOOK_SECRET")
         self.webhook_secret = webhook_secret
 
         self.websocket_base_url = websocket_base_url
 
         if base_url is None:
-            base_url = os.environ.get("OPENAI_BASE_URL")
+            base_url = os.environ.get("Duino_BASE_URL")
         if base_url is None:
             base_url = f"https://api.duino.ai/v1"
 
-        custom_headers_env = os.environ.get("OPENAI_CUSTOM_HEADERS")
+        custom_headers_env = os.environ.get("Duino_CUSTOM_HEADERS")
         if custom_headers_env is not None:
             parsed: dict[str, str] = {}
             for line in custom_headers_env.split("\n"):
@@ -387,12 +387,12 @@ class Duino(SyncAPIClient):
         return Videos(self)
 
     @cached_property
-    def with_raw_response(self) -> OpenAIWithRawResponse:
-        return OpenAIWithRawResponse(self)
+    def with_raw_response(self) -> DuinoWithRawResponse:
+        return DuinoWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> OpenAIWithStreamedResponse:
-        return OpenAIWithStreamedResponse(self)
+    def with_streaming_response(self) -> DuinoWithStreamedResponse:
+        return DuinoWithStreamedResponse(self)
 
     @property
     @override
@@ -662,7 +662,7 @@ class AsyncDuino(AsyncAPIClient):
         - `admin_api_key` from `DUINO_ADMIN_KEY`
         - `organization` from `DUINO_ORG_ID`
         - `project` from `DUINO_PROJECT_ID`
-        - `webhook_secret` from `OPENAI_WEBHOOK_SECRET`
+        - `webhook_secret` from `Duino_WEBHOOK_SECRET`
         """
         if api_key is not None and api_key != WORKLOAD_IDENTITY_API_KEY_PLACEHOLDER and workload_identity is not None:
             raise DuinoError("The `api_key` and `workload_identity` arguments are mutually exclusive")
@@ -710,17 +710,17 @@ class AsyncDuino(AsyncAPIClient):
         self.project = project
 
         if webhook_secret is None:
-            webhook_secret = os.environ.get("OPENAI_WEBHOOK_SECRET")
+            webhook_secret = os.environ.get("Duino_WEBHOOK_SECRET")
         self.webhook_secret = webhook_secret
 
         self.websocket_base_url = websocket_base_url
 
         if base_url is None:
-            base_url = os.environ.get("OPENAI_BASE_URL")
+            base_url = os.environ.get("Duino_BASE_URL")
         if base_url is None:
             base_url = f"https://api.duino.ai/v1"
 
-        custom_headers_env = os.environ.get("OPENAI_CUSTOM_HEADERS")
+        custom_headers_env = os.environ.get("Duino_CUSTOM_HEADERS")
         if custom_headers_env is not None:
             parsed: dict[str, str] = {}
             for line in custom_headers_env.split("\n"):
@@ -893,12 +893,12 @@ class AsyncDuino(AsyncAPIClient):
         return AsyncVideos(self)
 
     @cached_property
-    def with_raw_response(self) -> AsyncOpenAIWithRawResponse:
-        return AsyncOpenAIWithRawResponse(self)
+    def with_raw_response(self) -> AsyncDuinoWithRawResponse:
+        return AsyncDuinoWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncOpenAIWithStreamedResponse:
-        return AsyncOpenAIWithStreamedResponse(self)
+    def with_streaming_response(self) -> AsyncDuinoWithStreamedResponse:
+        return AsyncDuinoWithStreamedResponse(self)
 
     @property
     @override
@@ -1112,7 +1112,7 @@ class AsyncDuino(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=data)
 
 
-class OpenAIWithRawResponse:
+class DuinoWithRawResponse:
     _client: Duino
 
     def __init__(self, client: Duino) -> None:
@@ -1263,7 +1263,7 @@ class OpenAIWithRawResponse:
         return VideosWithRawResponse(self._client.videos)
 
 
-class AsyncOpenAIWithRawResponse:
+class AsyncDuinoWithRawResponse:
     _client: AsyncDuino
 
     def __init__(self, client: AsyncDuino) -> None:
@@ -1414,7 +1414,7 @@ class AsyncOpenAIWithRawResponse:
         return AsyncVideosWithRawResponse(self._client.videos)
 
 
-class OpenAIWithStreamedResponse:
+class DuinoWithStreamedResponse:
     _client: Duino
 
     def __init__(self, client: Duino) -> None:
@@ -1565,7 +1565,7 @@ class OpenAIWithStreamedResponse:
         return VideosWithStreamingResponse(self._client.videos)
 
 
-class AsyncOpenAIWithStreamedResponse:
+class AsyncDuinoWithStreamedResponse:
     _client: AsyncDuino
 
     def __init__(self, client: AsyncDuino) -> None:

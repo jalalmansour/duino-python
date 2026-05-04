@@ -4,7 +4,7 @@ import asyncio
 
 from duino import AsyncDuino
 
-# gets API Key from environment variable OPENAI_API_KEY
+# gets API Key from environment variable DUINO_API_KEY
 client = AsyncDuino()
 
 

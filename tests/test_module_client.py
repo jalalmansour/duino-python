@@ -25,7 +25,7 @@ def reset_state() -> None:
     duino.default_headers = None
     duino.default_query = None
     duino.http_client = None
-    duino.api_type = _os.environ.get("OPENAI_API_TYPE")  # type: ignore
+    duino.api_type = _os.environ.get("Duino_API_TYPE")  # type: ignore
     duino.api_version = None
     duino.azure_endpoint = None
     duino.azure_ad_token = None
@@ -112,8 +112,8 @@ from duino.lib.azure import AzureDuino
 def test_azure_azure_ad_token_provider_version_and_endpoint_env() -> None:
     with fresh_env():
         duino.api_type = None
-        _os.environ["OPENAI_API_VERSION"] = "example-version"
-        _os.environ["AZURE_OPENAI_ENDPOINT"] = "https://www.example"
+        _os.environ["Duino_API_VERSION"] = "example-version"
+        _os.environ["AZURE_Duino_ENDPOINT"] = "https://www.example"
         duino.azure_ad_token_provider = lambda: "token"
 
         client = duino.completions._client

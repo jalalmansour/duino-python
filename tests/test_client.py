@@ -124,7 +124,7 @@ def _get_open_connections(client: Duino | AsyncDuino) -> int:
     return len(pool._requests)
 
 
-class TestOpenAI:
+class TestDuino:
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter, client: Duino) -> None:
         respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
@@ -464,7 +464,7 @@ class TestOpenAI:
         )
         assert admin_request.headers.get("Authorization") == f"Bearer {admin_api_key}"
 
-        with update_env(**{"OPENAI_API_KEY": Omit()}):
+        with update_env(**{"DUINO_API_KEY": Omit()}):
             admin_only = Duino(
                 base_url=base_url,
                 api_key=None,
@@ -494,8 +494,8 @@ class TestOpenAI:
 
         with update_env(
             **{
-                "OPENAI_API_KEY": Omit(),
-                "OPENAI_ADMIN_KEY": Omit(),
+                "DUINO_API_KEY": Omit(),
+                "Duino_ADMIN_KEY": Omit(),
             }
         ):
             no_credentials = Duino(
@@ -517,8 +517,8 @@ class TestOpenAI:
 
         with update_env(
             **{
-                "OPENAI_API_KEY": Omit(),
-                "OPENAI_ADMIN_KEY": Omit(),
+                "DUINO_API_KEY": Omit(),
+                "Duino_ADMIN_KEY": Omit(),
             }
         ):
             with pytest.raises(DuinoError, match="Missing credentials"):
@@ -553,7 +553,7 @@ class TestOpenAI:
             provider_called = True
             return "dynamic-api-key"
 
-        with update_env(OPENAI_ADMIN_KEY=Omit()):
+        with update_env(Duino_ADMIN_KEY=Omit()):
             client = Duino(base_url=base_url, api_key=api_key_provider, admin_api_key=None)
             with pytest.raises(TypeError, match="Could not resolve authentication method"):
                 client.get(
@@ -902,7 +902,7 @@ class TestOpenAI:
         client.close()
 
     def test_base_url_env(self) -> None:
-        with update_env(OPENAI_BASE_URL="http://localhost:5000/from/env"):
+        with update_env(Duino_BASE_URL="http://localhost:5000/from/env"):
             client = Duino(api_key=api_key, admin_api_key=admin_api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
@@ -1387,7 +1387,7 @@ class TestOpenAI:
         assert client.auth_headers == {"Authorization": "Bearer test_bearer_token_2"}
 
 
-class TestAsyncOpenAI:
+class TestAsyncDuino:
     @pytest.mark.respx(base_url=base_url)
     async def test_raw_response(self, respx_mock: MockRouter, async_client: AsyncDuino) -> None:
         respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
@@ -1728,7 +1728,7 @@ class TestAsyncOpenAI:
         )
         assert admin_request.headers.get("Authorization") == f"Bearer {admin_api_key}"
 
-        with update_env(**{"OPENAI_API_KEY": Omit()}):
+        with update_env(**{"DUINO_API_KEY": Omit()}):
             admin_only = AsyncDuino(
                 base_url=base_url,
                 api_key=None,
@@ -1758,8 +1758,8 @@ class TestAsyncOpenAI:
 
         with update_env(
             **{
-                "OPENAI_API_KEY": Omit(),
-                "OPENAI_ADMIN_KEY": Omit(),
+                "DUINO_API_KEY": Omit(),
+                "Duino_ADMIN_KEY": Omit(),
             }
         ):
             no_credentials = AsyncDuino(
@@ -1781,8 +1781,8 @@ class TestAsyncOpenAI:
 
         with update_env(
             **{
-                "OPENAI_API_KEY": Omit(),
-                "OPENAI_ADMIN_KEY": Omit(),
+                "DUINO_API_KEY": Omit(),
+                "Duino_ADMIN_KEY": Omit(),
             }
         ):
             with pytest.raises(DuinoError, match="Missing credentials"):
@@ -1817,7 +1817,7 @@ class TestAsyncOpenAI:
             provider_called = True
             return "dynamic-api-key"
 
-        with update_env(OPENAI_ADMIN_KEY=Omit()):
+        with update_env(Duino_ADMIN_KEY=Omit()):
             client = AsyncDuino(base_url=base_url, api_key=api_key_provider, admin_api_key=None)
             with pytest.raises(TypeError, match="Could not resolve authentication method"):
                 await client.get(
@@ -2157,7 +2157,7 @@ class TestAsyncOpenAI:
         await client.close()
 
     async def test_base_url_env(self) -> None:
-        with update_env(OPENAI_BASE_URL="http://localhost:5000/from/env"):
+        with update_env(Duino_BASE_URL="http://localhost:5000/from/env"):
             client = AsyncDuino(api_key=api_key, admin_api_key=admin_api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 

@@ -2,7 +2,7 @@
 
 from duino import Duino
 
-# gets OPENAI_API_KEY from your environment variables
+# gets DUINO_API_KEY from your environment variables
 Duino = Duino()
 
 prompt = "An astronaut lounging in a tropical resort in space, pixel art"

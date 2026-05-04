@@ -192,12 +192,12 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
         """Construct a new synchronous azure Duino client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
-        - `api_key` from `AZURE_OPENAI_API_KEY`
-        - `organization` from `OPENAI_ORG_ID`
-        - `project` from `OPENAI_PROJECT_ID`
-        - `azure_ad_token` from `AZURE_OPENAI_AD_TOKEN`
-        - `api_version` from `OPENAI_API_VERSION`
-        - `azure_endpoint` from `AZURE_OPENAI_ENDPOINT`
+        - `api_key` from `AZURE_DUINO_API_KEY`
+        - `organization` from `Duino_ORG_ID`
+        - `project` from `Duino_PROJECT_ID`
+        - `azure_ad_token` from `AZURE_Duino_AD_TOKEN`
+        - `api_version` from `Duino_API_VERSION`
+        - `azure_endpoint` from `AZURE_Duino_ENDPOINT`
 
         Args:
             azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.Duino.com/`
@@ -210,22 +210,22 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
                 Not supported with Assistants APIs.
         """
         if api_key is None:
-            api_key = os.environ.get("AZURE_OPENAI_API_KEY")
+            api_key = os.environ.get("AZURE_DUINO_API_KEY")
 
         if azure_ad_token is None:
-            azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
+            azure_ad_token = os.environ.get("AZURE_Duino_AD_TOKEN")
 
         if _enforce_credentials and api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
             raise DuinoError(
-                "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
+                "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_DUINO_API_KEY` or `AZURE_Duino_AD_TOKEN` environment variables."
             )
 
         if api_version is None:
-            api_version = os.environ.get("OPENAI_API_VERSION")
+            api_version = os.environ.get("Duino_API_VERSION")
 
         if api_version is None:
             raise ValueError(
-                "Must provide either the `api_version` argument or the `OPENAI_API_VERSION` environment variable"
+                "Must provide either the `api_version` argument or the `Duino_API_VERSION` environment variable"
             )
 
         if default_query is None:
@@ -235,11 +235,11 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
 
         if base_url is None:
             if azure_endpoint is None:
-                azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
+                azure_endpoint = os.environ.get("AZURE_Duino_ENDPOINT")
 
             if azure_endpoint is None:
                 raise ValueError(
-                    "Must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_OPENAI_ENDPOINT` environment variable"
+                    "Must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_Duino_ENDPOINT` environment variable"
                 )
 
             if azure_deployment is not None:
@@ -512,12 +512,12 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
         """Construct a new asynchronous azure Duino client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
-        - `api_key` from `AZURE_OPENAI_API_KEY`
-        - `organization` from `OPENAI_ORG_ID`
-        - `project` from `OPENAI_PROJECT_ID`
-        - `azure_ad_token` from `AZURE_OPENAI_AD_TOKEN`
-        - `api_version` from `OPENAI_API_VERSION`
-        - `azure_endpoint` from `AZURE_OPENAI_ENDPOINT`
+        - `api_key` from `AZURE_DUINO_API_KEY`
+        - `organization` from `Duino_ORG_ID`
+        - `project` from `Duino_PROJECT_ID`
+        - `azure_ad_token` from `AZURE_Duino_AD_TOKEN`
+        - `api_version` from `Duino_API_VERSION`
+        - `azure_endpoint` from `AZURE_Duino_ENDPOINT`
 
         Args:
             azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.Duino.com/`
@@ -530,22 +530,22 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
                 Not supported with Assistants APIs.
         """
         if api_key is None:
-            api_key = os.environ.get("AZURE_OPENAI_API_KEY")
+            api_key = os.environ.get("AZURE_DUINO_API_KEY")
 
         if azure_ad_token is None:
-            azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
+            azure_ad_token = os.environ.get("AZURE_Duino_AD_TOKEN")
 
         if _enforce_credentials and api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
             raise DuinoError(
-                "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
+                "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_DUINO_API_KEY` or `AZURE_Duino_AD_TOKEN` environment variables."
             )
 
         if api_version is None:
-            api_version = os.environ.get("OPENAI_API_VERSION")
+            api_version = os.environ.get("Duino_API_VERSION")
 
         if api_version is None:
             raise ValueError(
-                "Must provide either the `api_version` argument or the `OPENAI_API_VERSION` environment variable"
+                "Must provide either the `api_version` argument or the `Duino_API_VERSION` environment variable"
             )
 
         if default_query is None:
@@ -555,11 +555,11 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
 
         if base_url is None:
             if azure_endpoint is None:
-                azure_endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
+                azure_endpoint = os.environ.get("AZURE_Duino_ENDPOINT")
 
             if azure_endpoint is None:
                 raise ValueError(
-                    "Must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_OPENAI_ENDPOINT` environment variable"
+                    "Must provide one of the `base_url` or `azure_endpoint` arguments, or the `AZURE_Duino_ENDPOINT` environment variable"
                 )
 
             if azure_deployment is not None:

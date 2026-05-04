@@ -80,7 +80,7 @@ def test_client_copying_override_options(client: Client) -> None:
 
 
 def test_enforce_credentials_false_sync() -> None:
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         AzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -97,7 +97,7 @@ def test_enforce_credentials_false_sync_uses_default_api_key_header(respx_mock: 
         "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         client = AzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -120,7 +120,7 @@ def test_enforce_credentials_false_sync_uses_request_authorization_header(respx_
         "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         client = AzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -141,7 +141,7 @@ def test_enforce_credentials_false_sync_uses_request_authorization_header(respx_
 
 
 def test_enforce_credentials_true_sync() -> None:
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         with pytest.raises(DuinoError, match="Missing credentials"):
             AzureDuino(
                 api_version="2024-02-01",
@@ -153,7 +153,7 @@ def test_enforce_credentials_true_sync() -> None:
 
 
 def test_enforce_credentials_false_async() -> None:
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -171,7 +171,7 @@ async def test_enforce_credentials_false_async_uses_default_api_key_header(respx
         "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         client = AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -195,7 +195,7 @@ async def test_enforce_credentials_false_async_uses_request_authorization_header
         "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         client = AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
@@ -216,7 +216,7 @@ async def test_enforce_credentials_false_async_uses_request_authorization_header
 
 
 def test_enforce_credentials_true_async() -> None:
-    with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
+    with update_env(AZURE_DUINO_API_KEY=Omit(), AZURE_Duino_AD_TOKEN=Omit()):
         with pytest.raises(DuinoError, match="Missing credentials"):
             AsyncAzureDuino(
                 api_version="2024-02-01",

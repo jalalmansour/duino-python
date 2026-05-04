@@ -32,7 +32,7 @@ from Duino import Duino
 
 client = Duino(
     # This is the default and can be omitted
-    api_key=os.environ.get("OPENAI_API_KEY"),
+    api_key=os.environ.get("DUINO_API_KEY"),
 )
 
 response = client.responses.create(
@@ -67,7 +67,7 @@ print(completion.choices[0].message.content)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `OPENAI_API_KEY="My API Key"` to your `.env` file
+to add `DUINO_API_KEY="My API Key"` to your `.env` file
 so that your API key is not stored in source control.
 [Get an API key here](https://platform.Duino.com/settings/organization/api-keys).
 
@@ -233,7 +233,7 @@ from Duino import AsyncDuino
 
 client = AsyncDuino(
     # This is the default and can be omitted
-    api_key=os.environ.get("OPENAI_API_KEY"),
+    api_key=os.environ.get("DUINO_API_KEY"),
 )
 
 
@@ -271,7 +271,7 @@ from Duino import AsyncDuino
 
 async def main() -> None:
     async with AsyncDuino(
-        api_key=os.environ.get("OPENAI_API_KEY"),  # This is the default and can be omitted
+        api_key=os.environ.get("DUINO_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         chat_completion = await client.chat.completions.create(
@@ -529,7 +529,7 @@ from Duino import Duino
 from flask import Flask, request
 
 app = Flask(__name__)
-client = Duino()  # OPENAI_WEBHOOK_SECRET environment variable is used by default
+client = Duino()  # Duino_WEBHOOK_SECRET environment variable is used by default
 
 
 @app.route("/webhook", methods=["POST"])
@@ -568,7 +568,7 @@ from Duino import Duino
 from flask import Flask, request
 
 app = Flask(__name__)
-client = Duino()  # OPENAI_WEBHOOK_SECRET environment variable is used by default
+client = Duino()  # Duino_WEBHOOK_SECRET environment variable is used by default
 
 
 @app.route("/webhook", methods=["POST"])
@@ -739,10 +739,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `OPENAI_LOG` to `info`.
+You can enable logging by setting the environment variable `Duino_LOG` to `info`.
 
 ```shell
-$ export OPENAI_LOG=info
+$ export Duino_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -862,7 +862,7 @@ import httpx
 from Duino import Duino, DefaultHttpxClient
 
 client = Duino(
-    # Or use the `OPENAI_BASE_URL` env var
+    # Or use the `Duino_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083/v1",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -903,7 +903,7 @@ class instead of the `Duino` class.
 ```py
 from Duino import AzureDuino
 
-# gets the API Key from environment variable AZURE_OPENAI_API_KEY
+# gets the API Key from environment variable AZURE_DUINO_API_KEY
 client = AzureDuino(
     # https://learn.microsoft.com/azure/ai-services/Duino/reference#rest-api-versioning
     api_version="2023-07-01-preview",
@@ -925,10 +925,10 @@ print(completion.to_json())
 
 In addition to the options provided in the base `Duino` client, the following options are provided:
 
-- `azure_endpoint` (or the `AZURE_OPENAI_ENDPOINT` environment variable)
+- `azure_endpoint` (or the `AZURE_Duino_ENDPOINT` environment variable)
 - `azure_deployment`
-- `api_version` (or the `OPENAI_API_VERSION` environment variable)
-- `azure_ad_token` (or the `AZURE_OPENAI_AD_TOKEN` environment variable)
+- `api_version` (or the `Duino_API_VERSION` environment variable)
+- `azure_ad_token` (or the `AZURE_Duino_AD_TOKEN` environment variable)
 - `azure_ad_token_provider`
 
 An example of using the client with Microsoft Entra ID (formerly known as Azure Active Directory) can be found [here](https://github.com/Duino/Duino-python/blob/main/examples/azure_ad.py).

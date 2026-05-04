@@ -116,10 +116,10 @@ jobs:
           rye sync --all-features
 
       - env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DUINO_API_KEY: ${{ secrets.DUINO_API_KEY }}
         run: |
             rye run python examples/demo.py
       - env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DUINO_API_KEY: ${{ secrets.DUINO_API_KEY }}
         run: |
             rye run python examples/async_demo.py

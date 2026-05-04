@@ -1054,7 +1054,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
             except DuinoError as err:
-                # Propagate OpenAIErrors as-is, without retrying or wrapping in APIConnectionError
+                # Propagate DuinoErrors as-is, without retrying or wrapping in APIConnectionError
                 raise err
             except Exception as err:
                 log.debug("Encountered Exception", exc_info=True)
@@ -1665,7 +1665,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
             except DuinoError as err:
-                # Propagate OpenAIErrors as-is, without retrying or wrapping in APIConnectionError
+                # Propagate DuinoErrors as-is, without retrying or wrapping in APIConnectionError
                 raise err
             except Exception as err:
                 log.debug("Encountered Exception", exc_info=True)
