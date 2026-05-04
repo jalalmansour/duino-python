@@ -81,7 +81,7 @@ from ._constants import (
 )
 from ._streaming import Stream, SSEDecoder, AsyncStream, SSEBytesDecoder
 from ._exceptions import (
-    OpenAIError,
+    DuinoError,
     APIStatusError,
     APITimeoutError,
     APIConnectionError,
@@ -396,7 +396,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
 
         if max_retries is None:  # pyright: ignore[reportUnnecessaryComparison]
             raise TypeError(
-                "max_retries cannot be None. If you want to disable retries, pass `0`; if you want unlimited retries, pass `math.inf` or a very high number; if you want the default behavior, pass `openai.DEFAULT_MAX_RETRIES`"
+                "max_retries cannot be None. If you want to disable retries, pass `0`; if you want unlimited retries, pass `math.inf` or a very high number; if you want the default behavior, pass `Duino.DEFAULT_MAX_RETRIES`"
             )
 
     def _enforce_trailing_slash(self, url: URL) -> URL:
@@ -1053,7 +1053,7 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
 
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
-            except OpenAIError as err:
+            except DuinoError as err:
                 # Propagate OpenAIErrors as-is, without retrying or wrapping in APIConnectionError
                 raise err
             except Exception as err:
@@ -1664,7 +1664,7 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
 
                 log.debug("Raising timeout error")
                 raise APITimeoutError(request=request) from err
-            except OpenAIError as err:
+            except DuinoError as err:
                 # Propagate OpenAIErrors as-is, without retrying or wrapping in APIConnectionError
                 raise err
             except Exception as err:

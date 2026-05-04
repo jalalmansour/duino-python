@@ -10,7 +10,7 @@ import pytest
 from respx import MockRouter
 
 import duino._legacy_response as _legacy_response
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import (
     Video,
@@ -30,14 +30,14 @@ class TestVideos:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         video = client.videos.create(
             prompt="x",
         )
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         video = client.videos.create(
             prompt="x",
             input_reference=b"Example data",
@@ -48,7 +48,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.videos.with_raw_response.create(
             prompt="x",
         )
@@ -59,7 +59,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.videos.with_streaming_response.create(
             prompt="x",
         ) as response:
@@ -72,14 +72,14 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         video = client.videos.retrieve(
             "video_123",
         )
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.videos.with_raw_response.retrieve(
             "video_123",
         )
@@ -90,7 +90,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.videos.with_streaming_response.retrieve(
             "video_123",
         ) as response:
@@ -103,19 +103,19 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             client.videos.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         video = client.videos.list()
         assert_matches_type(SyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         video = client.videos.list(
             after="after",
             limit=0,
@@ -124,7 +124,7 @@ class TestVideos:
         assert_matches_type(SyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.videos.with_raw_response.list()
 
         assert response.is_closed is True
@@ -133,7 +133,7 @@ class TestVideos:
         assert_matches_type(SyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.videos.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -144,14 +144,14 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         video = client.videos.delete(
             "video_123",
         )
         assert_matches_type(VideoDeleteResponse, video, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.videos.with_raw_response.delete(
             "video_123",
         )
@@ -162,7 +162,7 @@ class TestVideos:
         assert_matches_type(VideoDeleteResponse, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.videos.with_streaming_response.delete(
             "video_123",
         ) as response:
@@ -175,14 +175,14 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             client.videos.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    def test_method_create_character(self, client: OpenAI) -> None:
+    def test_method_create_character(self, client: Duino) -> None:
         video = client.videos.create_character(
             name="x",
             video=b"Example data",
@@ -190,7 +190,7 @@ class TestVideos:
         assert_matches_type(VideoCreateCharacterResponse, video, path=["response"])
 
     @parametrize
-    def test_raw_response_create_character(self, client: OpenAI) -> None:
+    def test_raw_response_create_character(self, client: Duino) -> None:
         response = client.videos.with_raw_response.create_character(
             name="x",
             video=b"Example data",
@@ -202,7 +202,7 @@ class TestVideos:
         assert_matches_type(VideoCreateCharacterResponse, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_character(self, client: OpenAI) -> None:
+    def test_streaming_response_create_character(self, client: Duino) -> None:
         with client.videos.with_streaming_response.create_character(
             name="x",
             video=b"Example data",
@@ -217,7 +217,7 @@ class TestVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_download_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_download_content(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         video = client.videos.download_content(
             video_id="video_123",
@@ -227,7 +227,7 @@ class TestVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_download_content_with_all_params(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_download_content_with_all_params(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         video = client.videos.download_content(
             video_id="video_123",
@@ -238,7 +238,7 @@ class TestVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_download_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_raw_response_download_content(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.videos.with_raw_response.download_content(
@@ -252,7 +252,7 @@ class TestVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_download_content(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_streaming_response_download_content(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.videos.with_streaming_response.download_content(
             video_id="video_123",
@@ -267,14 +267,14 @@ class TestVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_download_content(self, client: OpenAI) -> None:
+    def test_path_params_download_content(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             client.videos.with_raw_response.download_content(
                 video_id="",
             )
 
     @parametrize
-    def test_method_edit(self, client: OpenAI) -> None:
+    def test_method_edit(self, client: Duino) -> None:
         video = client.videos.edit(
             prompt="x",
             video=b"Example data",
@@ -282,7 +282,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_raw_response_edit(self, client: OpenAI) -> None:
+    def test_raw_response_edit(self, client: Duino) -> None:
         response = client.videos.with_raw_response.edit(
             prompt="x",
             video=b"Example data",
@@ -294,7 +294,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_edit(self, client: OpenAI) -> None:
+    def test_streaming_response_edit(self, client: Duino) -> None:
         with client.videos.with_streaming_response.edit(
             prompt="x",
             video=b"Example data",
@@ -308,7 +308,7 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_extend(self, client: OpenAI) -> None:
+    def test_method_extend(self, client: Duino) -> None:
         video = client.videos.extend(
             prompt="x",
             seconds="4",
@@ -317,7 +317,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_raw_response_extend(self, client: OpenAI) -> None:
+    def test_raw_response_extend(self, client: Duino) -> None:
         response = client.videos.with_raw_response.extend(
             prompt="x",
             seconds="4",
@@ -330,7 +330,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_extend(self, client: OpenAI) -> None:
+    def test_streaming_response_extend(self, client: Duino) -> None:
         with client.videos.with_streaming_response.extend(
             prompt="x",
             seconds="4",
@@ -345,14 +345,14 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_get_character(self, client: OpenAI) -> None:
+    def test_method_get_character(self, client: Duino) -> None:
         video = client.videos.get_character(
             "char_123",
         )
         assert_matches_type(VideoGetCharacterResponse, video, path=["response"])
 
     @parametrize
-    def test_raw_response_get_character(self, client: OpenAI) -> None:
+    def test_raw_response_get_character(self, client: Duino) -> None:
         response = client.videos.with_raw_response.get_character(
             "char_123",
         )
@@ -363,7 +363,7 @@ class TestVideos:
         assert_matches_type(VideoGetCharacterResponse, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_get_character(self, client: OpenAI) -> None:
+    def test_streaming_response_get_character(self, client: Duino) -> None:
         with client.videos.with_streaming_response.get_character(
             "char_123",
         ) as response:
@@ -376,14 +376,14 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_get_character(self, client: OpenAI) -> None:
+    def test_path_params_get_character(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `character_id` but received ''"):
             client.videos.with_raw_response.get_character(
                 "",
             )
 
     @parametrize
-    def test_method_remix(self, client: OpenAI) -> None:
+    def test_method_remix(self, client: Duino) -> None:
         video = client.videos.remix(
             video_id="video_123",
             prompt="x",
@@ -391,7 +391,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_raw_response_remix(self, client: OpenAI) -> None:
+    def test_raw_response_remix(self, client: Duino) -> None:
         response = client.videos.with_raw_response.remix(
             video_id="video_123",
             prompt="x",
@@ -403,7 +403,7 @@ class TestVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    def test_streaming_response_remix(self, client: OpenAI) -> None:
+    def test_streaming_response_remix(self, client: Duino) -> None:
         with client.videos.with_streaming_response.remix(
             video_id="video_123",
             prompt="x",
@@ -417,7 +417,7 @@ class TestVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_remix(self, client: OpenAI) -> None:
+    def test_path_params_remix(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             client.videos.with_raw_response.remix(
                 video_id="",
@@ -431,14 +431,14 @@ class TestAsyncVideos:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.create(
             prompt="x",
         )
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.create(
             prompt="x",
             input_reference=b"Example data",
@@ -449,7 +449,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.create(
             prompt="x",
         )
@@ -460,7 +460,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.create(
             prompt="x",
         ) as response:
@@ -473,14 +473,14 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.retrieve(
             "video_123",
         )
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.retrieve(
             "video_123",
         )
@@ -491,7 +491,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.retrieve(
             "video_123",
         ) as response:
@@ -504,19 +504,19 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             await async_client.videos.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.list()
         assert_matches_type(AsyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.list(
             after="after",
             limit=0,
@@ -525,7 +525,7 @@ class TestAsyncVideos:
         assert_matches_type(AsyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.list()
 
         assert response.is_closed is True
@@ -534,7 +534,7 @@ class TestAsyncVideos:
         assert_matches_type(AsyncConversationCursorPage[Video], video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -545,14 +545,14 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.delete(
             "video_123",
         )
         assert_matches_type(VideoDeleteResponse, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.delete(
             "video_123",
         )
@@ -563,7 +563,7 @@ class TestAsyncVideos:
         assert_matches_type(VideoDeleteResponse, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.delete(
             "video_123",
         ) as response:
@@ -576,14 +576,14 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             await async_client.videos.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    async def test_method_create_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_character(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.create_character(
             name="x",
             video=b"Example data",
@@ -591,7 +591,7 @@ class TestAsyncVideos:
         assert_matches_type(VideoCreateCharacterResponse, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_character(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.create_character(
             name="x",
             video=b"Example data",
@@ -603,7 +603,7 @@ class TestAsyncVideos:
         assert_matches_type(VideoCreateCharacterResponse, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_character(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.create_character(
             name="x",
             video=b"Example data",
@@ -618,7 +618,7 @@ class TestAsyncVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_download_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_download_content(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         video = await async_client.videos.download_content(
             video_id="video_123",
@@ -629,7 +629,7 @@ class TestAsyncVideos:
     @parametrize
     @pytest.mark.respx(base_url=base_url)
     async def test_method_download_content_with_all_params(
-        self, async_client: AsyncOpenAI, respx_mock: MockRouter
+        self, async_client: AsyncDuino, respx_mock: MockRouter
     ) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         video = await async_client.videos.download_content(
@@ -641,7 +641,7 @@ class TestAsyncVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_download_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_raw_response_download_content(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.videos.with_raw_response.download_content(
@@ -655,7 +655,7 @@ class TestAsyncVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_download_content(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_download_content(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/videos/video_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.videos.with_streaming_response.download_content(
             video_id="video_123",
@@ -670,14 +670,14 @@ class TestAsyncVideos:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_download_content(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_download_content(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             await async_client.videos.with_raw_response.download_content(
                 video_id="",
             )
 
     @parametrize
-    async def test_method_edit(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_edit(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.edit(
             prompt="x",
             video=b"Example data",
@@ -685,7 +685,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_edit(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_edit(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.edit(
             prompt="x",
             video=b"Example data",
@@ -697,7 +697,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_edit(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_edit(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.edit(
             prompt="x",
             video=b"Example data",
@@ -711,7 +711,7 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_extend(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_extend(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.extend(
             prompt="x",
             seconds="4",
@@ -720,7 +720,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_extend(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_extend(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.extend(
             prompt="x",
             seconds="4",
@@ -733,7 +733,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_extend(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_extend(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.extend(
             prompt="x",
             seconds="4",
@@ -748,14 +748,14 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_get_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_get_character(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.get_character(
             "char_123",
         )
         assert_matches_type(VideoGetCharacterResponse, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_get_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_get_character(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.get_character(
             "char_123",
         )
@@ -766,7 +766,7 @@ class TestAsyncVideos:
         assert_matches_type(VideoGetCharacterResponse, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_get_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_get_character(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.get_character(
             "char_123",
         ) as response:
@@ -779,14 +779,14 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_get_character(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_get_character(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `character_id` but received ''"):
             await async_client.videos.with_raw_response.get_character(
                 "",
             )
 
     @parametrize
-    async def test_method_remix(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_remix(self, async_client: AsyncDuino) -> None:
         video = await async_client.videos.remix(
             video_id="video_123",
             prompt="x",
@@ -794,7 +794,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_raw_response_remix(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_remix(self, async_client: AsyncDuino) -> None:
         response = await async_client.videos.with_raw_response.remix(
             video_id="video_123",
             prompt="x",
@@ -806,7 +806,7 @@ class TestAsyncVideos:
         assert_matches_type(Video, video, path=["response"])
 
     @parametrize
-    async def test_streaming_response_remix(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_remix(self, async_client: AsyncDuino) -> None:
         async with async_client.videos.with_streaming_response.remix(
             video_id="video_123",
             prompt="x",
@@ -820,7 +820,7 @@ class TestAsyncVideos:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_remix(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_remix(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `video_id` but received ''"):
             await async_client.videos.with_raw_response.remix(
                 video_id="",
@@ -829,8 +829,8 @@ class TestAsyncVideos:
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_create_and_poll_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_create_and_poll_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.videos.create,

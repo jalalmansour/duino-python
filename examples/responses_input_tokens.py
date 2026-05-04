@@ -6,7 +6,7 @@ from duino.types.responses.response_input_item_param import ResponseInputItemPar
 
 
 def main() -> None:
-    client = OpenAI()
+    client = Duino()
     tools: List[ToolParam] = [
         {
             "type": "function",

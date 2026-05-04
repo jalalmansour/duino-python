@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino._utils import assert_signatures_in_sync
 from duino.types.responses import (
@@ -22,12 +22,12 @@ class TestResponses:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_overload_1(self, client: Duino) -> None:
         response = client.responses.create()
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: Duino) -> None:
         response = client.responses.create(
             background=True,
             context_management=[
@@ -87,7 +87,7 @@ class TestResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_raw_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_1(self, client: Duino) -> None:
         http_response = client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
@@ -96,7 +96,7 @@ class TestResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_1(self, client: Duino) -> None:
         with client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -107,14 +107,14 @@ class TestResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    def test_method_create_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_overload_2(self, client: Duino) -> None:
         response_stream = client.responses.create(
             stream=True,
         )
         response_stream.response.close()
 
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: Duino) -> None:
         response_stream = client.responses.create(
             stream=True,
             background=True,
@@ -174,7 +174,7 @@ class TestResponses:
         response_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_2(self, client: Duino) -> None:
         response = client.responses.with_raw_response.create(
             stream=True,
         )
@@ -184,7 +184,7 @@ class TestResponses:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_2(self, client: Duino) -> None:
         with client.responses.with_streaming_response.create(
             stream=True,
         ) as response:
@@ -197,14 +197,14 @@ class TestResponses:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve_overload_1(self, client: OpenAI) -> None:
+    def test_method_retrieve_overload_1(self, client: Duino) -> None:
         response = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_method_retrieve_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_retrieve_with_all_params_overload_1(self, client: Duino) -> None:
         response = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             include=["file_search_call.results"],
@@ -215,7 +215,7 @@ class TestResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve_overload_1(self, client: Duino) -> None:
         http_response = client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -226,7 +226,7 @@ class TestResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve_overload_1(self, client: Duino) -> None:
         with client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -239,14 +239,14 @@ class TestResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve_overload_1(self, client: OpenAI) -> None:
+    def test_path_params_retrieve_overload_1(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.retrieve(
                 response_id="",
             )
 
     @parametrize
-    def test_method_retrieve_overload_2(self, client: OpenAI) -> None:
+    def test_method_retrieve_overload_2(self, client: Duino) -> None:
         response_stream = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -254,7 +254,7 @@ class TestResponses:
         response_stream.response.close()
 
     @parametrize
-    def test_method_retrieve_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_retrieve_with_all_params_overload_2(self, client: Duino) -> None:
         response_stream = client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -265,7 +265,7 @@ class TestResponses:
         response_stream.response.close()
 
     @parametrize
-    def test_raw_response_retrieve_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve_overload_2(self, client: Duino) -> None:
         response = client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -276,7 +276,7 @@ class TestResponses:
         stream.close()
 
     @parametrize
-    def test_streaming_response_retrieve_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve_overload_2(self, client: Duino) -> None:
         with client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -290,7 +290,7 @@ class TestResponses:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve_overload_2(self, client: OpenAI) -> None:
+    def test_path_params_retrieve_overload_2(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.retrieve(
                 response_id="",
@@ -298,14 +298,14 @@ class TestResponses:
             )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         response = client.responses.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert response is None
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         http_response = client.responses.with_raw_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -316,7 +316,7 @@ class TestResponses:
         assert response is None
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.responses.with_streaming_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -329,21 +329,21 @@ class TestResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    def test_method_cancel(self, client: OpenAI) -> None:
+    def test_method_cancel(self, client: Duino) -> None:
         response = client.responses.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: OpenAI) -> None:
+    def test_raw_response_cancel(self, client: Duino) -> None:
         http_response = client.responses.with_raw_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -354,7 +354,7 @@ class TestResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: OpenAI) -> None:
+    def test_streaming_response_cancel(self, client: Duino) -> None:
         with client.responses.with_streaming_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -367,21 +367,21 @@ class TestResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: OpenAI) -> None:
+    def test_path_params_cancel(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             client.responses.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    def test_method_compact(self, client: OpenAI) -> None:
+    def test_method_compact(self, client: Duino) -> None:
         response = client.responses.compact(
             model="gpt-5.4",
         )
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    def test_method_compact_with_all_params(self, client: OpenAI) -> None:
+    def test_method_compact_with_all_params(self, client: Duino) -> None:
         response = client.responses.compact(
             model="gpt-5.4",
             input="string",
@@ -393,7 +393,7 @@ class TestResponses:
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    def test_raw_response_compact(self, client: OpenAI) -> None:
+    def test_raw_response_compact(self, client: Duino) -> None:
         http_response = client.responses.with_raw_response.compact(
             model="gpt-5.4",
         )
@@ -404,7 +404,7 @@ class TestResponses:
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    def test_streaming_response_compact(self, client: OpenAI) -> None:
+    def test_streaming_response_compact(self, client: Duino) -> None:
         with client.responses.with_streaming_response.compact(
             model="gpt-5.4",
         ) as http_response:
@@ -418,8 +418,8 @@ class TestResponses:
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_parse_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_parse_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.responses.create,
@@ -434,12 +434,12 @@ class TestAsyncResponses:
     )
 
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.create()
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.create(
             background=True,
             context_management=[
@@ -499,7 +499,7 @@ class TestAsyncResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         http_response = await async_client.responses.with_raw_response.create()
 
         assert http_response.is_closed is True
@@ -508,7 +508,7 @@ class TestAsyncResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.create() as http_response:
             assert not http_response.is_closed
             assert http_response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -519,14 +519,14 @@ class TestAsyncResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncDuino) -> None:
         response_stream = await async_client.responses.create(
             stream=True,
         )
         await response_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         response_stream = await async_client.responses.create(
             stream=True,
             background=True,
@@ -586,7 +586,7 @@ class TestAsyncResponses:
         await response_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.with_raw_response.create(
             stream=True,
         )
@@ -596,7 +596,7 @@ class TestAsyncResponses:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.create(
             stream=True,
         ) as response:
@@ -609,14 +609,14 @@ class TestAsyncResponses:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_method_retrieve_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             include=["file_search_call.results"],
@@ -627,7 +627,7 @@ class TestAsyncResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve_overload_1(self, async_client: AsyncDuino) -> None:
         http_response = await async_client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -638,7 +638,7 @@ class TestAsyncResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -651,14 +651,14 @@ class TestAsyncResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve_overload_1(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.retrieve(
                 response_id="",
             )
 
     @parametrize
-    async def test_method_retrieve_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve_overload_2(self, async_client: AsyncDuino) -> None:
         response_stream = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -666,7 +666,7 @@ class TestAsyncResponses:
         await response_stream.response.aclose()
 
     @parametrize
-    async def test_method_retrieve_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         response_stream = await async_client.responses.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -677,7 +677,7 @@ class TestAsyncResponses:
         await response_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_retrieve_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.with_raw_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -688,7 +688,7 @@ class TestAsyncResponses:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_retrieve_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.retrieve(
             response_id="resp_677efb5139a88190b512bc3fef8e535d",
             stream=True,
@@ -702,7 +702,7 @@ class TestAsyncResponses:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve_overload_2(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.retrieve(
                 response_id="",
@@ -710,14 +710,14 @@ class TestAsyncResponses:
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert response is None
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         http_response = await async_client.responses.with_raw_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -728,7 +728,7 @@ class TestAsyncResponses:
         assert response is None
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.delete(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -741,21 +741,21 @@ class TestAsyncResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_cancel(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncDuino) -> None:
         http_response = await async_client.responses.with_raw_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         )
@@ -766,7 +766,7 @@ class TestAsyncResponses:
         assert_matches_type(Response, response, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.cancel(
             "resp_677efb5139a88190b512bc3fef8e535d",
         ) as http_response:
@@ -779,21 +779,21 @@ class TestAsyncResponses:
         assert cast(Any, http_response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `response_id` but received ''"):
             await async_client.responses.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    async def test_method_compact(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_compact(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.compact(
             model="gpt-5.4",
         )
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    async def test_method_compact_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_compact_with_all_params(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.compact(
             model="gpt-5.4",
             input="string",
@@ -805,7 +805,7 @@ class TestAsyncResponses:
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    async def test_raw_response_compact(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_compact(self, async_client: AsyncDuino) -> None:
         http_response = await async_client.responses.with_raw_response.compact(
             model="gpt-5.4",
         )
@@ -816,7 +816,7 @@ class TestAsyncResponses:
         assert_matches_type(CompactedResponse, response, path=["response"])
 
     @parametrize
-    async def test_streaming_response_compact(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_compact(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.with_streaming_response.compact(
             model="gpt-5.4",
         ) as http_response:

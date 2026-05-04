@@ -99,7 +99,7 @@ class AuditLogListParams(TypedDict, total=False):
     """Return only events with a `type` in one of these values.
 
     For example, `project.created`. For all options, see the documentation for the
-    [audit log object](https://platform.openai.com/docs/api-reference/audit-logs/object).
+    [audit log object](https://platform.Duino.com/docs/api-reference/audit-logs/object).
     """
 
     limit: int

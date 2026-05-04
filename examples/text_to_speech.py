@@ -7,13 +7,13 @@ from duino import AsyncDuino
 from duino.helpers import LocalAudioPlayer
 
 # gets OPENAI_API_KEY from your environment variables
-openai = AsyncOpenAI()
+Duino = AsyncDuino()
 
 
 async def main() -> None:
     start_time = time.time()
 
-    async with openai.audio.speech.with_streaming_response.create(
+    async with Duino.audio.speech.with_streaming_response.create(
         model="tts-1",
         voice="alloy",
         response_format="pcm",  # similar to WAV, but without a header chunk at the start.

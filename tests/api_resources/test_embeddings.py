@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import CreateEmbeddingResponse
 
@@ -18,7 +18,7 @@ class TestEmbeddings:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         embedding = client.embeddings.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -26,7 +26,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         embedding = client.embeddings.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -37,7 +37,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.embeddings.with_raw_response.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -49,7 +49,7 @@ class TestEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.embeddings.with_streaming_response.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -69,7 +69,7 @@ class TestAsyncEmbeddings:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         embedding = await async_client.embeddings.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -77,7 +77,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         embedding = await async_client.embeddings.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -88,7 +88,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.embeddings.with_raw_response.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",
@@ -100,7 +100,7 @@ class TestAsyncEmbeddings:
         assert_matches_type(CreateEmbeddingResponse, embedding, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.embeddings.with_streaming_response.create(
             input="The quick brown fox jumped over the lazy dog",
             model="text-embedding-3-small",

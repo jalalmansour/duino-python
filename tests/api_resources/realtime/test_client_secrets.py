@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.realtime import ClientSecretCreateResponse
 
@@ -18,12 +18,12 @@ class TestClientSecrets:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         client_secret = client.realtime.client_secrets.create()
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         client_secret = client.realtime.client_secrets.create(
             expires_after={
                 "anchor": "created_at",
@@ -88,7 +88,7 @@ class TestClientSecrets:
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.realtime.client_secrets.with_raw_response.create()
 
         assert response.is_closed is True
@@ -97,7 +97,7 @@ class TestClientSecrets:
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.realtime.client_secrets.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -114,12 +114,12 @@ class TestAsyncClientSecrets:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         client_secret = await async_client.realtime.client_secrets.create()
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         client_secret = await async_client.realtime.client_secrets.create(
             expires_after={
                 "anchor": "created_at",
@@ -184,7 +184,7 @@ class TestAsyncClientSecrets:
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.realtime.client_secrets.with_raw_response.create()
 
         assert response.is_closed is True
@@ -193,7 +193,7 @@ class TestAsyncClientSecrets:
         assert_matches_type(ClientSecretCreateResponse, client_secret, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.realtime.client_secrets.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

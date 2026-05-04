@@ -48,7 +48,7 @@ class Jobs(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return JobsWithRawResponse(self)
 
@@ -57,7 +57,7 @@ class Jobs(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return JobsWithStreamingResponse(self)
 
@@ -87,29 +87,29 @@ class Jobs(SyncAPIResource):
         Response includes details of the enqueued job including job status and the name
         of the fine-tuned models once complete.
 
-        [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
+        [Learn more about fine-tuning](https://platform.Duino.com/docs/guides/model-optimization)
 
         Args:
           model: The name of the model to fine-tune. You can select one of the
-              [supported models](https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).
+              [supported models](https://platform.Duino.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).
 
           training_file: The ID of an uploaded file that contains training data.
 
-              See [upload file](https://platform.openai.com/docs/api-reference/files/create)
+              See [upload file](https://platform.Duino.com/docs/api-reference/files/create)
               for how to upload a file.
 
               Your dataset must be formatted as a JSONL file. Additionally, you must upload
               your file with the purpose `fine-tune`.
 
               The contents of the file should differ depending on if the model uses the
-              [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input),
-              [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input)
+              [chat](https://platform.Duino.com/docs/api-reference/fine-tuning/chat-input),
+              [completions](https://platform.Duino.com/docs/api-reference/fine-tuning/completions-input)
               format, or if the fine-tuning method uses the
-              [preference](https://platform.openai.com/docs/api-reference/fine-tuning/preference-input)
+              [preference](https://platform.Duino.com/docs/api-reference/fine-tuning/preference-input)
               format.
 
               See the
-              [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization)
+              [fine-tuning guide](https://platform.Duino.com/docs/guides/model-optimization)
               for more details.
 
           hyperparameters: The hyperparameters used for the fine-tuning job. This value is now deprecated
@@ -134,7 +134,7 @@ class Jobs(SyncAPIResource):
               name.
 
               For example, a `suffix` of "custom-model-name" would produce a model name like
-              `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.
+              `ft:gpt-4o-mini:Duino:custom-model-name:7p4lURel`.
 
           validation_file: The ID of an uploaded file that contains validation data.
 
@@ -147,7 +147,7 @@ class Jobs(SyncAPIResource):
               the purpose `fine-tune`.
 
               See the
-              [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization)
+              [fine-tuning guide](https://platform.Duino.com/docs/guides/model-optimization)
               for more details.
 
           extra_headers: Send extra headers
@@ -198,7 +198,7 @@ class Jobs(SyncAPIResource):
         """
         Get info about a fine-tuning job.
 
-        [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
+        [Learn more about fine-tuning](https://platform.Duino.com/docs/guides/model-optimization)
 
         Args:
           extra_headers: Send extra headers
@@ -453,7 +453,7 @@ class AsyncJobs(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncJobsWithRawResponse(self)
 
@@ -462,7 +462,7 @@ class AsyncJobs(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncJobsWithStreamingResponse(self)
 
@@ -492,29 +492,29 @@ class AsyncJobs(AsyncAPIResource):
         Response includes details of the enqueued job including job status and the name
         of the fine-tuned models once complete.
 
-        [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
+        [Learn more about fine-tuning](https://platform.Duino.com/docs/guides/model-optimization)
 
         Args:
           model: The name of the model to fine-tune. You can select one of the
-              [supported models](https://platform.openai.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).
+              [supported models](https://platform.Duino.com/docs/guides/fine-tuning#which-models-can-be-fine-tuned).
 
           training_file: The ID of an uploaded file that contains training data.
 
-              See [upload file](https://platform.openai.com/docs/api-reference/files/create)
+              See [upload file](https://platform.Duino.com/docs/api-reference/files/create)
               for how to upload a file.
 
               Your dataset must be formatted as a JSONL file. Additionally, you must upload
               your file with the purpose `fine-tune`.
 
               The contents of the file should differ depending on if the model uses the
-              [chat](https://platform.openai.com/docs/api-reference/fine-tuning/chat-input),
-              [completions](https://platform.openai.com/docs/api-reference/fine-tuning/completions-input)
+              [chat](https://platform.Duino.com/docs/api-reference/fine-tuning/chat-input),
+              [completions](https://platform.Duino.com/docs/api-reference/fine-tuning/completions-input)
               format, or if the fine-tuning method uses the
-              [preference](https://platform.openai.com/docs/api-reference/fine-tuning/preference-input)
+              [preference](https://platform.Duino.com/docs/api-reference/fine-tuning/preference-input)
               format.
 
               See the
-              [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization)
+              [fine-tuning guide](https://platform.Duino.com/docs/guides/model-optimization)
               for more details.
 
           hyperparameters: The hyperparameters used for the fine-tuning job. This value is now deprecated
@@ -539,7 +539,7 @@ class AsyncJobs(AsyncAPIResource):
               name.
 
               For example, a `suffix` of "custom-model-name" would produce a model name like
-              `ft:gpt-4o-mini:openai:custom-model-name:7p4lURel`.
+              `ft:gpt-4o-mini:Duino:custom-model-name:7p4lURel`.
 
           validation_file: The ID of an uploaded file that contains validation data.
 
@@ -552,7 +552,7 @@ class AsyncJobs(AsyncAPIResource):
               the purpose `fine-tune`.
 
               See the
-              [fine-tuning guide](https://platform.openai.com/docs/guides/model-optimization)
+              [fine-tuning guide](https://platform.Duino.com/docs/guides/model-optimization)
               for more details.
 
           extra_headers: Send extra headers
@@ -603,7 +603,7 @@ class AsyncJobs(AsyncAPIResource):
         """
         Get info about a fine-tuning job.
 
-        [Learn more about fine-tuning](https://platform.openai.com/docs/guides/model-optimization)
+        [Learn more about fine-tuning](https://platform.Duino.com/docs/guides/model-optimization)
 
         Args:
           extra_headers: Send extra headers

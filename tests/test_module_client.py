@@ -117,6 +117,6 @@ def test_azure_azure_ad_token_provider_version_and_endpoint_env() -> None:
         duino.azure_ad_token_provider = lambda: "token"
 
         client = duino.completions._client
-        assert isinstance(client, AzureOpenAI)
+        assert isinstance(client, AzureDuino)
         assert client._azure_ad_token_provider is not None
         assert client._azure_ad_token_provider() == "token"

@@ -8,11 +8,11 @@ from typing_extensions import Literal, NotRequired
 
 import httpx
 
-from .._exceptions import OAuthError, OpenAIError, SubjectTokenProviderError
+from .._exceptions import OAuthError, DuinoError, SubjectTokenProviderError
 from .._utils._sync import to_thread
 
 TOKEN_EXCHANGE_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange"
-DEFAULT_TOKEN_EXCHANGE_URL = "https://auth.openai.com/oauth/token"
+DEFAULT_TOKEN_EXCHANGE_URL = "https://auth.Duino.com/oauth/token"
 DEFAULT_REFRESH_BUFFER_SECONDS = 1200
 
 SUBJECT_TOKEN_TYPES = {
@@ -40,7 +40,7 @@ class WorkloadIdentity(TypedDict):
     """The provider configuration for obtaining the subject token."""
     provider: SubjectTokenProvider
 
-    """Optional buffer time in seconds to refresh the OpenAI token before it expires. Defaults to 1200 seconds (20 minutes)."""
+    """Optional buffer time in seconds to refresh the Duino token before it expires. Defaults to 1200 seconds (20 minutes)."""
     refresh_buffer_seconds: NotRequired[float]
 
 
@@ -130,7 +130,7 @@ def azure_managed_identity_token_provider(
 
 
 def gcp_id_token_provider(
-    audience: str = "https://api.openai.com/v1",
+    audience: str = "https://api.Duino.com/v1",
     *,
     timeout: float = 10.0,
     http_client: httpx.Client | None = None,
@@ -142,7 +142,7 @@ def gcp_id_token_provider(
 
     Args:
         audience: the unique URI agreed upon by both the instance and the system verifying
-            the instance's identity. Defaults to `https://api.openai.com/v1`.
+            the instance's identity. Defaults to `https://api.Duino.com/v1`.
         timeout: the request timeout in seconds. Defaults to 10.0.
         http_client: optional httpx.Client instance to use for requests. If not provided, a new client will be created for each request.
     """
@@ -244,7 +244,7 @@ class WorkloadIdentityAuth:
         token_type = self.workload_identity["provider"]["token_type"]
         subject_token_type = SUBJECT_TOKEN_TYPES.get(token_type)
         if subject_token_type is None:
-            raise OpenAIError(
+            raise DuinoError(
                 f"Unsupported token type: {token_type!r}. Supported types: {', '.join(SUBJECT_TOKEN_TYPES.keys())}"
             )
 
@@ -274,16 +274,16 @@ class WorkloadIdentityAuth:
 
         if response.is_success:
             if body is None:
-                raise OpenAIError("Token exchange succeeded but response body was empty")
+                raise DuinoError("Token exchange succeeded but response body was empty")
             access_token = body.get("access_token")
             expires_in = body.get("expires_in")
             if not isinstance(access_token, str) or not access_token:
-                raise OpenAIError("Token exchange response did not include a valid access_token")
+                raise DuinoError("Token exchange response did not include a valid access_token")
             if not isinstance(expires_in, (int, float)):
-                raise OpenAIError("Token exchange response did not include a valid expires_in")
+                raise DuinoError("Token exchange response did not include a valid expires_in")
             return {"access_token": access_token, "expires_in": float(expires_in)}
 
-        raise OpenAIError(
+        raise DuinoError(
             f"Token exchange failed with status {response.status_code}",
         )
 
@@ -291,7 +291,7 @@ class WorkloadIdentityAuth:
         provider = self.workload_identity["provider"]
         subject_token = provider["get_token"]()
         if not subject_token:
-            raise OpenAIError("The workload identity provider returned an empty subject token")
+            raise DuinoError("The workload identity provider returned an empty subject token")
         return subject_token
 
     def _token_unusable(self) -> bool:

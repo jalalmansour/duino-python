@@ -163,7 +163,7 @@ class InternalServerError(APIStatusError):
     pass
 
 
-class LengthFinishReasonError(OpenAIError):
+class LengthFinishReasonError(DuinoError):
     completion: ChatCompletion
     """The completion that caused this error.
 
@@ -180,7 +180,7 @@ class LengthFinishReasonError(OpenAIError):
         self.completion = completion
 
 
-class ContentFilterFinishReasonError(OpenAIError):
+class ContentFilterFinishReasonError(DuinoError):
     def __init__(self) -> None:
         super().__init__(
             f"Could not parse response content as the request was rejected by the content filter",
@@ -191,7 +191,7 @@ class InvalidWebhookSignatureError(ValueError):
     """Raised when a webhook signature is invalid, meaning the computed signature does not match the expected signature."""
 
 
-class WebSocketConnectionClosedError(OpenAIError):
+class WebSocketConnectionClosedError(DuinoError):
     """Raised when a WebSocket connection closes with unsent messages."""
 
     unsent_messages: list[str]
@@ -201,7 +201,7 @@ class WebSocketConnectionClosedError(OpenAIError):
         self.unsent_messages = unsent_messages
 
 
-class WebSocketQueueFullError(OpenAIError):
+class WebSocketQueueFullError(DuinoError):
     """Raised when the outgoing WebSocket message queue exceeds its byte-size limit."""
 
     pass

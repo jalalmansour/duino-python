@@ -17,7 +17,7 @@ from inline_snapshot import (
 )
 
 import duino
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from duino._utils import consume_sync_iterator, assert_signatures_in_sync
 from duino._compat import model_copy
 from duino.types.chat import ChatCompletionChunk
@@ -44,7 +44,7 @@ _T = TypeVar("_T")
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_nothing(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_nothing(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     listener = _make_stream_snapshot_request(
         lambda c: c.chat.completions.stream(
             model="gpt-4o-2024-08-06",
@@ -95,7 +95,7 @@ checking a reliable weather website or a weather app.",
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_model(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_model(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -192,7 +192,7 @@ ContentDoneEvent(
 
 @pytest.mark.respx(base_url=base_url)
 def test_parse_pydantic_model_multiple_choices(
-    client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
+    client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     class Location(BaseModel):
         city: str
@@ -371,7 +371,7 @@ def test_parse_pydantic_model_multiple_choices(
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_max_tokens_reached(client: OpenAI, respx_mock: MockRouter) -> None:
+def test_parse_max_tokens_reached(client: Duino, respx_mock: MockRouter) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -397,7 +397,7 @@ def test_parse_max_tokens_reached(client: OpenAI, respx_mock: MockRouter) -> Non
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_model_refusal(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_model_refusal(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -447,7 +447,7 @@ RefusalDoneEvent(refusal="I'm sorry, I can't assist with that request.", type='r
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_content_logprobs_events(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_content_logprobs_events(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     listener = _make_stream_snapshot_request(
         lambda c: c.chat.completions.stream(
             model="gpt-4o-2024-08-06",
@@ -521,7 +521,7 @@ def test_content_logprobs_events(client: OpenAI, respx_mock: MockRouter, monkeyp
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_refusal_logprobs_events(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_refusal_logprobs_events(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -633,7 +633,7 @@ def test_refusal_logprobs_events(client: OpenAI, respx_mock: MockRouter, monkeyp
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_tool(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_tool(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class GetWeatherArgs(BaseModel):
         city: str
         country: str
@@ -725,7 +725,7 @@ def test_parse_pydantic_tool(client: OpenAI, respx_mock: MockRouter, monkeypatch
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_multiple_pydantic_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_multiple_pydantic_tools(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class GetWeatherArgs(BaseModel):
         """Get the temperature for the given country/city combo"""
 
@@ -834,7 +834,7 @@ def test_parse_multiple_pydantic_tools(client: OpenAI, respx_mock: MockRouter, m
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_strict_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_strict_tools(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     listener = _make_stream_snapshot_request(
         lambda c: c.chat.completions.stream(
             model="gpt-4o-2024-08-06",
@@ -906,7 +906,7 @@ def test_parse_strict_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch:
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_non_pydantic_response_format(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_non_pydantic_response_format(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     listener = _make_stream_snapshot_request(
         lambda c: c.chat.completions.stream(
             model="gpt-4o-2024-08-06",
@@ -953,7 +953,7 @@ def test_non_pydantic_response_format(client: OpenAI, respx_mock: MockRouter, mo
 
 @pytest.mark.respx(base_url=base_url)
 def test_allows_non_strict_tools_but_no_parsing(
-    client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
+    client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     listener = _make_stream_snapshot_request(
         lambda c: c.chat.completions.stream(
@@ -1019,10 +1019,10 @@ FunctionToolCallArgumentsDoneEvent(
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_chat_completion_state_helper(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_chat_completion_state_helper(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     state = ChatCompletionStreamState()
 
-    def streamer(client: OpenAI) -> Iterator[ChatCompletionChunk]:
+    def streamer(client: Duino) -> Iterator[ChatCompletionChunk]:
         stream = client.chat.completions.create(
             model="gpt-4o-2024-08-06",
             messages=[
@@ -1069,8 +1069,8 @@ recommend checking a reliable weather website or a weather app.",
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_stream_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_stream_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.chat.completions.create,
@@ -1100,11 +1100,11 @@ class StreamListener(Generic[ResponseFormatT]):
 
 
 def _make_stream_snapshot_request(
-    func: Callable[[OpenAI], ChatCompletionStreamManager[ResponseFormatT]],
+    func: Callable[[Duino], ChatCompletionStreamManager[ResponseFormatT]],
     *,
     content_snapshot: Any,
     respx_mock: MockRouter,
-    mock_client: OpenAI,
+    mock_client: Duino,
     on_event: Callable[[ChatCompletionStream[ResponseFormatT], ChatCompletionStreamEvent[ResponseFormatT]], Any]
     | None = None,
 ) -> StreamListener[ResponseFormatT]:
@@ -1117,7 +1117,7 @@ def _make_stream_snapshot_request(
 
         respx_mock.stop()
 
-        client = OpenAI(
+        client = Duino(
             http_client=httpx.Client(
                 event_hooks={
                     "response": [_on_response],
@@ -1149,11 +1149,11 @@ def _make_stream_snapshot_request(
 
 
 def _make_raw_stream_snapshot_request(
-    func: Callable[[OpenAI], Iterator[ChatCompletionChunk]],
+    func: Callable[[Duino], Iterator[ChatCompletionChunk]],
     *,
     content_snapshot: Any,
     respx_mock: MockRouter,
-    mock_client: OpenAI,
+    mock_client: Duino,
 ) -> None:
     live = os.environ.get("OPENAI_LIVE") == "1"
     if live:
@@ -1164,7 +1164,7 @@ def _make_raw_stream_snapshot_request(
 
         respx_mock.stop()
 
-        client = OpenAI(
+        client = Duino(
             http_client=httpx.Client(
                 event_hooks={
                     "response": [_on_response],

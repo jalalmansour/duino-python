@@ -13,7 +13,7 @@ from ._utils import is_mapping, extract_type_var_from_base
 from ._exceptions import APIError
 
 if TYPE_CHECKING:
-    from ._client import OpenAI, AsyncOpenAI
+    from ._client import Duino, AsyncDuino
     from ._models import FinalRequestOptions
 
 
@@ -32,7 +32,7 @@ class Stream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: OpenAI,
+        client: Duino,
         options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response
@@ -141,7 +141,7 @@ class AsyncStream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: AsyncOpenAI,
+        client: AsyncDuino,
         options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response

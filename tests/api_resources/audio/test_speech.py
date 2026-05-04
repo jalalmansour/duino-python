@@ -10,7 +10,7 @@ import pytest
 from respx import MockRouter
 
 import duino._legacy_response as _legacy_response
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 
 # pyright: reportDeprecated=false
@@ -23,7 +23,7 @@ class TestSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         speech = client.audio.speech.create(
             input="string",
@@ -35,7 +35,7 @@ class TestSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_create_with_all_params(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_create_with_all_params(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         speech = client.audio.speech.create(
             input="string",
@@ -51,7 +51,7 @@ class TestSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_raw_response_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.audio.speech.with_raw_response.create(
@@ -67,7 +67,7 @@ class TestSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_streaming_response_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.audio.speech.with_streaming_response.create(
             input="string",
@@ -90,7 +90,7 @@ class TestAsyncSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         speech = await async_client.audio.speech.create(
             input="string",
@@ -102,7 +102,7 @@ class TestAsyncSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         speech = await async_client.audio.speech.create(
             input="string",
@@ -118,7 +118,7 @@ class TestAsyncSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.audio.speech.with_raw_response.create(
@@ -134,7 +134,7 @@ class TestAsyncSpeech:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/audio/speech").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.audio.speech.with_streaming_response.create(
             input="string",

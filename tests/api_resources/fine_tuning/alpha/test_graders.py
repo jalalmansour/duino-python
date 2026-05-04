@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.fine_tuning.alpha import (
     GraderRunResponse,
@@ -21,7 +21,7 @@ class TestGraders:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_run(self, client: OpenAI) -> None:
+    def test_method_run(self, client: Duino) -> None:
         grader = client.fine_tuning.alpha.graders.run(
             grader={
                 "input": "input",
@@ -35,7 +35,7 @@ class TestGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    def test_method_run_with_all_params(self, client: OpenAI) -> None:
+    def test_method_run_with_all_params(self, client: Duino) -> None:
         grader = client.fine_tuning.alpha.graders.run(
             grader={
                 "input": "input",
@@ -50,7 +50,7 @@ class TestGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    def test_raw_response_run(self, client: OpenAI) -> None:
+    def test_raw_response_run(self, client: Duino) -> None:
         response = client.fine_tuning.alpha.graders.with_raw_response.run(
             grader={
                 "input": "input",
@@ -68,7 +68,7 @@ class TestGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    def test_streaming_response_run(self, client: OpenAI) -> None:
+    def test_streaming_response_run(self, client: Duino) -> None:
         with client.fine_tuning.alpha.graders.with_streaming_response.run(
             grader={
                 "input": "input",
@@ -88,7 +88,7 @@ class TestGraders:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_validate(self, client: OpenAI) -> None:
+    def test_method_validate(self, client: Duino) -> None:
         grader = client.fine_tuning.alpha.graders.validate(
             grader={
                 "input": "input",
@@ -101,7 +101,7 @@ class TestGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    def test_method_validate_with_all_params(self, client: OpenAI) -> None:
+    def test_method_validate_with_all_params(self, client: Duino) -> None:
         grader = client.fine_tuning.alpha.graders.validate(
             grader={
                 "input": "input",
@@ -114,7 +114,7 @@ class TestGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    def test_raw_response_validate(self, client: OpenAI) -> None:
+    def test_raw_response_validate(self, client: Duino) -> None:
         response = client.fine_tuning.alpha.graders.with_raw_response.validate(
             grader={
                 "input": "input",
@@ -131,7 +131,7 @@ class TestGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    def test_streaming_response_validate(self, client: OpenAI) -> None:
+    def test_streaming_response_validate(self, client: Duino) -> None:
         with client.fine_tuning.alpha.graders.with_streaming_response.validate(
             grader={
                 "input": "input",
@@ -156,7 +156,7 @@ class TestAsyncGraders:
     )
 
     @parametrize
-    async def test_method_run(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_run(self, async_client: AsyncDuino) -> None:
         grader = await async_client.fine_tuning.alpha.graders.run(
             grader={
                 "input": "input",
@@ -170,7 +170,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_run_with_all_params(self, async_client: AsyncDuino) -> None:
         grader = await async_client.fine_tuning.alpha.graders.run(
             grader={
                 "input": "input",
@@ -185,7 +185,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_run(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.alpha.graders.with_raw_response.run(
             grader={
                 "input": "input",
@@ -203,7 +203,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderRunResponse, grader, path=["response"])
 
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.alpha.graders.with_streaming_response.run(
             grader={
                 "input": "input",
@@ -223,7 +223,7 @@ class TestAsyncGraders:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_validate(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_validate(self, async_client: AsyncDuino) -> None:
         grader = await async_client.fine_tuning.alpha.graders.validate(
             grader={
                 "input": "input",
@@ -236,7 +236,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    async def test_method_validate_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_validate_with_all_params(self, async_client: AsyncDuino) -> None:
         grader = await async_client.fine_tuning.alpha.graders.validate(
             grader={
                 "input": "input",
@@ -249,7 +249,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    async def test_raw_response_validate(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_validate(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.alpha.graders.with_raw_response.validate(
             grader={
                 "input": "input",
@@ -266,7 +266,7 @@ class TestAsyncGraders:
         assert_matches_type(GraderValidateResponse, grader, path=["response"])
 
     @parametrize
-    async def test_streaming_response_validate(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_validate(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.alpha.graders.with_streaming_response.validate(
             grader={
                 "input": "input",

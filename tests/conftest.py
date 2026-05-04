@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("openai").setLevel(logging.DEBUG)
+logging.getLogger("Duino").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -50,19 +50,19 @@ admin_api_key = "My Admin API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[OpenAI]:
+def client(request: FixtureRequest) -> Iterator[Duino]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with OpenAI(
+    with Duino(
         base_url=base_url, api_key=api_key, admin_api_key=admin_api_key, _strict_response_validation=strict
     ) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncOpenAI]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncDuino]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -81,7 +81,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncOpenAI]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncOpenAI(
+    async with AsyncDuino(
         base_url=base_url,
         api_key=api_key,
         admin_api_key=admin_api_key,

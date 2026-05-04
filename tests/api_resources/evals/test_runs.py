@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncCursorPage, AsyncCursorPage
 from duino.types.evals import (
@@ -25,7 +25,7 @@ class TestRuns:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         run = client.evals.runs.create(
             eval_id="eval_id",
             data_source={
@@ -39,7 +39,7 @@ class TestRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         run = client.evals.runs.create(
             eval_id="eval_id",
             data_source={
@@ -60,7 +60,7 @@ class TestRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.evals.runs.with_raw_response.create(
             eval_id="eval_id",
             data_source={
@@ -78,7 +78,7 @@ class TestRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.evals.runs.with_streaming_response.create(
             eval_id="eval_id",
             data_source={
@@ -98,7 +98,7 @@ class TestRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create(self, client: OpenAI) -> None:
+    def test_path_params_create(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             client.evals.runs.with_raw_response.create(
                 eval_id="",
@@ -112,7 +112,7 @@ class TestRuns:
             )
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         run = client.evals.runs.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -120,7 +120,7 @@ class TestRuns:
         assert_matches_type(RunRetrieveResponse, run, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.evals.runs.with_raw_response.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -132,7 +132,7 @@ class TestRuns:
         assert_matches_type(RunRetrieveResponse, run, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.evals.runs.with_streaming_response.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -146,7 +146,7 @@ class TestRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             client.evals.runs.with_raw_response.retrieve(
                 run_id="run_id",
@@ -160,14 +160,14 @@ class TestRuns:
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         run = client.evals.runs.list(
             eval_id="eval_id",
         )
         assert_matches_type(SyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         run = client.evals.runs.list(
             eval_id="eval_id",
             after="after",
@@ -178,7 +178,7 @@ class TestRuns:
         assert_matches_type(SyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.evals.runs.with_raw_response.list(
             eval_id="eval_id",
         )
@@ -189,7 +189,7 @@ class TestRuns:
         assert_matches_type(SyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.evals.runs.with_streaming_response.list(
             eval_id="eval_id",
         ) as response:
@@ -202,14 +202,14 @@ class TestRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list(self, client: OpenAI) -> None:
+    def test_path_params_list(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             client.evals.runs.with_raw_response.list(
                 eval_id="",
             )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         run = client.evals.runs.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -217,7 +217,7 @@ class TestRuns:
         assert_matches_type(RunDeleteResponse, run, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.evals.runs.with_raw_response.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -229,7 +229,7 @@ class TestRuns:
         assert_matches_type(RunDeleteResponse, run, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.evals.runs.with_streaming_response.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -243,7 +243,7 @@ class TestRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             client.evals.runs.with_raw_response.delete(
                 run_id="run_id",
@@ -257,7 +257,7 @@ class TestRuns:
             )
 
     @parametrize
-    def test_method_cancel(self, client: OpenAI) -> None:
+    def test_method_cancel(self, client: Duino) -> None:
         run = client.evals.runs.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -265,7 +265,7 @@ class TestRuns:
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: OpenAI) -> None:
+    def test_raw_response_cancel(self, client: Duino) -> None:
         response = client.evals.runs.with_raw_response.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -277,7 +277,7 @@ class TestRuns:
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: OpenAI) -> None:
+    def test_streaming_response_cancel(self, client: Duino) -> None:
         with client.evals.runs.with_streaming_response.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -291,7 +291,7 @@ class TestRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: OpenAI) -> None:
+    def test_path_params_cancel(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             client.evals.runs.with_raw_response.cancel(
                 run_id="run_id",
@@ -311,7 +311,7 @@ class TestAsyncRuns:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.create(
             eval_id="eval_id",
             data_source={
@@ -325,7 +325,7 @@ class TestAsyncRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.create(
             eval_id="eval_id",
             data_source={
@@ -346,7 +346,7 @@ class TestAsyncRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.evals.runs.with_raw_response.create(
             eval_id="eval_id",
             data_source={
@@ -364,7 +364,7 @@ class TestAsyncRuns:
         assert_matches_type(RunCreateResponse, run, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.evals.runs.with_streaming_response.create(
             eval_id="eval_id",
             data_source={
@@ -384,7 +384,7 @@ class TestAsyncRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_create(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             await async_client.evals.runs.with_raw_response.create(
                 eval_id="",
@@ -398,7 +398,7 @@ class TestAsyncRuns:
             )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -406,7 +406,7 @@ class TestAsyncRuns:
         assert_matches_type(RunRetrieveResponse, run, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.evals.runs.with_raw_response.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -418,7 +418,7 @@ class TestAsyncRuns:
         assert_matches_type(RunRetrieveResponse, run, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.evals.runs.with_streaming_response.retrieve(
             run_id="run_id",
             eval_id="eval_id",
@@ -432,7 +432,7 @@ class TestAsyncRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             await async_client.evals.runs.with_raw_response.retrieve(
                 run_id="run_id",
@@ -446,14 +446,14 @@ class TestAsyncRuns:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.list(
             eval_id="eval_id",
         )
         assert_matches_type(AsyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.list(
             eval_id="eval_id",
             after="after",
@@ -464,7 +464,7 @@ class TestAsyncRuns:
         assert_matches_type(AsyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.evals.runs.with_raw_response.list(
             eval_id="eval_id",
         )
@@ -475,7 +475,7 @@ class TestAsyncRuns:
         assert_matches_type(AsyncCursorPage[RunListResponse], run, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.evals.runs.with_streaming_response.list(
             eval_id="eval_id",
         ) as response:
@@ -488,14 +488,14 @@ class TestAsyncRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             await async_client.evals.runs.with_raw_response.list(
                 eval_id="",
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -503,7 +503,7 @@ class TestAsyncRuns:
         assert_matches_type(RunDeleteResponse, run, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.evals.runs.with_raw_response.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -515,7 +515,7 @@ class TestAsyncRuns:
         assert_matches_type(RunDeleteResponse, run, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.evals.runs.with_streaming_response.delete(
             run_id="run_id",
             eval_id="eval_id",
@@ -529,7 +529,7 @@ class TestAsyncRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             await async_client.evals.runs.with_raw_response.delete(
                 run_id="run_id",
@@ -543,7 +543,7 @@ class TestAsyncRuns:
             )
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_cancel(self, async_client: AsyncDuino) -> None:
         run = await async_client.evals.runs.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -551,7 +551,7 @@ class TestAsyncRuns:
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncDuino) -> None:
         response = await async_client.evals.runs.with_raw_response.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -563,7 +563,7 @@ class TestAsyncRuns:
         assert_matches_type(RunCancelResponse, run, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncDuino) -> None:
         async with async_client.evals.runs.with_streaming_response.cancel(
             run_id="run_id",
             eval_id="eval_id",
@@ -577,7 +577,7 @@ class TestAsyncRuns:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `eval_id` but received ''"):
             await async_client.evals.runs.with_raw_response.cancel(
                 run_id="run_id",

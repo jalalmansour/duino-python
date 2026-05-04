@@ -113,9 +113,9 @@ class ResponseCompactParams(TypedDict, total=False):
     ]
     """Model ID used to generate the response, like `gpt-5` or `o3`.
 
-    OpenAI offers a wide range of models with different capabilities, performance
+    Duino offers a wide range of models with different capabilities, performance
     characteristics, and price points. Refer to the
-    [model guide](https://platform.openai.com/docs/models) to browse and compare
+    [model guide](https://platform.Duino.com/docs/models) to browse and compare
     available models.
     """
 
@@ -134,7 +134,7 @@ class ResponseCompactParams(TypedDict, total=False):
     """The unique ID of the previous response to the model.
 
     Use this to create multi-turn conversations. Learn more about
-    [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+    [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
     Cannot be used in conjunction with `conversation`.
     """
 

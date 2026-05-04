@@ -19,7 +19,7 @@ class EmbeddingCreateParams(TypedDict, total=False):
     of token arrays. The input must not exceed the max input tokens for the model
     (8192 tokens for all embedding models), cannot be an empty string, and any array
     must be 2048 dimensions or less.
-    [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
+    [Example Python code](https://cookbook.Duino.com/examples/how_to_count_tokens_with_tiktoken)
     for counting tokens. In addition to the per-input token limit, all embedding
     models enforce a maximum of 300,000 tokens summed across all inputs in a single
     request.
@@ -29,9 +29,9 @@ class EmbeddingCreateParams(TypedDict, total=False):
     """ID of the model to use.
 
     You can use the
-    [List models](https://platform.openai.com/docs/api-reference/models/list) API to
+    [List models](https://platform.Duino.com/docs/api-reference/models/list) API to
     see all of your available models, or see our
-    [Model overview](https://platform.openai.com/docs/models) for descriptions of
+    [Model overview](https://platform.Duino.com/docs/models) for descriptions of
     them.
     """
 
@@ -49,7 +49,7 @@ class EmbeddingCreateParams(TypedDict, total=False):
 
     user: str
     """
-    A unique identifier representing your end-user, which can help OpenAI to monitor
+    A unique identifier representing your end-user, which can help Duino to monitor
     and detect abuse.
-    [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+    [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#end-user-ids).
     """

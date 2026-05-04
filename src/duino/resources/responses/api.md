@@ -3,7 +3,7 @@
 Types:
 
 ```python
-from openai.types.responses import (
+from Duino.types.responses import (
     ApplyPatchTool,
     CompactedResponse,
     ComputerAction,
@@ -156,32 +156,32 @@ from openai.types.responses import (
 
 Methods:
 
-- <code title="post /responses">client.responses.<a href="./src/openai/resources/responses/responses.py">create</a>(\*\*<a href="src/openai/types/responses/response_create_params.py">params</a>) -> <a href="./src/openai/types/responses/response.py">Response</a></code>
-- <code title="get /responses/{response_id}">client.responses.<a href="./src/openai/resources/responses/responses.py">retrieve</a>(response_id, \*\*<a href="src/openai/types/responses/response_retrieve_params.py">params</a>) -> <a href="./src/openai/types/responses/response.py">Response</a></code>
-- <code title="delete /responses/{response_id}">client.responses.<a href="./src/openai/resources/responses/responses.py">delete</a>(response_id) -> None</code>
-- <code title="post /responses/{response_id}/cancel">client.responses.<a href="./src/openai/resources/responses/responses.py">cancel</a>(response_id) -> <a href="./src/openai/types/responses/response.py">Response</a></code>
-- <code title="post /responses/compact">client.responses.<a href="./src/openai/resources/responses/responses.py">compact</a>(\*\*<a href="src/openai/types/responses/response_compact_params.py">params</a>) -> <a href="./src/openai/types/responses/compacted_response.py">CompactedResponse</a></code>
+- <code title="post /responses">client.responses.<a href="./src/Duino/resources/responses/responses.py">create</a>(\*\*<a href="src/Duino/types/responses/response_create_params.py">params</a>) -> <a href="./src/Duino/types/responses/response.py">Response</a></code>
+- <code title="get /responses/{response_id}">client.responses.<a href="./src/Duino/resources/responses/responses.py">retrieve</a>(response_id, \*\*<a href="src/Duino/types/responses/response_retrieve_params.py">params</a>) -> <a href="./src/Duino/types/responses/response.py">Response</a></code>
+- <code title="delete /responses/{response_id}">client.responses.<a href="./src/Duino/resources/responses/responses.py">delete</a>(response_id) -> None</code>
+- <code title="post /responses/{response_id}/cancel">client.responses.<a href="./src/Duino/resources/responses/responses.py">cancel</a>(response_id) -> <a href="./src/Duino/types/responses/response.py">Response</a></code>
+- <code title="post /responses/compact">client.responses.<a href="./src/Duino/resources/responses/responses.py">compact</a>(\*\*<a href="src/Duino/types/responses/response_compact_params.py">params</a>) -> <a href="./src/Duino/types/responses/compacted_response.py">CompactedResponse</a></code>
 
 ## InputItems
 
 Types:
 
 ```python
-from openai.types.responses import ResponseItemList
+from Duino.types.responses import ResponseItemList
 ```
 
 Methods:
 
-- <code title="get /responses/{response_id}/input_items">client.responses.input_items.<a href="./src/openai/resources/responses/input_items.py">list</a>(response_id, \*\*<a href="src/openai/types/responses/input_item_list_params.py">params</a>) -> <a href="./src/openai/types/responses/response_item.py">SyncCursorPage[ResponseItem]</a></code>
+- <code title="get /responses/{response_id}/input_items">client.responses.input_items.<a href="./src/Duino/resources/responses/input_items.py">list</a>(response_id, \*\*<a href="src/Duino/types/responses/input_item_list_params.py">params</a>) -> <a href="./src/Duino/types/responses/response_item.py">SyncCursorPage[ResponseItem]</a></code>
 
 ## InputTokens
 
 Types:
 
 ```python
-from openai.types.responses import InputTokenCountResponse
+from Duino.types.responses import InputTokenCountResponse
 ```
 
 Methods:
 
-- <code title="post /responses/input_tokens">client.responses.input_tokens.<a href="./src/openai/resources/responses/input_tokens.py">count</a>(\*\*<a href="src/openai/types/responses/input_token_count_params.py">params</a>) -> <a href="./src/openai/types/responses/input_token_count_response.py">InputTokenCountResponse</a></code>
+- <code title="post /responses/input_tokens">client.responses.input_tokens.<a href="./src/Duino/resources/responses/input_tokens.py">count</a>(\*\*<a href="src/Duino/types/responses/input_token_count_params.py">params</a>) -> <a href="./src/Duino/types/responses/input_token_count_response.py">InputTokenCountResponse</a></code>

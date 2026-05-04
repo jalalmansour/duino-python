@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncConversationCursorPage, AsyncConversationCursorPage
 from duino.types.admin.organization import AuditLogListResponse
@@ -19,12 +19,12 @@ class TestAuditLogs:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         audit_log = client.admin.organization.audit_logs.list()
         assert_matches_type(SyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         audit_log = client.admin.organization.audit_logs.list(
             actor_emails=["string"],
             actor_ids=["string"],
@@ -44,7 +44,7 @@ class TestAuditLogs:
         assert_matches_type(SyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.audit_logs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -53,7 +53,7 @@ class TestAuditLogs:
         assert_matches_type(SyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.audit_logs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -70,12 +70,12 @@ class TestAsyncAuditLogs:
     )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         audit_log = await async_client.admin.organization.audit_logs.list()
         assert_matches_type(AsyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         audit_log = await async_client.admin.organization.audit_logs.list(
             actor_emails=["string"],
             actor_ids=["string"],
@@ -95,7 +95,7 @@ class TestAsyncAuditLogs:
         assert_matches_type(AsyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.audit_logs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -104,7 +104,7 @@ class TestAsyncAuditLogs:
         assert_matches_type(AsyncConversationCursorPage[AuditLogListResponse], audit_log, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.audit_logs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

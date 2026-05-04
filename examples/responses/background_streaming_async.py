@@ -18,7 +18,7 @@ class MathResponse(BaseModel):
 
 
 async def main() -> None:
-    client = AsyncOpenAI()
+    client = AsyncDuino()
     id = None
     async with client.responses.stream(
         input="solve 8x + 31 = 2",

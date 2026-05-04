@@ -34,7 +34,7 @@ class Items(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return ItemsWithRawResponse(self)
 
@@ -43,7 +43,7 @@ class Items(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return ItemsWithStreamingResponse(self)
 
@@ -67,7 +67,7 @@ class Items(SyncAPIResource):
           items: The items to add to the conversation. You may add up to 20 items at a time.
 
           include: Additional fields to include in the response. See the `include` parameter for
-              [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
+              [listing Conversation items above](https://platform.Duino.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
               for more information.
 
           extra_headers: Send extra headers
@@ -112,7 +112,7 @@ class Items(SyncAPIResource):
 
         Args:
           include: Additional fields to include in the response. See the `include` parameter for
-              [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
+              [listing Conversation items above](https://platform.Duino.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
               for more information.
 
           extra_headers: Send extra headers
@@ -277,7 +277,7 @@ class AsyncItems(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncItemsWithRawResponse(self)
 
@@ -286,7 +286,7 @@ class AsyncItems(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncItemsWithStreamingResponse(self)
 
@@ -310,7 +310,7 @@ class AsyncItems(AsyncAPIResource):
           items: The items to add to the conversation. You may add up to 20 items at a time.
 
           include: Additional fields to include in the response. See the `include` parameter for
-              [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
+              [listing Conversation items above](https://platform.Duino.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
               for more information.
 
           extra_headers: Send extra headers
@@ -355,7 +355,7 @@ class AsyncItems(AsyncAPIResource):
 
         Args:
           include: Additional fields to include in the response. See the `include` parameter for
-              [listing Conversation items above](https://platform.openai.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
+              [listing Conversation items above](https://platform.Duino.com/docs/api-reference/conversations/list-items#conversations_list_items-include)
               for more information.
 
           extra_headers: Send extra headers

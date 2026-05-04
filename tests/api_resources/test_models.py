@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import Model, ModelDeleted
 from duino.pagination import SyncPage, AsyncPage
@@ -19,14 +19,14 @@ class TestModels:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         model = client.models.retrieve(
             "gpt-4o-mini",
         )
         assert_matches_type(Model, model, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.models.with_raw_response.retrieve(
             "gpt-4o-mini",
         )
@@ -37,7 +37,7 @@ class TestModels:
         assert_matches_type(Model, model, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.models.with_streaming_response.retrieve(
             "gpt-4o-mini",
         ) as response:
@@ -50,19 +50,19 @@ class TestModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
             client.models.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         model = client.models.list()
         assert_matches_type(SyncPage[Model], model, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -71,7 +71,7 @@ class TestModels:
         assert_matches_type(SyncPage[Model], model, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -82,14 +82,14 @@ class TestModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         model = client.models.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         )
         assert_matches_type(ModelDeleted, model, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.models.with_raw_response.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         )
@@ -100,7 +100,7 @@ class TestModels:
         assert_matches_type(ModelDeleted, model, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.models.with_streaming_response.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         ) as response:
@@ -113,7 +113,7 @@ class TestModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
             client.models.with_raw_response.delete(
                 "",
@@ -126,14 +126,14 @@ class TestAsyncModels:
     )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         model = await async_client.models.retrieve(
             "gpt-4o-mini",
         )
         assert_matches_type(Model, model, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.models.with_raw_response.retrieve(
             "gpt-4o-mini",
         )
@@ -144,7 +144,7 @@ class TestAsyncModels:
         assert_matches_type(Model, model, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.models.with_streaming_response.retrieve(
             "gpt-4o-mini",
         ) as response:
@@ -157,19 +157,19 @@ class TestAsyncModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
             await async_client.models.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         model = await async_client.models.list()
         assert_matches_type(AsyncPage[Model], model, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -178,7 +178,7 @@ class TestAsyncModels:
         assert_matches_type(AsyncPage[Model], model, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -189,14 +189,14 @@ class TestAsyncModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         model = await async_client.models.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         )
         assert_matches_type(ModelDeleted, model, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.models.with_raw_response.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         )
@@ -207,7 +207,7 @@ class TestAsyncModels:
         assert_matches_type(ModelDeleted, model, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.models.with_streaming_response.delete(
             "ft:gpt-4o-mini:acemeco:suffix:abc123",
         ) as response:
@@ -220,7 +220,7 @@ class TestAsyncModels:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
             await async_client.models.with_raw_response.delete(
                 "",

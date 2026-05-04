@@ -34,7 +34,7 @@ class Sessions(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return SessionsWithRawResponse(self)
 
@@ -43,7 +43,7 @@ class Sessions(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return SessionsWithStreamingResponse(self)
 
@@ -86,7 +86,7 @@ class Sessions(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"OpenAI-Beta": "chatkit_beta=v1", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "chatkit_beta=v1", **(extra_headers or {})}
         return self._post(
             "/chatkit/sessions",
             body=maybe_transform(
@@ -136,7 +136,7 @@ class Sessions(SyncAPIResource):
         """
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        extra_headers = {"OpenAI-Beta": "chatkit_beta=v1", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "chatkit_beta=v1", **(extra_headers or {})}
         return self._post(
             path_template("/chatkit/sessions/{session_id}/cancel", session_id=session_id),
             options=make_request_options(
@@ -157,7 +157,7 @@ class AsyncSessions(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncSessionsWithRawResponse(self)
 
@@ -166,7 +166,7 @@ class AsyncSessions(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncSessionsWithStreamingResponse(self)
 
@@ -209,7 +209,7 @@ class AsyncSessions(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"OpenAI-Beta": "chatkit_beta=v1", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "chatkit_beta=v1", **(extra_headers or {})}
         return await self._post(
             "/chatkit/sessions",
             body=await async_maybe_transform(
@@ -259,7 +259,7 @@ class AsyncSessions(AsyncAPIResource):
         """
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        extra_headers = {"OpenAI-Beta": "chatkit_beta=v1", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "chatkit_beta=v1", **(extra_headers or {})}
         return await self._post(
             path_template("/chatkit/sessions/{session_id}/cancel", session_id=session_id),
             options=make_request_options(

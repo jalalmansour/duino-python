@@ -6,14 +6,14 @@ from duino import AsyncDuino
 from duino.helpers import Microphone
 
 # gets OPENAI_API_KEY from your environment variables
-openai = AsyncOpenAI()
+Duino = AsyncDuino()
 
 
 async def main() -> None:
     print("Recording for the next 10 seconds...")
     recording = await Microphone(timeout=10).record()
     print("Recording complete")
-    transcription = await openai.audio.transcriptions.create(
+    transcription = await Duino.audio.transcriptions.create(
         model="whisper-1",
         file=recording,
     )

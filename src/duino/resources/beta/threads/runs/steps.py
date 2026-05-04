@@ -32,7 +32,7 @@ class Steps(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return StepsWithRawResponse(self)
 
@@ -41,7 +41,7 @@ class Steps(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return StepsWithStreamingResponse(self)
 
@@ -69,7 +69,7 @@ class Steps(SyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           extra_headers: Send extra headers
@@ -86,7 +86,7 @@ class Steps(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get(
             path_template(
                 "/threads/{thread_id}/runs/{run_id}/steps/{step_id}",
@@ -142,7 +142,7 @@ class Steps(SyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
@@ -163,7 +163,7 @@ class Steps(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/threads/{thread_id}/runs/{run_id}/steps", thread_id=thread_id, run_id=run_id),
             page=SyncCursorPage[RunStep],
@@ -197,7 +197,7 @@ class AsyncSteps(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncStepsWithRawResponse(self)
 
@@ -206,7 +206,7 @@ class AsyncSteps(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncStepsWithStreamingResponse(self)
 
@@ -234,7 +234,7 @@ class AsyncSteps(AsyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           extra_headers: Send extra headers
@@ -251,7 +251,7 @@ class AsyncSteps(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         if not step_id:
             raise ValueError(f"Expected a non-empty value for `step_id` but received {step_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._get(
             path_template(
                 "/threads/{thread_id}/runs/{run_id}/steps/{step_id}",
@@ -307,7 +307,7 @@ class AsyncSteps(AsyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
@@ -328,7 +328,7 @@ class AsyncSteps(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/threads/{thread_id}/runs/{run_id}/steps", thread_id=thread_id, run_id=run_id),
             page=AsyncCursorPage[RunStep],

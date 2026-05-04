@@ -86,7 +86,7 @@ class CallAcceptParams(TypedDict, total=False):
     prompt: Optional[ResponsePromptParam]
     """
     Reference to a prompt template and its variables.
-    [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+    [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
     """
 
     tool_choice: RealtimeToolChoiceConfigParam
@@ -101,7 +101,7 @@ class CallAcceptParams(TypedDict, total=False):
     tracing: Optional[RealtimeTracingConfigParam]
     """
     Realtime API can write session traces to the
-    [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to
+    [Traces Dashboard](https://platform.Duino.com/logs?api=traces). Set to null to
     disable tracing. Once tracing is enabled for a session, the configuration cannot
     be modified.
 

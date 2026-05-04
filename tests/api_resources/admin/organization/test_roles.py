@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncNextCursorPage, AsyncNextCursorPage
 from duino.types.admin.organization import (
@@ -22,7 +22,7 @@ class TestRoles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         role = client.admin.organization.roles.create(
             permissions=["string"],
             role_name="role_name",
@@ -30,7 +30,7 @@ class TestRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         role = client.admin.organization.roles.create(
             permissions=["string"],
             role_name="role_name",
@@ -39,7 +39,7 @@ class TestRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.admin.organization.roles.with_raw_response.create(
             permissions=["string"],
             role_name="role_name",
@@ -51,7 +51,7 @@ class TestRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.admin.organization.roles.with_streaming_response.create(
             permissions=["string"],
             role_name="role_name",
@@ -65,14 +65,14 @@ class TestRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         role = client.admin.organization.roles.update(
             role_id="role_id",
         )
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: OpenAI) -> None:
+    def test_method_update_with_all_params(self, client: Duino) -> None:
         role = client.admin.organization.roles.update(
             role_id="role_id",
             description="description",
@@ -82,7 +82,7 @@ class TestRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.admin.organization.roles.with_raw_response.update(
             role_id="role_id",
         )
@@ -93,7 +93,7 @@ class TestRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.admin.organization.roles.with_streaming_response.update(
             role_id="role_id",
         ) as response:
@@ -106,19 +106,19 @@ class TestRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `role_id` but received ''"):
             client.admin.organization.roles.with_raw_response.update(
                 role_id="",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         role = client.admin.organization.roles.list()
         assert_matches_type(SyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         role = client.admin.organization.roles.list(
             after="after",
             limit=0,
@@ -127,7 +127,7 @@ class TestRoles:
         assert_matches_type(SyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.roles.with_raw_response.list()
 
         assert response.is_closed is True
@@ -136,7 +136,7 @@ class TestRoles:
         assert_matches_type(SyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.roles.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -147,14 +147,14 @@ class TestRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         role = client.admin.organization.roles.delete(
             "role_id",
         )
         assert_matches_type(RoleDeleteResponse, role, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.admin.organization.roles.with_raw_response.delete(
             "role_id",
         )
@@ -165,7 +165,7 @@ class TestRoles:
         assert_matches_type(RoleDeleteResponse, role, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.admin.organization.roles.with_streaming_response.delete(
             "role_id",
         ) as response:
@@ -178,7 +178,7 @@ class TestRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `role_id` but received ''"):
             client.admin.organization.roles.with_raw_response.delete(
                 "",
@@ -191,7 +191,7 @@ class TestAsyncRoles:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.create(
             permissions=["string"],
             role_name="role_name",
@@ -199,7 +199,7 @@ class TestAsyncRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.create(
             permissions=["string"],
             role_name="role_name",
@@ -208,7 +208,7 @@ class TestAsyncRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.roles.with_raw_response.create(
             permissions=["string"],
             role_name="role_name",
@@ -220,7 +220,7 @@ class TestAsyncRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.roles.with_streaming_response.create(
             permissions=["string"],
             role_name="role_name",
@@ -234,14 +234,14 @@ class TestAsyncRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.update(
             role_id="role_id",
         )
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.update(
             role_id="role_id",
             description="description",
@@ -251,7 +251,7 @@ class TestAsyncRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.roles.with_raw_response.update(
             role_id="role_id",
         )
@@ -262,7 +262,7 @@ class TestAsyncRoles:
         assert_matches_type(Role, role, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.roles.with_streaming_response.update(
             role_id="role_id",
         ) as response:
@@ -275,19 +275,19 @@ class TestAsyncRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `role_id` but received ''"):
             await async_client.admin.organization.roles.with_raw_response.update(
                 role_id="",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.list()
         assert_matches_type(AsyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.list(
             after="after",
             limit=0,
@@ -296,7 +296,7 @@ class TestAsyncRoles:
         assert_matches_type(AsyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.roles.with_raw_response.list()
 
         assert response.is_closed is True
@@ -305,7 +305,7 @@ class TestAsyncRoles:
         assert_matches_type(AsyncNextCursorPage[Role], role, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.roles.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -316,14 +316,14 @@ class TestAsyncRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         role = await async_client.admin.organization.roles.delete(
             "role_id",
         )
         assert_matches_type(RoleDeleteResponse, role, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.roles.with_raw_response.delete(
             "role_id",
         )
@@ -334,7 +334,7 @@ class TestAsyncRoles:
         assert_matches_type(RoleDeleteResponse, role, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.roles.with_streaming_response.delete(
             "role_id",
         ) as response:
@@ -347,7 +347,7 @@ class TestAsyncRoles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `role_id` but received ''"):
             await async_client.admin.organization.roles.with_raw_response.delete(
                 "",

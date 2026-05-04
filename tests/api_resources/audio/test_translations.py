@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.audio import TranslationCreateResponse
 
@@ -18,7 +18,7 @@ class TestTranslations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         translation = client.audio.translations.create(
             file=b"Example data",
             model="whisper-1",
@@ -26,7 +26,7 @@ class TestTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         translation = client.audio.translations.create(
             file=b"Example data",
             model="whisper-1",
@@ -37,7 +37,7 @@ class TestTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.audio.translations.with_raw_response.create(
             file=b"Example data",
             model="whisper-1",
@@ -49,7 +49,7 @@ class TestTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.audio.translations.with_streaming_response.create(
             file=b"Example data",
             model="whisper-1",
@@ -69,7 +69,7 @@ class TestAsyncTranslations:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         translation = await async_client.audio.translations.create(
             file=b"Example data",
             model="whisper-1",
@@ -77,7 +77,7 @@ class TestAsyncTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         translation = await async_client.audio.translations.create(
             file=b"Example data",
             model="whisper-1",
@@ -88,7 +88,7 @@ class TestAsyncTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.audio.translations.with_raw_response.create(
             file=b"Example data",
             model="whisper-1",
@@ -100,7 +100,7 @@ class TestAsyncTranslations:
         assert_matches_type(TranslationCreateResponse, translation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.audio.translations.with_streaming_response.create(
             file=b"Example data",
             model="whisper-1",

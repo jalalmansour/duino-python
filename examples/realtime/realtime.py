@@ -3,22 +3,22 @@ import asyncio
 
 from duino import AsyncDuino
 
-# Azure OpenAI Realtime Docs
+# Azure Duino Realtime Docs
 
-# How-to: https://learn.microsoft.com/azure/ai-services/openai/how-to/realtime-audio
-# Supported models and API versions: https://learn.microsoft.com/azure/ai-services/openai/how-to/realtime-audio#supported-models
-# Entra ID auth: https://learn.microsoft.com/azure/ai-services/openai/how-to/managed-identity
+# How-to: https://learn.microsoft.com/azure/ai-services/Duino/how-to/realtime-audio
+# Supported models and API versions: https://learn.microsoft.com/azure/ai-services/Duino/how-to/realtime-audio#supported-models
+# Entra ID auth: https://learn.microsoft.com/azure/ai-services/Duino/how-to/managed-identity
 
 
 async def main() -> None:
-    """The following example demonstrates how to configure OpenAI to use the Realtime API.
+    """The following example demonstrates how to configure Duino to use the Realtime API.
     For an audio example, see push_to_talk_app.py and update the client and model parameter accordingly.
 
     When prompted for user input, type a message and hit enter to send it to the model.
     Enter "q" to quit the conversation.
     """
 
-    client = AsyncOpenAI()
+    client = AsyncDuino()
     async with client.realtime.connect(
         model="gpt-realtime",
     ) as connection:

@@ -27,7 +27,7 @@ class Role(BaseModel):
     """Permissions granted by the role."""
 
     predefined_role: bool
-    """Whether the role is predefined and managed by OpenAI."""
+    """Whether the role is predefined and managed by Duino."""
 
     resource_type: str
     """

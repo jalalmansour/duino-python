@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import ImagesResponse
 
@@ -18,14 +18,14 @@ class TestImages:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_variation(self, client: OpenAI) -> None:
+    def test_method_create_variation(self, client: Duino) -> None:
         image = client.images.create_variation(
             image=b"Example data",
         )
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_method_create_variation_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_variation_with_all_params(self, client: Duino) -> None:
         image = client.images.create_variation(
             image=b"Example data",
             model="gpt-image-1.5",
@@ -37,7 +37,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_raw_response_create_variation(self, client: OpenAI) -> None:
+    def test_raw_response_create_variation(self, client: Duino) -> None:
         response = client.images.with_raw_response.create_variation(
             image=b"Example data",
         )
@@ -48,7 +48,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_variation(self, client: OpenAI) -> None:
+    def test_streaming_response_create_variation(self, client: Duino) -> None:
         with client.images.with_streaming_response.create_variation(
             image=b"Example data",
         ) as response:
@@ -61,7 +61,7 @@ class TestImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_edit_overload_1(self, client: OpenAI) -> None:
+    def test_method_edit_overload_1(self, client: Duino) -> None:
         image = client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -69,7 +69,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_method_edit_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_edit_with_all_params_overload_1(self, client: Duino) -> None:
         image = client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -90,7 +90,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_raw_response_edit_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_edit_overload_1(self, client: Duino) -> None:
         response = client.images.with_raw_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -102,7 +102,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_streaming_response_edit_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_edit_overload_1(self, client: Duino) -> None:
         with client.images.with_streaming_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -116,7 +116,7 @@ class TestImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_edit_overload_2(self, client: OpenAI) -> None:
+    def test_method_edit_overload_2(self, client: Duino) -> None:
         image_stream = client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -125,7 +125,7 @@ class TestImages:
         image_stream.response.close()
 
     @parametrize
-    def test_method_edit_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_edit_with_all_params_overload_2(self, client: Duino) -> None:
         image_stream = client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -146,7 +146,7 @@ class TestImages:
         image_stream.response.close()
 
     @parametrize
-    def test_raw_response_edit_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_edit_overload_2(self, client: Duino) -> None:
         response = client.images.with_raw_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -158,7 +158,7 @@ class TestImages:
         stream.close()
 
     @parametrize
-    def test_streaming_response_edit_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_edit_overload_2(self, client: Duino) -> None:
         with client.images.with_streaming_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -173,14 +173,14 @@ class TestImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_generate_overload_1(self, client: OpenAI) -> None:
+    def test_method_generate_overload_1(self, client: Duino) -> None:
         image = client.images.generate(
             prompt="A cute baby sea otter",
         )
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_method_generate_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_generate_with_all_params_overload_1(self, client: Duino) -> None:
         image = client.images.generate(
             prompt="A cute baby sea otter",
             background="transparent",
@@ -200,7 +200,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_raw_response_generate_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_generate_overload_1(self, client: Duino) -> None:
         response = client.images.with_raw_response.generate(
             prompt="A cute baby sea otter",
         )
@@ -211,7 +211,7 @@ class TestImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    def test_streaming_response_generate_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_generate_overload_1(self, client: Duino) -> None:
         with client.images.with_streaming_response.generate(
             prompt="A cute baby sea otter",
         ) as response:
@@ -224,7 +224,7 @@ class TestImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_generate_overload_2(self, client: OpenAI) -> None:
+    def test_method_generate_overload_2(self, client: Duino) -> None:
         image_stream = client.images.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -232,7 +232,7 @@ class TestImages:
         image_stream.response.close()
 
     @parametrize
-    def test_method_generate_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_generate_with_all_params_overload_2(self, client: Duino) -> None:
         image_stream = client.images.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -252,7 +252,7 @@ class TestImages:
         image_stream.response.close()
 
     @parametrize
-    def test_raw_response_generate_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_generate_overload_2(self, client: Duino) -> None:
         response = client.images.with_raw_response.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -263,7 +263,7 @@ class TestImages:
         stream.close()
 
     @parametrize
-    def test_streaming_response_generate_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_generate_overload_2(self, client: Duino) -> None:
         with client.images.with_streaming_response.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -283,14 +283,14 @@ class TestAsyncImages:
     )
 
     @parametrize
-    async def test_method_create_variation(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_variation(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.create_variation(
             image=b"Example data",
         )
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_method_create_variation_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_variation_with_all_params(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.create_variation(
             image=b"Example data",
             model="gpt-image-1.5",
@@ -302,7 +302,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_variation(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_variation(self, async_client: AsyncDuino) -> None:
         response = await async_client.images.with_raw_response.create_variation(
             image=b"Example data",
         )
@@ -313,7 +313,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_variation(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_variation(self, async_client: AsyncDuino) -> None:
         async with async_client.images.with_streaming_response.create_variation(
             image=b"Example data",
         ) as response:
@@ -326,7 +326,7 @@ class TestAsyncImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_edit_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_edit_overload_1(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -334,7 +334,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_method_edit_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_edit_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -355,7 +355,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_raw_response_edit_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_edit_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.images.with_raw_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -367,7 +367,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_streaming_response_edit_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_edit_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.images.with_streaming_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -381,7 +381,7 @@ class TestAsyncImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_edit_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_edit_overload_2(self, async_client: AsyncDuino) -> None:
         image_stream = await async_client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -390,7 +390,7 @@ class TestAsyncImages:
         await image_stream.response.aclose()
 
     @parametrize
-    async def test_method_edit_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_edit_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         image_stream = await async_client.images.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -411,7 +411,7 @@ class TestAsyncImages:
         await image_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_edit_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_edit_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.images.with_raw_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -423,7 +423,7 @@ class TestAsyncImages:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_edit_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_edit_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.images.with_streaming_response.edit(
             image=b"Example data",
             prompt="A cute baby sea otter wearing a beret",
@@ -438,14 +438,14 @@ class TestAsyncImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_generate_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_generate_overload_1(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.generate(
             prompt="A cute baby sea otter",
         )
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_method_generate_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_generate_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         image = await async_client.images.generate(
             prompt="A cute baby sea otter",
             background="transparent",
@@ -465,7 +465,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_raw_response_generate_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_generate_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.images.with_raw_response.generate(
             prompt="A cute baby sea otter",
         )
@@ -476,7 +476,7 @@ class TestAsyncImages:
         assert_matches_type(ImagesResponse, image, path=["response"])
 
     @parametrize
-    async def test_streaming_response_generate_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_generate_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.images.with_streaming_response.generate(
             prompt="A cute baby sea otter",
         ) as response:
@@ -489,7 +489,7 @@ class TestAsyncImages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_generate_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_generate_overload_2(self, async_client: AsyncDuino) -> None:
         image_stream = await async_client.images.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -497,7 +497,7 @@ class TestAsyncImages:
         await image_stream.response.aclose()
 
     @parametrize
-    async def test_method_generate_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_generate_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         image_stream = await async_client.images.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -517,7 +517,7 @@ class TestAsyncImages:
         await image_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_generate_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_generate_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.images.with_raw_response.generate(
             prompt="A cute baby sea otter",
             stream=True,
@@ -528,7 +528,7 @@ class TestAsyncImages:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_generate_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_generate_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.images.with_streaming_response.generate(
             prompt="A cute baby sea otter",
             stream=True,

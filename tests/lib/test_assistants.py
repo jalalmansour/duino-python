@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from duino._utils import assert_signatures_in_sync
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_create_and_run_poll_method_definition_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_create_and_run_poll_method_definition_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.beta.threads.create_and_run,  # pyright: ignore[reportDeprecated]
@@ -18,8 +18,8 @@ def test_create_and_run_poll_method_definition_in_sync(sync: bool, client: OpenA
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_create_and_run_stream_method_definition_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_create_and_run_stream_method_definition_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.beta.threads.create_and_run,  # pyright: ignore[reportDeprecated]
@@ -29,8 +29,8 @@ def test_create_and_run_stream_method_definition_in_sync(sync: bool, client: Ope
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_run_stream_method_definition_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_run_stream_method_definition_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.beta.threads.runs.create,  # pyright: ignore[reportDeprecated]
@@ -40,8 +40,8 @@ def test_run_stream_method_definition_in_sync(sync: bool, client: OpenAI, async_
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_create_and_poll_method_definition_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_create_and_poll_method_definition_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.beta.threads.runs.create,  # pyright: ignore[reportDeprecated]

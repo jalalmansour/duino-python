@@ -52,7 +52,7 @@ def migrate(args: MigrateArgs) -> None:
     grit_path = install()
 
     try:
-        subprocess.check_call([grit_path, "apply", "openai", *args.unknown_args])
+        subprocess.check_call([grit_path, "apply", "Duino", *args.unknown_args])
     except subprocess.CalledProcessError:
         # stdout and stderr are forwarded by subprocess so an error will already
         # have been displayed
@@ -88,7 +88,7 @@ def install() -> Path:
 
     platform = "apple-darwin" if sys.platform == "darwin" else "unknown-linux-gnu"
 
-    dir_name = _cache_dir() / "openai-python"
+    dir_name = _cache_dir() / "Duino-python"
     install_dir = dir_name / ".install"
     target_dir = install_dir / "bin"
 

@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncCursorPage, AsyncCursorPage
 from duino.types.fine_tuning import (
@@ -22,7 +22,7 @@ class TestJobs:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -30,7 +30,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -94,7 +94,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -106,7 +106,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -120,14 +120,14 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -138,7 +138,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -151,19 +151,19 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             client.fine_tuning.jobs.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.list()
         assert_matches_type(SyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.list(
             after="string",
             limit=0,
@@ -172,7 +172,7 @@ class TestJobs:
         assert_matches_type(SyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -181,7 +181,7 @@ class TestJobs:
         assert_matches_type(SyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -192,14 +192,14 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_cancel(self, client: OpenAI) -> None:
+    def test_method_cancel(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: OpenAI) -> None:
+    def test_raw_response_cancel(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -210,7 +210,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: OpenAI) -> None:
+    def test_streaming_response_cancel(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -223,21 +223,21 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: OpenAI) -> None:
+    def test_path_params_cancel(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             client.fine_tuning.jobs.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    def test_method_list_events(self, client: OpenAI) -> None:
+    def test_method_list_events(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(SyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    def test_method_list_events_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_events_with_all_params(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
             after="string",
@@ -246,7 +246,7 @@ class TestJobs:
         assert_matches_type(SyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    def test_raw_response_list_events(self, client: OpenAI) -> None:
+    def test_raw_response_list_events(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -257,7 +257,7 @@ class TestJobs:
         assert_matches_type(SyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    def test_streaming_response_list_events(self, client: OpenAI) -> None:
+    def test_streaming_response_list_events(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -270,21 +270,21 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list_events(self, client: OpenAI) -> None:
+    def test_path_params_list_events(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             client.fine_tuning.jobs.with_raw_response.list_events(
                 "",
             )
 
     @parametrize
-    def test_method_pause(self, client: OpenAI) -> None:
+    def test_method_pause(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_raw_response_pause(self, client: OpenAI) -> None:
+    def test_raw_response_pause(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -295,7 +295,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_streaming_response_pause(self, client: OpenAI) -> None:
+    def test_streaming_response_pause(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -308,21 +308,21 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_pause(self, client: OpenAI) -> None:
+    def test_path_params_pause(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             client.fine_tuning.jobs.with_raw_response.pause(
                 "",
             )
 
     @parametrize
-    def test_method_resume(self, client: OpenAI) -> None:
+    def test_method_resume(self, client: Duino) -> None:
         job = client.fine_tuning.jobs.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_raw_response_resume(self, client: OpenAI) -> None:
+    def test_raw_response_resume(self, client: Duino) -> None:
         response = client.fine_tuning.jobs.with_raw_response.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -333,7 +333,7 @@ class TestJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    def test_streaming_response_resume(self, client: OpenAI) -> None:
+    def test_streaming_response_resume(self, client: Duino) -> None:
         with client.fine_tuning.jobs.with_streaming_response.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -346,7 +346,7 @@ class TestJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_resume(self, client: OpenAI) -> None:
+    def test_path_params_resume(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             client.fine_tuning.jobs.with_raw_response.resume(
                 "",
@@ -359,7 +359,7 @@ class TestAsyncJobs:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -367,7 +367,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -431,7 +431,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -443,7 +443,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.create(
             model="gpt-4o-mini",
             training_file="file-abc123",
@@ -457,14 +457,14 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -475,7 +475,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.retrieve(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -488,19 +488,19 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             await async_client.fine_tuning.jobs.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.list()
         assert_matches_type(AsyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.list(
             after="string",
             limit=0,
@@ -509,7 +509,7 @@ class TestAsyncJobs:
         assert_matches_type(AsyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -518,7 +518,7 @@ class TestAsyncJobs:
         assert_matches_type(AsyncCursorPage[FineTuningJob], job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -529,14 +529,14 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_cancel(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -547,7 +547,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.cancel(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -560,21 +560,21 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             await async_client.fine_tuning.jobs.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    async def test_method_list_events(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_events(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(AsyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    async def test_method_list_events_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_events_with_all_params(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
             after="string",
@@ -583,7 +583,7 @@ class TestAsyncJobs:
         assert_matches_type(AsyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    async def test_raw_response_list_events(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list_events(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -594,7 +594,7 @@ class TestAsyncJobs:
         assert_matches_type(AsyncCursorPage[FineTuningJobEvent], job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list_events(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list_events(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.list_events(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -607,21 +607,21 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list_events(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list_events(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             await async_client.fine_tuning.jobs.with_raw_response.list_events(
                 "",
             )
 
     @parametrize
-    async def test_method_pause(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_pause(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_raw_response_pause(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_pause(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -632,7 +632,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_pause(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_pause(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.pause(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -645,21 +645,21 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_pause(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_pause(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             await async_client.fine_tuning.jobs.with_raw_response.pause(
                 "",
             )
 
     @parametrize
-    async def test_method_resume(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_resume(self, async_client: AsyncDuino) -> None:
         job = await async_client.fine_tuning.jobs.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_raw_response_resume(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_resume(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.jobs.with_raw_response.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -670,7 +670,7 @@ class TestAsyncJobs:
         assert_matches_type(FineTuningJob, job, path=["response"])
 
     @parametrize
-    async def test_streaming_response_resume(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_resume(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.jobs.with_streaming_response.resume(
             "ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -683,7 +683,7 @@ class TestAsyncJobs:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_resume(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_resume(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `fine_tuning_job_id` but received ''"):
             await async_client.fine_tuning.jobs.with_raw_response.resume(
                 "",

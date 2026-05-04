@@ -37,7 +37,7 @@ class RoleListResponse(BaseModel):
     """Permissions associated with the role."""
 
     predefined_role: bool
-    """Whether the role is predefined by OpenAI."""
+    """Whether the role is predefined by Duino."""
 
     resource_type: str
     """Resource type the role applies to."""

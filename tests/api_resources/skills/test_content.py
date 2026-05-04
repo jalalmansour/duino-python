@@ -10,7 +10,7 @@ import pytest
 from respx import MockRouter
 
 import duino._legacy_response as _legacy_response
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 
 # pyright: reportDeprecated=false
@@ -23,7 +23,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         content = client.skills.content.retrieve(
             "skill_123",
@@ -33,7 +33,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_raw_response_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.skills.content.with_raw_response.retrieve(
@@ -47,7 +47,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_streaming_response_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.skills.content.with_streaming_response.retrieve(
             "skill_123",
@@ -62,7 +62,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             client.skills.content.with_raw_response.retrieve(
                 "",
@@ -76,7 +76,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         content = await async_client.skills.content.retrieve(
             "skill_123",
@@ -86,7 +86,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.skills.content.with_raw_response.retrieve(
@@ -100,7 +100,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/skills/skill_123/content").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.skills.content.with_streaming_response.retrieve(
             "skill_123",
@@ -115,7 +115,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             await async_client.skills.content.with_raw_response.retrieve(
                 "",

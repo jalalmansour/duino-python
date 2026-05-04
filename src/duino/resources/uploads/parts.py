@@ -29,7 +29,7 @@ class Parts(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return PartsWithRawResponse(self)
 
@@ -38,7 +38,7 @@ class Parts(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return PartsWithStreamingResponse(self)
 
@@ -56,8 +56,8 @@ class Parts(SyncAPIResource):
     ) -> UploadPart:
         """
         Adds a
-        [Part](https://platform.openai.com/docs/api-reference/uploads/part-object) to an
-        [Upload](https://platform.openai.com/docs/api-reference/uploads/object) object.
+        [Part](https://platform.Duino.com/docs/api-reference/uploads/part-object) to an
+        [Upload](https://platform.Duino.com/docs/api-reference/uploads/object) object.
         A Part represents a chunk of bytes from the file you are trying to upload.
 
         Each Part can be at most 64 MB, and you can add Parts until you hit the Upload
@@ -65,7 +65,7 @@ class Parts(SyncAPIResource):
 
         It is possible to add multiple Parts in parallel. You can decide the intended
         order of the Parts when you
-        [complete the Upload](https://platform.openai.com/docs/api-reference/uploads/complete).
+        [complete the Upload](https://platform.Duino.com/docs/api-reference/uploads/complete).
 
         Args:
           data: The chunk of bytes for this Part.
@@ -110,7 +110,7 @@ class AsyncParts(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncPartsWithRawResponse(self)
 
@@ -119,7 +119,7 @@ class AsyncParts(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncPartsWithStreamingResponse(self)
 
@@ -137,8 +137,8 @@ class AsyncParts(AsyncAPIResource):
     ) -> UploadPart:
         """
         Adds a
-        [Part](https://platform.openai.com/docs/api-reference/uploads/part-object) to an
-        [Upload](https://platform.openai.com/docs/api-reference/uploads/object) object.
+        [Part](https://platform.Duino.com/docs/api-reference/uploads/part-object) to an
+        [Upload](https://platform.Duino.com/docs/api-reference/uploads/object) object.
         A Part represents a chunk of bytes from the file you are trying to upload.
 
         Each Part can be at most 64 MB, and you can add Parts until you hit the Upload
@@ -146,7 +146,7 @@ class AsyncParts(AsyncAPIResource):
 
         It is possible to add multiple Parts in parallel. You can decide the intended
         order of the Parts when you
-        [complete the Upload](https://platform.openai.com/docs/api-reference/uploads/complete).
+        [complete the Upload](https://platform.Duino.com/docs/api-reference/uploads/complete).
 
         Args:
           data: The chunk of bytes for this Part.

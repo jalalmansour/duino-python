@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncPage, AsyncPage, SyncConversationCursorPage, AsyncConversationCursorPage
 from duino.types.fine_tuning.checkpoints import (
@@ -26,7 +26,7 @@ class TestPermissions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         permission = client.fine_tuning.checkpoints.permissions.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -34,7 +34,7 @@ class TestPermissions:
         assert_matches_type(SyncPage[PermissionCreateResponse], permission, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.fine_tuning.checkpoints.permissions.with_raw_response.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -46,7 +46,7 @@ class TestPermissions:
         assert_matches_type(SyncPage[PermissionCreateResponse], permission, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.fine_tuning.checkpoints.permissions.with_streaming_response.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -60,7 +60,7 @@ class TestPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create(self, client: OpenAI) -> None:
+    def test_path_params_create(self, client: Duino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):
@@ -70,7 +70,7 @@ class TestPermissions:
             )
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             permission = client.fine_tuning.checkpoints.permissions.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -79,7 +79,7 @@ class TestPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    def test_method_retrieve_with_all_params(self, client: OpenAI) -> None:
+    def test_method_retrieve_with_all_params(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             permission = client.fine_tuning.checkpoints.permissions.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -92,7 +92,7 @@ class TestPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.fine_tuning.checkpoints.permissions.with_raw_response.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -104,7 +104,7 @@ class TestPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.fine_tuning.checkpoints.permissions.with_streaming_response.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -118,7 +118,7 @@ class TestPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(
                 ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
@@ -128,14 +128,14 @@ class TestPermissions:
                 )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         permission = client.fine_tuning.checkpoints.permissions.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(SyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         permission = client.fine_tuning.checkpoints.permissions.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
             after="after",
@@ -146,7 +146,7 @@ class TestPermissions:
         assert_matches_type(SyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.fine_tuning.checkpoints.permissions.with_raw_response.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -157,7 +157,7 @@ class TestPermissions:
         assert_matches_type(SyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.fine_tuning.checkpoints.permissions.with_streaming_response.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -170,7 +170,7 @@ class TestPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list(self, client: OpenAI) -> None:
+    def test_path_params_list(self, client: Duino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):
@@ -179,7 +179,7 @@ class TestPermissions:
             )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         permission = client.fine_tuning.checkpoints.permissions.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -187,7 +187,7 @@ class TestPermissions:
         assert_matches_type(PermissionDeleteResponse, permission, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.fine_tuning.checkpoints.permissions.with_raw_response.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -199,7 +199,7 @@ class TestPermissions:
         assert_matches_type(PermissionDeleteResponse, permission, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.fine_tuning.checkpoints.permissions.with_streaming_response.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -213,7 +213,7 @@ class TestPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):
@@ -235,7 +235,7 @@ class TestAsyncPermissions:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         permission = await async_client.fine_tuning.checkpoints.permissions.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -243,7 +243,7 @@ class TestAsyncPermissions:
         assert_matches_type(AsyncPage[PermissionCreateResponse], permission, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.checkpoints.permissions.with_raw_response.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -255,7 +255,7 @@ class TestAsyncPermissions:
         assert_matches_type(AsyncPage[PermissionCreateResponse], permission, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.checkpoints.permissions.with_streaming_response.create(
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
             project_ids=["string"],
@@ -269,7 +269,7 @@ class TestAsyncPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_create(self, async_client: AsyncDuino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):
@@ -279,7 +279,7 @@ class TestAsyncPermissions:
             )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             permission = await async_client.fine_tuning.checkpoints.permissions.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -288,7 +288,7 @@ class TestAsyncPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             permission = await async_client.fine_tuning.checkpoints.permissions.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -301,7 +301,7 @@ class TestAsyncPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.fine_tuning.checkpoints.permissions.with_raw_response.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -313,7 +313,7 @@ class TestAsyncPermissions:
         assert_matches_type(PermissionRetrieveResponse, permission, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.fine_tuning.checkpoints.permissions.with_streaming_response.retrieve(
                 fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
@@ -327,7 +327,7 @@ class TestAsyncPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(
                 ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
@@ -337,14 +337,14 @@ class TestAsyncPermissions:
                 )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         permission = await async_client.fine_tuning.checkpoints.permissions.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
         assert_matches_type(AsyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         permission = await async_client.fine_tuning.checkpoints.permissions.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
             after="after",
@@ -355,7 +355,7 @@ class TestAsyncPermissions:
         assert_matches_type(AsyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.checkpoints.permissions.with_raw_response.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         )
@@ -366,7 +366,7 @@ class TestAsyncPermissions:
         assert_matches_type(AsyncConversationCursorPage[PermissionListResponse], permission, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.checkpoints.permissions.with_streaming_response.list(
             fine_tuned_model_checkpoint="ft-AF1WoRqd3aJAHsqc9NY7iL8F",
         ) as response:
@@ -379,7 +379,7 @@ class TestAsyncPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list(self, async_client: AsyncDuino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):
@@ -388,7 +388,7 @@ class TestAsyncPermissions:
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         permission = await async_client.fine_tuning.checkpoints.permissions.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -396,7 +396,7 @@ class TestAsyncPermissions:
         assert_matches_type(PermissionDeleteResponse, permission, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.fine_tuning.checkpoints.permissions.with_raw_response.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -408,7 +408,7 @@ class TestAsyncPermissions:
         assert_matches_type(PermissionDeleteResponse, permission, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.fine_tuning.checkpoints.permissions.with_streaming_response.delete(
             permission_id="cp_zc4Q7MP6XxulcVzj4MZdwsAB",
             fine_tuned_model_checkpoint="ft:gpt-4o-mini-2024-07-18:org:weather:B7R9VjQd",
@@ -422,7 +422,7 @@ class TestAsyncPermissions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(
             ValueError, match=r"Expected a non-empty value for `fine_tuned_model_checkpoint` but received ''"
         ):

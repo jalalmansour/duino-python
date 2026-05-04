@@ -9,17 +9,17 @@ import httpx
 from respx import MockRouter
 from inline_snapshot import get_snapshot_value
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 
 _T = TypeVar("_T")
 
 
 def make_snapshot_request(
-    func: Callable[[OpenAI], _T],
+    func: Callable[[Duino], _T],
     *,
     content_snapshot: Any,
     respx_mock: MockRouter,
-    mock_client: OpenAI,
+    mock_client: Duino,
     path: str,
 ) -> _T:
     live = os.environ.get("OPENAI_LIVE") == "1"
@@ -31,7 +31,7 @@ def make_snapshot_request(
 
         respx_mock.stop()
 
-        client = OpenAI(
+        client = Duino(
             http_client=httpx.Client(
                 event_hooks={
                     "response": [_on_response],
@@ -58,11 +58,11 @@ def make_snapshot_request(
 
 
 async def make_async_snapshot_request(
-    func: Callable[[AsyncOpenAI], Awaitable[_T]],
+    func: Callable[[AsyncDuino], Awaitable[_T]],
     *,
     content_snapshot: Any,
     respx_mock: MockRouter,
-    mock_client: AsyncOpenAI,
+    mock_client: AsyncDuino,
     path: str,
 ) -> _T:
     live = os.environ.get("OPENAI_LIVE") == "1"
@@ -74,7 +74,7 @@ async def make_async_snapshot_request(
 
         respx_mock.stop()
 
-        client = AsyncOpenAI(
+        client = AsyncDuino(
             http_client=httpx.AsyncClient(
                 event_hooks={
                     "response": [_on_response],

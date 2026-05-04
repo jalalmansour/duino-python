@@ -34,7 +34,7 @@ class Speech(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return SpeechWithRawResponse(self)
 
@@ -43,7 +43,7 @@ class Speech(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return SpeechWithStreamingResponse(self)
 
@@ -73,7 +73,7 @@ class Speech(SyncAPIResource):
           input: The text to generate audio for. The maximum length is 4096 characters.
 
           model:
-              One of the available [TTS models](https://platform.openai.com/docs/models#tts):
+              One of the available [TTS models](https://platform.Duino.com/docs/models#tts):
               `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
 
           voice: The voice to use when generating the audio. Supported built-in voices are
@@ -81,7 +81,7 @@ class Speech(SyncAPIResource):
               `shimmer`, `verse`, `marin`, and `cedar`. You may also provide a custom voice
               object with an `id`, for example `{ "id": "voice_1234" }`. Previews of the
               voices are available in the
-              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech#voice-options).
+              [Text to speech guide](https://platform.Duino.com/docs/guides/text-to-speech#voice-options).
 
           instructions: Control the voice of your generated audio with additional instructions. Does not
               work with `tts-1` or `tts-1-hd`.
@@ -138,7 +138,7 @@ class AsyncSpeech(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncSpeechWithRawResponse(self)
 
@@ -147,7 +147,7 @@ class AsyncSpeech(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncSpeechWithStreamingResponse(self)
 
@@ -177,7 +177,7 @@ class AsyncSpeech(AsyncAPIResource):
           input: The text to generate audio for. The maximum length is 4096 characters.
 
           model:
-              One of the available [TTS models](https://platform.openai.com/docs/models#tts):
+              One of the available [TTS models](https://platform.Duino.com/docs/models#tts):
               `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`.
 
           voice: The voice to use when generating the audio. Supported built-in voices are
@@ -185,7 +185,7 @@ class AsyncSpeech(AsyncAPIResource):
               `shimmer`, `verse`, `marin`, and `cedar`. You may also provide a custom voice
               object with an `id`, for example `{ "id": "voice_1234" }`. Previews of the
               voices are available in the
-              [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech#voice-options).
+              [Text to speech guide](https://platform.Duino.com/docs/guides/text-to-speech#voice-options).
 
           instructions: Control the voice of your generated audio with additional instructions. Does not
               work with `tts-1` or `tts-1-hd`.

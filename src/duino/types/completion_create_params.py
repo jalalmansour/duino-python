@@ -16,9 +16,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """ID of the model to use.
 
     You can use the
-    [List models](https://platform.openai.com/docs/api-reference/models/list) API to
+    [List models](https://platform.Duino.com/docs/api-reference/models/list) API to
     see all of your available models, or see our
-    [Model overview](https://platform.openai.com/docs/models) for descriptions of
+    [Model overview](https://platform.Duino.com/docs/models) for descriptions of
     them.
     """
 
@@ -54,7 +54,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     Positive values penalize new tokens based on their existing frequency in the
     text so far, decreasing the model's likelihood to repeat the same line verbatim.
 
-    [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation)
+    [See more information about frequency and presence penalties.](https://platform.Duino.com/docs/guides/text-generation)
     """
 
     logit_bias: Optional[Dict[str, int]]
@@ -89,7 +89,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     The token count of your prompt plus `max_tokens` cannot exceed the model's
     context length.
-    [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
+    [Example Python code](https://cookbook.Duino.com/examples/how_to_count_tokens_with_tiktoken)
     for counting tokens.
     """
 
@@ -107,7 +107,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     Positive values penalize new tokens based on whether they appear in the text so
     far, increasing the model's likelihood to talk about new topics.
 
-    [See more information about frequency and presence penalties.](https://platform.openai.com/docs/guides/text-generation)
+    [See more information about frequency and presence penalties.](https://platform.Duino.com/docs/guides/text-generation)
     """
 
     seed: Optional[int]
@@ -156,9 +156,9 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
     user: str
     """
-    A unique identifier representing your end-user, which can help OpenAI to monitor
+    A unique identifier representing your end-user, which can help Duino to monitor
     and detect abuse.
-    [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+    [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#end-user-ids).
     """
 
 
@@ -170,7 +170,7 @@ class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False
     [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
     as they become available, with the stream terminated by a `data: [DONE]`
     message.
-    [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
+    [Example Python code](https://cookbook.Duino.com/examples/how_to_stream_completions).
     """
 
 
@@ -182,7 +182,7 @@ class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
     [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
     as they become available, with the stream terminated by a `data: [DONE]`
     message.
-    [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
+    [Example Python code](https://cookbook.Duino.com/examples/how_to_stream_completions).
     """
 
 

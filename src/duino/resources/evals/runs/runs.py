@@ -35,11 +35,11 @@ __all__ = ["Runs", "AsyncRuns"]
 
 
 class Runs(SyncAPIResource):
-    """Manage and run evals in the OpenAI platform."""
+    """Manage and run evals in the Duino platform."""
 
     @cached_property
     def output_items(self) -> OutputItems:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return OutputItems(self._client)
 
     @cached_property
@@ -48,7 +48,7 @@ class Runs(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return RunsWithRawResponse(self)
 
@@ -57,7 +57,7 @@ class Runs(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return RunsWithStreamingResponse(self)
 
@@ -305,11 +305,11 @@ class Runs(SyncAPIResource):
 
 
 class AsyncRuns(AsyncAPIResource):
-    """Manage and run evals in the OpenAI platform."""
+    """Manage and run evals in the Duino platform."""
 
     @cached_property
     def output_items(self) -> AsyncOutputItems:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncOutputItems(self._client)
 
     @cached_property
@@ -318,7 +318,7 @@ class AsyncRuns(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncRunsWithRawResponse(self)
 
@@ -327,7 +327,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncRunsWithStreamingResponse(self)
 
@@ -596,7 +596,7 @@ class RunsWithRawResponse:
 
     @cached_property
     def output_items(self) -> OutputItemsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return OutputItemsWithRawResponse(self._runs.output_items)
 
 
@@ -622,7 +622,7 @@ class AsyncRunsWithRawResponse:
 
     @cached_property
     def output_items(self) -> AsyncOutputItemsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncOutputItemsWithRawResponse(self._runs.output_items)
 
 
@@ -648,7 +648,7 @@ class RunsWithStreamingResponse:
 
     @cached_property
     def output_items(self) -> OutputItemsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return OutputItemsWithStreamingResponse(self._runs.output_items)
 
 
@@ -674,5 +674,5 @@ class AsyncRunsWithStreamingResponse:
 
     @cached_property
     def output_items(self) -> AsyncOutputItemsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncOutputItemsWithStreamingResponse(self._runs.output_items)

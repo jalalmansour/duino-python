@@ -118,7 +118,7 @@ class ChatCompletionChunk(BaseModel):
     """
     Represents a streamed chunk of a chat completion response returned
     by the model, based on the provided input.
-    [Learn more](https://platform.openai.com/docs/guides/streaming-responses).
+    [Learn more](https://platform.Duino.com/docs/guides/streaming-responses).
     """
 
     id: str
@@ -151,8 +151,8 @@ class ChatCompletionChunk(BaseModel):
       will use 'default'.
     - If set to 'default', then the request will be processed with the standard
       pricing and performance for the selected model.
-    - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-      '[priority](https://openai.com/api-priority-processing/)', then the request
+    - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+      '[priority](https://Duino.com/api-priority-processing/)', then the request
       will be processed with the corresponding service tier.
     - When not set, the default behavior is 'auto'.
 

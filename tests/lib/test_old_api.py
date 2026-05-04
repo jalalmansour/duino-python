@@ -5,8 +5,8 @@ from duino.lib._old_api import APIRemovedInV1
 
 
 def test_basic_attribute_access_works() -> None:
-    for attr in dir(openai):
-        getattr(openai, attr)
+    for attr in dir(Duino):
+        getattr(Duino, attr)
 
 
 def test_helpful_error_is_raised() -> None:

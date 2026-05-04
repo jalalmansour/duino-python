@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncNextCursorPage, AsyncNextCursorPage
 from duino.types.admin.organization import (
@@ -23,14 +23,14 @@ class TestGroups:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         group = client.admin.organization.groups.create(
             name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.admin.organization.groups.with_raw_response.create(
             name="x",
         )
@@ -41,7 +41,7 @@ class TestGroups:
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.admin.organization.groups.with_streaming_response.create(
             name="x",
         ) as response:
@@ -54,7 +54,7 @@ class TestGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         group = client.admin.organization.groups.update(
             group_id="group_id",
             name="x",
@@ -62,7 +62,7 @@ class TestGroups:
         assert_matches_type(GroupUpdateResponse, group, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.admin.organization.groups.with_raw_response.update(
             group_id="group_id",
             name="x",
@@ -74,7 +74,7 @@ class TestGroups:
         assert_matches_type(GroupUpdateResponse, group, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.admin.organization.groups.with_streaming_response.update(
             group_id="group_id",
             name="x",
@@ -88,7 +88,7 @@ class TestGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.admin.organization.groups.with_raw_response.update(
                 group_id="",
@@ -96,12 +96,12 @@ class TestGroups:
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         group = client.admin.organization.groups.list()
         assert_matches_type(SyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         group = client.admin.organization.groups.list(
             after="after",
             limit=0,
@@ -110,7 +110,7 @@ class TestGroups:
         assert_matches_type(SyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.groups.with_raw_response.list()
 
         assert response.is_closed is True
@@ -119,7 +119,7 @@ class TestGroups:
         assert_matches_type(SyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.groups.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -130,14 +130,14 @@ class TestGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         group = client.admin.organization.groups.delete(
             "group_id",
         )
         assert_matches_type(GroupDeleteResponse, group, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.admin.organization.groups.with_raw_response.delete(
             "group_id",
         )
@@ -148,7 +148,7 @@ class TestGroups:
         assert_matches_type(GroupDeleteResponse, group, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.admin.organization.groups.with_streaming_response.delete(
             "group_id",
         ) as response:
@@ -161,7 +161,7 @@ class TestGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             client.admin.organization.groups.with_raw_response.delete(
                 "",
@@ -174,14 +174,14 @@ class TestAsyncGroups:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         group = await async_client.admin.organization.groups.create(
             name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.groups.with_raw_response.create(
             name="x",
         )
@@ -192,7 +192,7 @@ class TestAsyncGroups:
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.groups.with_streaming_response.create(
             name="x",
         ) as response:
@@ -205,7 +205,7 @@ class TestAsyncGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         group = await async_client.admin.organization.groups.update(
             group_id="group_id",
             name="x",
@@ -213,7 +213,7 @@ class TestAsyncGroups:
         assert_matches_type(GroupUpdateResponse, group, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.groups.with_raw_response.update(
             group_id="group_id",
             name="x",
@@ -225,7 +225,7 @@ class TestAsyncGroups:
         assert_matches_type(GroupUpdateResponse, group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.groups.with_streaming_response.update(
             group_id="group_id",
             name="x",
@@ -239,7 +239,7 @@ class TestAsyncGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.admin.organization.groups.with_raw_response.update(
                 group_id="",
@@ -247,12 +247,12 @@ class TestAsyncGroups:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         group = await async_client.admin.organization.groups.list()
         assert_matches_type(AsyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         group = await async_client.admin.organization.groups.list(
             after="after",
             limit=0,
@@ -261,7 +261,7 @@ class TestAsyncGroups:
         assert_matches_type(AsyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.groups.with_raw_response.list()
 
         assert response.is_closed is True
@@ -270,7 +270,7 @@ class TestAsyncGroups:
         assert_matches_type(AsyncNextCursorPage[Group], group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.groups.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -281,14 +281,14 @@ class TestAsyncGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         group = await async_client.admin.organization.groups.delete(
             "group_id",
         )
         assert_matches_type(GroupDeleteResponse, group, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.groups.with_raw_response.delete(
             "group_id",
         )
@@ -299,7 +299,7 @@ class TestAsyncGroups:
         assert_matches_type(GroupDeleteResponse, group, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.groups.with_streaming_response.delete(
             "group_id",
         ) as response:
@@ -312,7 +312,7 @@ class TestAsyncGroups:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `group_id` but received ''"):
             await async_client.admin.organization.groups.with_raw_response.delete(
                 "",

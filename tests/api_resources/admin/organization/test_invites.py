@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncConversationCursorPage, AsyncConversationCursorPage
 from duino.types.admin.organization import Invite, InviteDeleteResponse
@@ -19,7 +19,7 @@ class TestInvites:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         invite = client.admin.organization.invites.create(
             email="email",
             role="reader",
@@ -27,7 +27,7 @@ class TestInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         invite = client.admin.organization.invites.create(
             email="email",
             role="reader",
@@ -41,7 +41,7 @@ class TestInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.admin.organization.invites.with_raw_response.create(
             email="email",
             role="reader",
@@ -53,7 +53,7 @@ class TestInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.admin.organization.invites.with_streaming_response.create(
             email="email",
             role="reader",
@@ -67,14 +67,14 @@ class TestInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         invite = client.admin.organization.invites.retrieve(
             "invite_id",
         )
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.admin.organization.invites.with_raw_response.retrieve(
             "invite_id",
         )
@@ -85,7 +85,7 @@ class TestInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.admin.organization.invites.with_streaming_response.retrieve(
             "invite_id",
         ) as response:
@@ -98,19 +98,19 @@ class TestInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invite_id` but received ''"):
             client.admin.organization.invites.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         invite = client.admin.organization.invites.list()
         assert_matches_type(SyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         invite = client.admin.organization.invites.list(
             after="after",
             limit=0,
@@ -118,7 +118,7 @@ class TestInvites:
         assert_matches_type(SyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.invites.with_raw_response.list()
 
         assert response.is_closed is True
@@ -127,7 +127,7 @@ class TestInvites:
         assert_matches_type(SyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.invites.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -138,14 +138,14 @@ class TestInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         invite = client.admin.organization.invites.delete(
             "invite_id",
         )
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.admin.organization.invites.with_raw_response.delete(
             "invite_id",
         )
@@ -156,7 +156,7 @@ class TestInvites:
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.admin.organization.invites.with_streaming_response.delete(
             "invite_id",
         ) as response:
@@ -169,7 +169,7 @@ class TestInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invite_id` but received ''"):
             client.admin.organization.invites.with_raw_response.delete(
                 "",
@@ -182,7 +182,7 @@ class TestAsyncInvites:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.create(
             email="email",
             role="reader",
@@ -190,7 +190,7 @@ class TestAsyncInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.create(
             email="email",
             role="reader",
@@ -204,7 +204,7 @@ class TestAsyncInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.invites.with_raw_response.create(
             email="email",
             role="reader",
@@ -216,7 +216,7 @@ class TestAsyncInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.invites.with_streaming_response.create(
             email="email",
             role="reader",
@@ -230,14 +230,14 @@ class TestAsyncInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.retrieve(
             "invite_id",
         )
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.invites.with_raw_response.retrieve(
             "invite_id",
         )
@@ -248,7 +248,7 @@ class TestAsyncInvites:
         assert_matches_type(Invite, invite, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.invites.with_streaming_response.retrieve(
             "invite_id",
         ) as response:
@@ -261,19 +261,19 @@ class TestAsyncInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invite_id` but received ''"):
             await async_client.admin.organization.invites.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.list()
         assert_matches_type(AsyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.list(
             after="after",
             limit=0,
@@ -281,7 +281,7 @@ class TestAsyncInvites:
         assert_matches_type(AsyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.invites.with_raw_response.list()
 
         assert response.is_closed is True
@@ -290,7 +290,7 @@ class TestAsyncInvites:
         assert_matches_type(AsyncConversationCursorPage[Invite], invite, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.invites.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -301,14 +301,14 @@ class TestAsyncInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         invite = await async_client.admin.organization.invites.delete(
             "invite_id",
         )
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.invites.with_raw_response.delete(
             "invite_id",
         )
@@ -319,7 +319,7 @@ class TestAsyncInvites:
         assert_matches_type(InviteDeleteResponse, invite, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.invites.with_streaming_response.delete(
             "invite_id",
         ) as response:
@@ -332,7 +332,7 @@ class TestAsyncInvites:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `invite_id` but received ''"):
             await async_client.admin.organization.invites.with_raw_response.delete(
                 "",

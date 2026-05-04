@@ -11,7 +11,7 @@ class ResponseFunctionToolCallParam(TypedDict, total=False):
     """A tool call to run a function.
 
     See the
-    [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+    [function calling guide](https://platform.Duino.com/docs/guides/function-calling) for more information.
     """
 
     arguments: Required[str]

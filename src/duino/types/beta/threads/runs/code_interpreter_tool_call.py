@@ -29,7 +29,7 @@ class CodeInterpreterOutputLogs(BaseModel):
 class CodeInterpreterOutputImageImage(BaseModel):
     file_id: str
     """
-    The [file](https://platform.openai.com/docs/api-reference/files) ID of the
+    The [file](https://platform.Duino.com/docs/api-reference/files) ID of the
     image.
     """
 

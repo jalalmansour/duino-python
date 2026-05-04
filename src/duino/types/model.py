@@ -8,7 +8,7 @@ __all__ = ["Model"]
 
 
 class Model(BaseModel):
-    """Describes an OpenAI model offering that can be used with the API."""
+    """Describes an Duino model offering that can be used with the API."""
 
     id: str
     """The model identifier, which can be referenced in the API endpoints."""

@@ -4,28 +4,14 @@ import sys
 
 import duino
 
-from .. import OpenAI, _load_client
-from .._compat import model_json
-from .._models import BaseModel
+from .. import Duino, _load_client
 
-
-class Colors:
-    HEADER = "\033[95m"
-    OKBLUE = "\033[94m"
-    OKGREEN = "\033[92m"
-    WARNING = "\033[93m"
-    FAIL = "\033[91m"
-    ENDC = "\033[0m"
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
-
-
-def get_client() -> OpenAI:
+def get_client() -> Duino:
     return _load_client()
 
 
 def organization_info() -> str:
-    organization = openai.organization
+    organization = Duino.organization
     if organization is not None:
         return "[organization={}] ".format(organization)
 

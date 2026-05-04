@@ -34,7 +34,7 @@ def test_basic_auth():
         return_value=httpx.Response(200, json={"data": [], "object": "list"})
     )
 
-    client = OpenAI(
+    client = Duino(
         workload_identity={
             "client_id": "client_123",
             "identity_provider_id": "idp_123",
@@ -80,7 +80,7 @@ def test_workload_identity_exchange_payload_and_cache() -> None:
         return_value=httpx.Response(200, json={"data": [], "object": "list"})
     )
 
-    client = OpenAI(
+    client = Duino(
         workload_identity={
             "client_id": "client_123",
             "identity_provider_id": "idp_123",
@@ -134,7 +134,7 @@ def test_workload_identity_exchange_error() -> None:
         return_value=httpx.Response(200, json={"data": [], "object": "list"})
     )
 
-    client = OpenAI(
+    client = Duino(
         workload_identity={
             "client_id": "client_123",
             "identity_provider_id": "idp_123",

@@ -24,7 +24,7 @@ class ModerationCreateParams(TypedDict, total=False):
     """The content moderation model you would like to use.
 
     Learn more in
-    [the moderation guide](https://platform.openai.com/docs/guides/moderation), and
+    [the moderation guide](https://platform.Duino.com/docs/guides/moderation), and
     learn about available models
-    [here](https://platform.openai.com/docs/models#moderation).
+    [here](https://platform.Duino.com/docs/models#moderation).
     """

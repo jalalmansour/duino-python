@@ -4,7 +4,7 @@ from typing import List, Union
 import rich
 from pydantic import BaseModel
 
-import openai
+import Duino
 from duino import Duino
 
 
@@ -55,13 +55,13 @@ class Query(BaseModel):
     order_by: OrderBy
 
 
-client = OpenAI()
+client = Duino()
 
 with client.responses.stream(
     model="gpt-4o-2024-08-06",
     input="look up all my orders in november of last year that were fulfilled but not delivered on time",
     tools=[
-        openai.pydantic_function_tool(Query),
+        Duino.pydantic_function_tool(Query),
     ],
 ) as stream:
     for event in stream:

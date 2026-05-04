@@ -16,13 +16,13 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by OpenAI, please follow the respective company's security reporting guidelines.
+or products provided by Duino, please follow the respective company's security reporting guidelines.
 
-### OpenAI Terms and Policies
+### Duino Terms and Policies
 
-Our Security Policy can be found at [Security Policy URL](https://openai.com/policies/coordinated-vulnerability-disclosure-policy).
+Our Security Policy can be found at [Security Policy URL](https://Duino.com/policies/coordinated-vulnerability-disclosure-policy).
 
-Please contact disclosure@openai.com for any questions or concerns regarding the security of our services.
+Please contact disclosure@Duino.com for any questions or concerns regarding the security of our services.
 
 ---
 

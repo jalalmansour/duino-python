@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncPage, AsyncPage, SyncConversationCursorPage, AsyncConversationCursorPage
 from duino.types.admin.organization.projects import (
@@ -23,14 +23,14 @@ class TestCertificates:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         certificate = client.admin.organization.projects.certificates.list(
             project_id="project_id",
         )
         assert_matches_type(SyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         certificate = client.admin.organization.projects.certificates.list(
             project_id="project_id",
             after="after",
@@ -40,7 +40,7 @@ class TestCertificates:
         assert_matches_type(SyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.projects.certificates.with_raw_response.list(
             project_id="project_id",
         )
@@ -51,7 +51,7 @@ class TestCertificates:
         assert_matches_type(SyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.projects.certificates.with_streaming_response.list(
             project_id="project_id",
         ) as response:
@@ -64,14 +64,14 @@ class TestCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list(self, client: OpenAI) -> None:
+    def test_path_params_list(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.certificates.with_raw_response.list(
                 project_id="",
             )
 
     @parametrize
-    def test_method_activate(self, client: OpenAI) -> None:
+    def test_method_activate(self, client: Duino) -> None:
         certificate = client.admin.organization.projects.certificates.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -79,7 +79,7 @@ class TestCertificates:
         assert_matches_type(SyncPage[CertificateActivateResponse], certificate, path=["response"])
 
     @parametrize
-    def test_raw_response_activate(self, client: OpenAI) -> None:
+    def test_raw_response_activate(self, client: Duino) -> None:
         response = client.admin.organization.projects.certificates.with_raw_response.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -91,7 +91,7 @@ class TestCertificates:
         assert_matches_type(SyncPage[CertificateActivateResponse], certificate, path=["response"])
 
     @parametrize
-    def test_streaming_response_activate(self, client: OpenAI) -> None:
+    def test_streaming_response_activate(self, client: Duino) -> None:
         with client.admin.organization.projects.certificates.with_streaming_response.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -105,7 +105,7 @@ class TestCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_activate(self, client: OpenAI) -> None:
+    def test_path_params_activate(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.certificates.with_raw_response.activate(
                 project_id="",
@@ -113,7 +113,7 @@ class TestCertificates:
             )
 
     @parametrize
-    def test_method_deactivate(self, client: OpenAI) -> None:
+    def test_method_deactivate(self, client: Duino) -> None:
         certificate = client.admin.organization.projects.certificates.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -121,7 +121,7 @@ class TestCertificates:
         assert_matches_type(SyncPage[CertificateDeactivateResponse], certificate, path=["response"])
 
     @parametrize
-    def test_raw_response_deactivate(self, client: OpenAI) -> None:
+    def test_raw_response_deactivate(self, client: Duino) -> None:
         response = client.admin.organization.projects.certificates.with_raw_response.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -133,7 +133,7 @@ class TestCertificates:
         assert_matches_type(SyncPage[CertificateDeactivateResponse], certificate, path=["response"])
 
     @parametrize
-    def test_streaming_response_deactivate(self, client: OpenAI) -> None:
+    def test_streaming_response_deactivate(self, client: Duino) -> None:
         with client.admin.organization.projects.certificates.with_streaming_response.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -147,7 +147,7 @@ class TestCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_deactivate(self, client: OpenAI) -> None:
+    def test_path_params_deactivate(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.certificates.with_raw_response.deactivate(
                 project_id="",
@@ -161,14 +161,14 @@ class TestAsyncCertificates:
     )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         certificate = await async_client.admin.organization.projects.certificates.list(
             project_id="project_id",
         )
         assert_matches_type(AsyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         certificate = await async_client.admin.organization.projects.certificates.list(
             project_id="project_id",
             after="after",
@@ -178,7 +178,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.certificates.with_raw_response.list(
             project_id="project_id",
         )
@@ -189,7 +189,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncConversationCursorPage[CertificateListResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.certificates.with_streaming_response.list(
             project_id="project_id",
         ) as response:
@@ -202,14 +202,14 @@ class TestAsyncCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.certificates.with_raw_response.list(
                 project_id="",
             )
 
     @parametrize
-    async def test_method_activate(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_activate(self, async_client: AsyncDuino) -> None:
         certificate = await async_client.admin.organization.projects.certificates.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -217,7 +217,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncPage[CertificateActivateResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_raw_response_activate(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_activate(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.certificates.with_raw_response.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -229,7 +229,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncPage[CertificateActivateResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_streaming_response_activate(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_activate(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.certificates.with_streaming_response.activate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -243,7 +243,7 @@ class TestAsyncCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_activate(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_activate(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.certificates.with_raw_response.activate(
                 project_id="",
@@ -251,7 +251,7 @@ class TestAsyncCertificates:
             )
 
     @parametrize
-    async def test_method_deactivate(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_deactivate(self, async_client: AsyncDuino) -> None:
         certificate = await async_client.admin.organization.projects.certificates.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -259,7 +259,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncPage[CertificateDeactivateResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_raw_response_deactivate(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_deactivate(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.certificates.with_raw_response.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -271,7 +271,7 @@ class TestAsyncCertificates:
         assert_matches_type(AsyncPage[CertificateDeactivateResponse], certificate, path=["response"])
 
     @parametrize
-    async def test_streaming_response_deactivate(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_deactivate(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.certificates.with_streaming_response.deactivate(
             project_id="project_id",
             certificate_ids=["cert_abc"],
@@ -285,7 +285,7 @@ class TestAsyncCertificates:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_deactivate(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_deactivate(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.certificates.with_raw_response.deactivate(
                 project_id="",

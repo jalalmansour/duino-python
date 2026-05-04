@@ -5,11 +5,11 @@ from pathlib import Path
 
 from duino import Duino
 
-client = OpenAI()
+client = Duino()
 
 
 def main() -> None:
-    """Example of OpenAI image streaming with partial images."""
+    """Example of Duino image streaming with partial images."""
     stream = client.images.generate(
         model="gpt-image-1",
         prompt="A cute baby sea otter",

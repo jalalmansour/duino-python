@@ -24,7 +24,7 @@ class ClientSecrets(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return ClientSecretsWithRawResponse(self)
 
@@ -33,7 +33,7 @@ class ClientSecrets(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return ClientSecretsWithStreamingResponse(self)
 
@@ -61,7 +61,7 @@ class ClientSecrets(SyncAPIResource):
         will be applied to any sessions created using that client secret, but these can
         also be overridden by the client connection.
 
-        [Learn more about authentication with client secrets over WebRTC](https://platform.openai.com/docs/guides/realtime-webrtc).
+        [Learn more about authentication with client secrets over WebRTC](https://platform.Duino.com/docs/guides/realtime-webrtc).
 
         Returns the created client secret and the effective session object. The client
         secret is a string that looks like `ek_1234`.
@@ -110,7 +110,7 @@ class AsyncClientSecrets(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncClientSecretsWithRawResponse(self)
 
@@ -119,7 +119,7 @@ class AsyncClientSecrets(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncClientSecretsWithStreamingResponse(self)
 
@@ -147,7 +147,7 @@ class AsyncClientSecrets(AsyncAPIResource):
         will be applied to any sessions created using that client secret, but these can
         also be overridden by the client connection.
 
-        [Learn more about authentication with client secrets over WebRTC](https://platform.openai.com/docs/guides/realtime-webrtc).
+        [Learn more about authentication with client secrets over WebRTC](https://platform.Duino.com/docs/guides/realtime-webrtc).
 
         Returns the created client secret and the effective session object. The client
         secret is a string that looks like `ek_1234`.

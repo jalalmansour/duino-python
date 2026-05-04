@@ -1,6 +1,6 @@
 # Structured Outputs Parsing Helpers
 
-The OpenAI API supports extracting JSON from the model with the `response_format` request param, for more details on the API, see [this guide](https://platform.openai.com/docs/guides/structured-outputs).
+The Duino API supports extracting JSON from the model with the `response_format` request param, for more details on the API, see [this guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
 The SDK provides a `client.chat.completions.parse()` method which is a wrapper over the `client.chat.completions.create()` that
 provides richer integrations with Python specific types & returns a `ParsedChatCompletion` object, which is a subclass of the standard `ChatCompletion` class.
@@ -13,7 +13,7 @@ into a JSON schema, send it to the API and parse the response content back into 
 ```py
 from typing import List
 from pydantic import BaseModel
-from openai import OpenAI
+from Duino import Duino
 
 class Step(BaseModel):
     explanation: str
@@ -23,7 +23,7 @@ class MathResponse(BaseModel):
     steps: List[Step]
     final_answer: str
 
-client = OpenAI()
+client = Duino()
 completion = client.chat.completions.parse(
     model="gpt-4o-2024-08-06",
     messages=[
@@ -45,7 +45,7 @@ else:
 
 The `.parse()` method will also automatically parse `function` tool calls if:
 
-- You use the `openai.pydantic_function_tool()` helper method
+- You use the `Duino.pydantic_function_tool()` helper method
 - You mark your tool schema with `"strict": True`
 
 For example:
@@ -54,7 +54,7 @@ For example:
 from enum import Enum
 from typing import List, Union
 from pydantic import BaseModel
-import openai
+import Duino
 
 class Table(str, Enum):
     orders = "orders"
@@ -96,7 +96,7 @@ class Query(BaseModel):
     conditions: List[Condition]
     order_by: OrderBy
 
-client = openai.OpenAI()
+client = Duino.Duino()
 completion = client.chat.completions.parse(
     model="gpt-4o-2024-08-06",
     messages=[
@@ -110,7 +110,7 @@ completion = client.chat.completions.parse(
         },
     ],
     tools=[
-        openai.pydantic_function_tool(Query),
+        Duino.pydantic_function_tool(Query),
     ],
 )
 
@@ -129,7 +129,7 @@ The `chat.completions.parse()` method imposes some additional restrictions on it
 
 # Streaming Helpers
 
-OpenAI supports streaming responses when interacting with the [Chat Completion](#chat-completions-api) & [Assistant](#assistant-streaming-api) APIs.
+Duino supports streaming responses when interacting with the [Chat Completion](#chat-completions-api) & [Assistant](#assistant-streaming-api) APIs.
 
 ## Chat Completions API
 
@@ -140,9 +140,9 @@ It also supports all aforementioned [parsing helpers](#structured-outputs-parsin
 Unlike `.create(stream=True)`, the `.stream()` method requires usage within a context manager to prevent accidental leakage of the response:
 
 ```py
-from openai import AsyncOpenAI
+from Duino import AsyncDuino
 
-client = AsyncOpenAI()
+client = AsyncDuino()
 
 async with client.chat.completions.stream(
     model='gpt-4o-2024-08-06',
@@ -223,11 +223,11 @@ Emitted when a function tool call's arguments are complete.
 - `name`: The name of the function being called
 - `index`: The index of the tool call
 - `arguments`: The full raw JSON string of arguments
-- `parsed_arguments`: The fully parsed arguments object. If you used `openai.pydantic_function_tool()` this will be an instance of the given model.
+- `parsed_arguments`: The fully parsed arguments object. If you used `Duino.pydantic_function_tool()` this will be an instance of the given model.
 
 #### LogprobsContentDeltaEvent
 
-Emitted when a chunk contains new content [log probabilities](https://cookbook.openai.com/examples/using_logprobs).
+Emitted when a chunk contains new content [log probabilities](https://cookbook.Duino.com/examples/using_logprobs).
 
 - `type`: `"logprobs.content.delta"`
 - `content`: A list of the new log probabilities received in this chunk
@@ -235,14 +235,14 @@ Emitted when a chunk contains new content [log probabilities](https://cookbook.o
 
 #### LogprobsContentDoneEvent
 
-Emitted when all content [log probabilities](https://cookbook.openai.com/examples/using_logprobs) have been received.
+Emitted when all content [log probabilities](https://cookbook.Duino.com/examples/using_logprobs) have been received.
 
 - `type`: `"logprobs.content.done"`
 - `content`: The full list of token log probabilities for the content
 
 #### LogprobsRefusalDeltaEvent
 
-Emitted when a chunk contains new refusal [log probabilities](https://cookbook.openai.com/examples/using_logprobs).
+Emitted when a chunk contains new refusal [log probabilities](https://cookbook.Duino.com/examples/using_logprobs).
 
 - `type`: `"logprobs.refusal.delta"`
 - `refusal`: A list of the new log probabilities received in this chunk
@@ -250,7 +250,7 @@ Emitted when a chunk contains new refusal [log probabilities](https://cookbook.o
 
 #### LogprobsRefusalDoneEvent
 
-Emitted when all refusal [log probabilities](https://cookbook.openai.com/examples/using_logprobs) have been received.
+Emitted when all refusal [log probabilities](https://cookbook.Duino.com/examples/using_logprobs) have been received.
 
 - `type`: `"logprobs.refusal.done"`
 - `refusal`: The full list of token log probabilities for the refusal
@@ -283,10 +283,10 @@ async with client.chat.completions.stream(...) as stream:
 
 ## Assistant Streaming API
 
-OpenAI supports streaming responses from Assistants. The SDK provides convenience wrappers around the API
+Duino supports streaming responses from Assistants. The SDK provides convenience wrappers around the API
 so you can subscribe to the types of events you are interested in as well as receive accumulated responses.
 
-More information can be found in the documentation: [Assistant Streaming](https://platform.openai.com/docs/assistants/overview?lang=python)
+More information can be found in the documentation: [Assistant Streaming](https://platform.Duino.com/docs/assistants/overview?lang=python)
 
 #### An example of creating a run and subscribing to some events
 
@@ -294,11 +294,11 @@ You can subscribe to events by creating an event handler class and overloading t
 
 ```python
 from typing_extensions import override
-from openai import AssistantEventHandler, OpenAI
-from openai.types.beta.threads import Text, TextDelta
-from openai.types.beta.threads.runs import ToolCall, ToolCallDelta
+from Duino import AssistantEventHandler, Duino
+from Duino.types.beta.threads import Text, TextDelta
+from Duino.types.beta.threads.runs import ToolCall, ToolCallDelta
 
-client = openai.OpenAI()
+client = Duino.Duino()
 
 # First, we create a EventHandler class to define
 # how we want to handle the events in the response stream.
@@ -398,10 +398,10 @@ The assistant API provides events you can subscribe to for the following events.
 def on_event(self, event: AssistantStreamEvent)
 ```
 
-This allows you to subscribe to all the possible raw events sent by the OpenAI streaming API.
+This allows you to subscribe to all the possible raw events sent by the Duino streaming API.
 In many cases it will be more convenient to subscribe to a more specific set of events for your use case.
 
-More information on the types of events can be found here: [Events](https://platform.openai.com/docs/api-reference/assistants-streaming/events)
+More information on the types of events can be found here: [Events](https://platform.Duino.com/docs/api-reference/assistants-streaming/events)
 
 ```python
 def on_run_step_created(self, run_step: RunStep)
@@ -411,7 +411,7 @@ def on_run_step_done(self, run_step: RunStep)
 
 These events allow you to subscribe to the creation, delta and completion of a RunStep.
 
-For more information on how Runs and RunSteps work see the documentation [Runs and RunSteps](https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps)
+For more information on how Runs and RunSteps work see the documentation [Runs and RunSteps](https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps)
 
 ```python
 def on_message_created(self, message: Message)
@@ -424,7 +424,7 @@ different types of content that can be sent from a model (and events are availab
 For convenience, the delta event includes both the incremental update and an accumulated snapshot of the content.
 
 More information on messages can be found
-on in the documentation page [Message](https://platform.openai.com/docs/api-reference/messages/object).
+on in the documentation page [Message](https://platform.Duino.com/docs/api-reference/messages/object).
 
 ```python
 def on_text_created(self, text: Text)
@@ -449,7 +449,7 @@ def on_tool_call_done(self, tool_call: ToolCall)
 
 These events allow you to subscribe to events for the creation, delta and completion of a ToolCall.
 
-More information on tools can be found here [Tools](https://platform.openai.com/docs/assistants/tools)
+More information on tools can be found here [Tools](https://platform.Duino.com/docs/assistants/tools)
 
 ```python
 def on_end(self)

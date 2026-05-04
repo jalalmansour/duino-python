@@ -7,7 +7,7 @@ from typing import get_args
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import evaluate_forwardref
 from duino._utils import assert_signatures_in_sync
 from duino._compat import is_literal_type
@@ -16,8 +16,8 @@ from duino.types.audio_response_format import AudioResponseFormat
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_translation_create_overloads_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_translation_create_overloads_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     fn = checking_client.audio.translations.create
     overload_response_formats: set[str] = set()
@@ -51,8 +51,8 @@ def test_translation_create_overloads_in_sync(sync: bool, client: OpenAI, async_
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_transcription_create_overloads_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_transcription_create_overloads_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     fn = checking_client.audio.transcriptions.create
     overload_response_formats: set[str] = set()

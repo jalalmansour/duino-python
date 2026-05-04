@@ -5,7 +5,7 @@ import asyncio
 from duino import AsyncDuino
 
 # gets API Key from environment variable OPENAI_API_KEY
-client = AsyncOpenAI()
+client = AsyncDuino()
 
 
 async def main() -> None:

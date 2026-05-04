@@ -11,7 +11,7 @@ __all__ = ["FunctionToolParam"]
 class FunctionToolParam(TypedDict, total=False):
     """Defines a function in your own code the model can choose to call.
 
-    Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+    Learn more about [function calling](https://platform.Duino.com/docs/guides/function-calling).
     """
 
     name: Required[str]

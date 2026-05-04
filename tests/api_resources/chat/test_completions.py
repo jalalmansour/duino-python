@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 import pydantic
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncCursorPage, AsyncCursorPage
 from duino.types.chat import (
@@ -23,7 +23,7 @@ class TestCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_overload_1(self, client: Duino) -> None:
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -36,7 +36,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: Duino) -> None:
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -119,7 +119,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_1(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -136,7 +136,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_1(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -155,7 +155,7 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_create_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_overload_2(self, client: Duino) -> None:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -169,7 +169,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: Duino) -> None:
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -252,7 +252,7 @@ class TestCompletions:
         completion_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_2(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -269,7 +269,7 @@ class TestCompletions:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_2(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -289,14 +289,14 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         completion = client.chat.completions.retrieve(
             "completion_id",
         )
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.retrieve(
             "completion_id",
         )
@@ -307,7 +307,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.retrieve(
             "completion_id",
         ) as response:
@@ -320,14 +320,14 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             client.chat.completions.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         completion = client.chat.completions.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -335,7 +335,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -347,7 +347,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -361,7 +361,7 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             client.chat.completions.with_raw_response.update(
                 completion_id="",
@@ -369,12 +369,12 @@ class TestCompletions:
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         completion = client.chat.completions.list()
         assert_matches_type(SyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         completion = client.chat.completions.list(
             after="after",
             limit=0,
@@ -385,7 +385,7 @@ class TestCompletions:
         assert_matches_type(SyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -394,7 +394,7 @@ class TestCompletions:
         assert_matches_type(SyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -405,14 +405,14 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         completion = client.chat.completions.delete(
             "completion_id",
         )
         assert_matches_type(ChatCompletionDeleted, completion, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.chat.completions.with_raw_response.delete(
             "completion_id",
         )
@@ -423,7 +423,7 @@ class TestCompletions:
         assert_matches_type(ChatCompletionDeleted, completion, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.chat.completions.with_streaming_response.delete(
             "completion_id",
         ) as response:
@@ -436,14 +436,14 @@ class TestCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             client.chat.completions.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    def test_method_create_disallows_pydantic(self, client: OpenAI) -> None:
+    def test_method_create_disallows_pydantic(self, client: Duino) -> None:
         class MyModel(pydantic.BaseModel):
             a: str
 
@@ -466,7 +466,7 @@ class TestAsyncCompletions:
     )
 
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -479,7 +479,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -562,7 +562,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -579,7 +579,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -598,7 +598,7 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncDuino) -> None:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -612,7 +612,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -695,7 +695,7 @@ class TestAsyncCompletions:
         await completion_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -712,7 +712,7 @@ class TestAsyncCompletions:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -732,14 +732,14 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.retrieve(
             "completion_id",
         )
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.retrieve(
             "completion_id",
         )
@@ -750,7 +750,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.retrieve(
             "completion_id",
         ) as response:
@@ -763,14 +763,14 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             await async_client.chat.completions.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -778,7 +778,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -790,7 +790,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletion, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.update(
             completion_id="completion_id",
             metadata={"foo": "string"},
@@ -804,7 +804,7 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             await async_client.chat.completions.with_raw_response.update(
                 completion_id="",
@@ -812,12 +812,12 @@ class TestAsyncCompletions:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.list()
         assert_matches_type(AsyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.list(
             after="after",
             limit=0,
@@ -828,7 +828,7 @@ class TestAsyncCompletions:
         assert_matches_type(AsyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.list()
 
         assert response.is_closed is True
@@ -837,7 +837,7 @@ class TestAsyncCompletions:
         assert_matches_type(AsyncCursorPage[ChatCompletion], completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -848,14 +848,14 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         completion = await async_client.chat.completions.delete(
             "completion_id",
         )
         assert_matches_type(ChatCompletionDeleted, completion, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.with_raw_response.delete(
             "completion_id",
         )
@@ -866,7 +866,7 @@ class TestAsyncCompletions:
         assert_matches_type(ChatCompletionDeleted, completion, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.with_streaming_response.delete(
             "completion_id",
         ) as response:
@@ -879,14 +879,14 @@ class TestAsyncCompletions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             await async_client.chat.completions.with_raw_response.delete(
                 "",
             )
 
     @parametrize
-    async def test_method_create_disallows_pydantic(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_disallows_pydantic(self, async_client: AsyncDuino) -> None:
         class MyModel(pydantic.BaseModel):
             a: str
 

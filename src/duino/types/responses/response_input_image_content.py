@@ -11,7 +11,7 @@ __all__ = ["ResponseInputImageContent"]
 class ResponseInputImageContent(BaseModel):
     """An image input to the model.
 
-    Learn about [image inputs](https://platform.openai.com/docs/guides/vision)
+    Learn about [image inputs](https://platform.Duino.com/docs/guides/vision)
     """
 
     type: Literal["input_image"]

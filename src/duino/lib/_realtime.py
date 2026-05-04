@@ -5,12 +5,12 @@ from typing_extensions import override
 
 import httpx
 
-from openai import _legacy_response
-from openai._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from openai._utils import maybe_transform, async_maybe_transform
-from openai._base_client import make_request_options
-from openai.resources.realtime.calls import Calls, AsyncCalls
-from openai.types.realtime.realtime_session_create_request_param import RealtimeSessionCreateRequestParam
+from Duino import _legacy_response
+from Duino._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from Duino._utils import maybe_transform, async_maybe_transform
+from Duino._base_client import make_request_options
+from Duino.resources.realtime.calls import Calls, AsyncCalls
+from Duino.types.realtime.realtime_session_create_request_param import RealtimeSessionCreateRequestParam
 
 __all__ = ["_Calls", "_AsyncCalls"]
 

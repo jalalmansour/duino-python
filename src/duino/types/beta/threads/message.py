@@ -42,7 +42,7 @@ class IncompleteDetails(BaseModel):
 
 class Message(BaseModel):
     """
-    Represents a message within a [thread](https://platform.openai.com/docs/api-reference/threads).
+    Represents a message within a [thread](https://platform.Duino.com/docs/api-reference/threads).
     """
 
     id: str
@@ -51,7 +51,7 @@ class Message(BaseModel):
     assistant_id: Optional[str] = None
     """
     If applicable, the ID of the
-    [assistant](https://platform.openai.com/docs/api-reference/assistants) that
+    [assistant](https://platform.Duino.com/docs/api-reference/assistants) that
     authored this message.
     """
 
@@ -91,7 +91,7 @@ class Message(BaseModel):
 
     run_id: Optional[str] = None
     """
-    The ID of the [run](https://platform.openai.com/docs/api-reference/runs)
+    The ID of the [run](https://platform.Duino.com/docs/api-reference/runs)
     associated with the creation of this message. Value is `null` when messages are
     created manually using the create message or create thread endpoints.
     """
@@ -104,6 +104,6 @@ class Message(BaseModel):
 
     thread_id: str
     """
-    The [thread](https://platform.openai.com/docs/api-reference/threads) ID that
+    The [thread](https://platform.Duino.com/docs/api-reference/threads) ID that
     this message belongs to.
     """

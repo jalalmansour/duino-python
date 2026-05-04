@@ -49,7 +49,7 @@ class ChatCompletionStream(Generic[ResponseFormatT]):
     responses & tool calls and accumulates a `ChatCompletion` object
     from each individual chunk.
 
-    https://platform.openai.com/docs/api-reference/streaming
+    https://platform.Duino.com/docs/api-reference/streaming
     """
 
     def __init__(
@@ -172,7 +172,7 @@ class AsyncChatCompletionStream(Generic[ResponseFormatT]):
     responses & tool calls and accumulates a `ChatCompletion` object
     from each individual chunk.
 
-    https://platform.openai.com/docs/api-reference/streaming
+    https://platform.Duino.com/docs/api-reference/streaming
     """
 
     def __init__(
@@ -295,7 +295,7 @@ class ChatCompletionStreamState(Generic[ResponseFormatT]):
     This is useful in cases where you can't always use the `.stream()` method, e.g.
 
     ```py
-    from openai.lib.streaming.chat import ChatCompletionStreamState
+    from Duino.lib.streaming.chat import ChatCompletionStreamState
 
     state = ChatCompletionStreamState()
 
@@ -762,7 +762,7 @@ def _convert_initial_chunk_into_snapshot(chunk: ChatCompletionChunk) -> ParsedCh
 
 def _is_valid_chat_completion_chunk_weak(sse_event: ChatCompletionChunk) -> bool:
     # Although the _raw_stream is always supposed to contain only objects adhering to ChatCompletionChunk schema,
-    # this is broken by the Azure OpenAI in case of Asynchronous Filter enabled.
+    # this is broken by the Azure Duino in case of Asynchronous Filter enabled.
     # An easy filter is to check for the "object" property:
     # - should be "chat.completion.chunk" for a ChatCompletionChunk;
     # - is an empty string for Asynchronous Filter events.

@@ -363,7 +363,7 @@ class Duino(SyncAPIClient):
 
     @cached_property
     def evals(self) -> Evals:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import Evals
 
         return Evals(self)
@@ -655,7 +655,7 @@ class AsyncDuino(AsyncAPIClient):
         _strict_response_validation: bool = False,
         _enforce_credentials: bool = True,
     ) -> None:
-        """Construct a new async AsyncOpenAI client instance.
+        """Construct a new async AsyncDuino client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `DUINO_API_KEY`
@@ -869,7 +869,7 @@ class AsyncDuino(AsyncAPIClient):
 
     @cached_property
     def evals(self) -> AsyncEvals:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import AsyncEvals
 
         return AsyncEvals(self)
@@ -1113,9 +1113,9 @@ class AsyncDuino(AsyncAPIClient):
 
 
 class OpenAIWithRawResponse:
-    _client: OpenAI
+    _client: Duino
 
-    def __init__(self, client: OpenAI) -> None:
+    def __init__(self, client: Duino) -> None:
         self._client = client
 
     @cached_property
@@ -1239,7 +1239,7 @@ class OpenAIWithRawResponse:
 
     @cached_property
     def evals(self) -> evals.EvalsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import EvalsWithRawResponse
 
         return EvalsWithRawResponse(self._client.evals)
@@ -1264,9 +1264,9 @@ class OpenAIWithRawResponse:
 
 
 class AsyncOpenAIWithRawResponse:
-    _client: AsyncOpenAI
+    _client: AsyncDuino
 
-    def __init__(self, client: AsyncOpenAI) -> None:
+    def __init__(self, client: AsyncDuino) -> None:
         self._client = client
 
     @cached_property
@@ -1390,7 +1390,7 @@ class AsyncOpenAIWithRawResponse:
 
     @cached_property
     def evals(self) -> evals.AsyncEvalsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import AsyncEvalsWithRawResponse
 
         return AsyncEvalsWithRawResponse(self._client.evals)
@@ -1415,9 +1415,9 @@ class AsyncOpenAIWithRawResponse:
 
 
 class OpenAIWithStreamedResponse:
-    _client: OpenAI
+    _client: Duino
 
-    def __init__(self, client: OpenAI) -> None:
+    def __init__(self, client: Duino) -> None:
         self._client = client
 
     @cached_property
@@ -1541,7 +1541,7 @@ class OpenAIWithStreamedResponse:
 
     @cached_property
     def evals(self) -> evals.EvalsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import EvalsWithStreamingResponse
 
         return EvalsWithStreamingResponse(self._client.evals)
@@ -1566,9 +1566,9 @@ class OpenAIWithStreamedResponse:
 
 
 class AsyncOpenAIWithStreamedResponse:
-    _client: AsyncOpenAI
+    _client: AsyncDuino
 
-    def __init__(self, client: AsyncOpenAI) -> None:
+    def __init__(self, client: AsyncDuino) -> None:
         self._client = client
 
     @cached_property
@@ -1692,7 +1692,7 @@ class AsyncOpenAIWithStreamedResponse:
 
     @cached_property
     def evals(self) -> evals.AsyncEvalsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         from .resources.evals import AsyncEvalsWithStreamingResponse
 
         return AsyncEvalsWithStreamingResponse(self._client.evals)
@@ -1716,6 +1716,6 @@ class AsyncOpenAIWithStreamedResponse:
         return AsyncVideosWithStreamingResponse(self._client.videos)
 
 
-Client = OpenAI
+Client = Duino
 
-AsyncClient = AsyncOpenAI
+AsyncClient = AsyncDuino

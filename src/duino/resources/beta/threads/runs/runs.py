@@ -73,7 +73,7 @@ class Runs(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return RunsWithRawResponse(self)
 
@@ -82,7 +82,7 @@ class Runs(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return RunsWithStreamingResponse(self)
 
@@ -122,7 +122,7 @@ class Runs(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           include: A list of additional fields to include in the response. Currently the only
@@ -130,7 +130,7 @@ class Runs(SyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -140,7 +140,7 @@ class Runs(SyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -162,17 +162,17 @@ class Runs(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -186,14 +186,14 @@ class Runs(SyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -280,7 +280,7 @@ class Runs(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -292,7 +292,7 @@ class Runs(SyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -302,7 +302,7 @@ class Runs(SyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -324,17 +324,17 @@ class Runs(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -348,14 +348,14 @@ class Runs(SyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -438,7 +438,7 @@ class Runs(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -450,7 +450,7 @@ class Runs(SyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -460,7 +460,7 @@ class Runs(SyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -482,17 +482,17 @@ class Runs(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -506,14 +506,14 @@ class Runs(SyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -593,7 +593,7 @@ class Runs(SyncAPIResource):
     ) -> Run | Stream[AssistantStreamEvent]:
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/threads/{thread_id}/runs", thread_id=thread_id),
             body=maybe_transform(
@@ -661,7 +661,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get(
             path_template("/threads/{thread_id}/runs/{run_id}", thread_id=thread_id, run_id=run_id),
             options=make_request_options(
@@ -711,7 +711,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/threads/{thread_id}/runs/{run_id}", thread_id=thread_id, run_id=run_id),
             body=maybe_transform({"metadata": metadata}, run_update_params.RunUpdateParams),
@@ -771,7 +771,7 @@ class Runs(SyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/threads/{thread_id}/runs", thread_id=thread_id),
             page=SyncCursorPage[Run],
@@ -823,7 +823,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/threads/{thread_id}/runs/{run_id}/cancel", thread_id=thread_id, run_id=run_id),
             options=make_request_options(
@@ -869,7 +869,7 @@ class Runs(SyncAPIResource):
         """
         A helper to create a run an poll for a terminal state. More information on Run
         lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = self.create(  # pyright: ignore[reportDeprecated]
             thread_id=thread_id,
@@ -1006,7 +1006,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.create_and_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -1063,7 +1063,7 @@ class Runs(SyncAPIResource):
         """
         A helper to poll a run status until it reaches a terminal state. More
         information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         extra_headers = {"X-Stainless-Poll-Helper": "true", **(extra_headers or {})}
 
@@ -1087,7 +1087,7 @@ class Runs(SyncAPIResource):
                 return run
 
             if not is_given(poll_interval_ms):
-                from_header = response.headers.get("openai-poll-after-ms")
+                from_header = response.headers.get("Duino-poll-after-ms")
                 if from_header is not None:
                     poll_interval_ms = int(from_header)
                 else:
@@ -1197,7 +1197,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.create_and_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -1379,7 +1379,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/threads/{thread_id}/runs/{run_id}/submit_tool_outputs", thread_id=thread_id, run_id=run_id),
             body=maybe_transform(
@@ -1422,7 +1422,7 @@ class Runs(SyncAPIResource):
         """
         A helper to submit a tool output to a run and poll for a terminal run state.
         More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = self.submit_tool_outputs(  # pyright: ignore[reportDeprecated]
             run_id=run_id,
@@ -1462,7 +1462,7 @@ class Runs(SyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         ...
 
@@ -1485,7 +1485,7 @@ class Runs(SyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         ...
 
@@ -1507,7 +1507,7 @@ class Runs(SyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
@@ -1516,7 +1516,7 @@ class Runs(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.submit_tool_outputs_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -1559,7 +1559,7 @@ class AsyncRuns(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncRunsWithRawResponse(self)
 
@@ -1568,7 +1568,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncRunsWithStreamingResponse(self)
 
@@ -1608,7 +1608,7 @@ class AsyncRuns(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           include: A list of additional fields to include in the response. Currently the only
@@ -1616,7 +1616,7 @@ class AsyncRuns(AsyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -1626,7 +1626,7 @@ class AsyncRuns(AsyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -1648,17 +1648,17 @@ class AsyncRuns(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -1672,14 +1672,14 @@ class AsyncRuns(AsyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -1766,7 +1766,7 @@ class AsyncRuns(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -1778,7 +1778,7 @@ class AsyncRuns(AsyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -1788,7 +1788,7 @@ class AsyncRuns(AsyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -1810,17 +1810,17 @@ class AsyncRuns(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -1834,14 +1834,14 @@ class AsyncRuns(AsyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -1924,7 +1924,7 @@ class AsyncRuns(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -1936,7 +1936,7 @@ class AsyncRuns(AsyncAPIResource):
               to fetch the file search result content.
 
               See the
-              [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings)
+              [file search tool documentation](https://platform.Duino.com/docs/assistants/tools/file-search#customizing-file-search-settings)
               for more information.
 
           additional_instructions: Appends additional instructions at the end of the instructions for the run. This
@@ -1946,7 +1946,7 @@ class AsyncRuns(AsyncAPIResource):
           additional_messages: Adds additional messages to the thread before creating the run.
 
           instructions: Overrides the
-              [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant)
+              [instructions](https://platform.Duino.com/docs/api-reference/assistants/createAssistant)
               of the assistant. This is useful for modifying the behavior on a per-run basis.
 
           max_completion_tokens: The maximum number of completion tokens that may be used over the course of the
@@ -1968,17 +1968,17 @@ class AsyncRuns(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           reasoning_effort: Constrains effort on reasoning for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
               supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
               Reducing reasoning effort can result in faster responses and fewer tokens used
               on reasoning in a response.
@@ -1992,14 +1992,14 @@ class AsyncRuns(AsyncAPIResource):
               - `xhigh` is supported for all models after `gpt-5.1-codex-max`.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -2080,7 +2080,7 @@ class AsyncRuns(AsyncAPIResource):
     ) -> Run | AsyncStream[AssistantStreamEvent]:
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/threads/{thread_id}/runs", thread_id=thread_id),
             body=await async_maybe_transform(
@@ -2148,7 +2148,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._get(
             path_template("/threads/{thread_id}/runs/{run_id}", thread_id=thread_id, run_id=run_id),
             options=make_request_options(
@@ -2198,7 +2198,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/threads/{thread_id}/runs/{run_id}", thread_id=thread_id, run_id=run_id),
             body=await async_maybe_transform({"metadata": metadata}, run_update_params.RunUpdateParams),
@@ -2258,7 +2258,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/threads/{thread_id}/runs", thread_id=thread_id),
             page=AsyncCursorPage[Run],
@@ -2310,7 +2310,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/threads/{thread_id}/runs/{run_id}/cancel", thread_id=thread_id, run_id=run_id),
             options=make_request_options(
@@ -2356,7 +2356,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         A helper to create a run an poll for a terminal state. More information on Run
         lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = await self.create(  # pyright: ignore[reportDeprecated]
             thread_id=thread_id,
@@ -2493,7 +2493,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.create_and_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -2548,7 +2548,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         A helper to poll a run status until it reaches a terminal state. More
         information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         extra_headers = {"X-Stainless-Poll-Helper": "true", **(extra_headers or {})}
 
@@ -2572,7 +2572,7 @@ class AsyncRuns(AsyncAPIResource):
                 return run
 
             if not is_given(poll_interval_ms):
-                from_header = response.headers.get("openai-poll-after-ms")
+                from_header = response.headers.get("Duino-poll-after-ms")
                 if from_header is not None:
                     poll_interval_ms = int(from_header)
                 else:
@@ -2684,7 +2684,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.create_and_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -2865,7 +2865,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/threads/{thread_id}/runs/{run_id}/submit_tool_outputs", thread_id=thread_id, run_id=run_id),
             body=await async_maybe_transform(
@@ -2908,7 +2908,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         A helper to submit a tool output to a run and poll for a terminal run state.
         More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = await self.submit_tool_outputs(  # pyright: ignore[reportDeprecated]
             run_id=run_id,
@@ -2948,7 +2948,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         ...
 
@@ -2971,7 +2971,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         ...
 
@@ -2996,7 +2996,7 @@ class AsyncRuns(AsyncAPIResource):
         """
         Submit the tool outputs from a previous run and stream the run to a terminal
         state. More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         if not run_id:
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
@@ -3005,7 +3005,7 @@ class AsyncRuns(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
 
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.runs.submit_tool_outputs_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),

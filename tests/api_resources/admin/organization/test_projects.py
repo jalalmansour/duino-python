@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncConversationCursorPage, AsyncConversationCursorPage
 from duino.types.admin.organization import Project
@@ -19,14 +19,14 @@ class TestProjects:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         project = client.admin.organization.projects.create(
             name="name",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         project = client.admin.organization.projects.create(
             name="name",
             external_key_id="external_key_id",
@@ -35,7 +35,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.admin.organization.projects.with_raw_response.create(
             name="name",
         )
@@ -46,7 +46,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.admin.organization.projects.with_streaming_response.create(
             name="name",
         ) as response:
@@ -59,14 +59,14 @@ class TestProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         project = client.admin.organization.projects.retrieve(
             "project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.admin.organization.projects.with_raw_response.retrieve(
             "project_id",
         )
@@ -77,7 +77,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.admin.organization.projects.with_streaming_response.retrieve(
             "project_id",
         ) as response:
@@ -90,21 +90,21 @@ class TestProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         project = client.admin.organization.projects.update(
             project_id="project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: OpenAI) -> None:
+    def test_method_update_with_all_params(self, client: Duino) -> None:
         project = client.admin.organization.projects.update(
             project_id="project_id",
             external_key_id="external_key_id",
@@ -114,7 +114,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.admin.organization.projects.with_raw_response.update(
             project_id="project_id",
         )
@@ -125,7 +125,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.admin.organization.projects.with_streaming_response.update(
             project_id="project_id",
         ) as response:
@@ -138,19 +138,19 @@ class TestProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.with_raw_response.update(
                 project_id="",
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         project = client.admin.organization.projects.list()
         assert_matches_type(SyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         project = client.admin.organization.projects.list(
             after="after",
             include_archived=True,
@@ -159,7 +159,7 @@ class TestProjects:
         assert_matches_type(SyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.admin.organization.projects.with_raw_response.list()
 
         assert response.is_closed is True
@@ -168,7 +168,7 @@ class TestProjects:
         assert_matches_type(SyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.admin.organization.projects.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,14 +179,14 @@ class TestProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_archive(self, client: OpenAI) -> None:
+    def test_method_archive(self, client: Duino) -> None:
         project = client.admin.organization.projects.archive(
             "project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_raw_response_archive(self, client: OpenAI) -> None:
+    def test_raw_response_archive(self, client: Duino) -> None:
         response = client.admin.organization.projects.with_raw_response.archive(
             "project_id",
         )
@@ -197,7 +197,7 @@ class TestProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_streaming_response_archive(self, client: OpenAI) -> None:
+    def test_streaming_response_archive(self, client: Duino) -> None:
         with client.admin.organization.projects.with_streaming_response.archive(
             "project_id",
         ) as response:
@@ -210,7 +210,7 @@ class TestProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_archive(self, client: OpenAI) -> None:
+    def test_path_params_archive(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.admin.organization.projects.with_raw_response.archive(
                 "",
@@ -223,14 +223,14 @@ class TestAsyncProjects:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.create(
             name="name",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.create(
             name="name",
             external_key_id="external_key_id",
@@ -239,7 +239,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.with_raw_response.create(
             name="name",
         )
@@ -250,7 +250,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.with_streaming_response.create(
             name="name",
         ) as response:
@@ -263,14 +263,14 @@ class TestAsyncProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.retrieve(
             "project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.with_raw_response.retrieve(
             "project_id",
         )
@@ -281,7 +281,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.with_streaming_response.retrieve(
             "project_id",
         ) as response:
@@ -294,21 +294,21 @@ class TestAsyncProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.update(
             project_id="project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.update(
             project_id="project_id",
             external_key_id="external_key_id",
@@ -318,7 +318,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.with_raw_response.update(
             project_id="project_id",
         )
@@ -329,7 +329,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.with_streaming_response.update(
             project_id="project_id",
         ) as response:
@@ -342,19 +342,19 @@ class TestAsyncProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.with_raw_response.update(
                 project_id="",
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.list()
         assert_matches_type(AsyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.list(
             after="after",
             include_archived=True,
@@ -363,7 +363,7 @@ class TestAsyncProjects:
         assert_matches_type(AsyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.with_raw_response.list()
 
         assert response.is_closed is True
@@ -372,7 +372,7 @@ class TestAsyncProjects:
         assert_matches_type(AsyncConversationCursorPage[Project], project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -383,14 +383,14 @@ class TestAsyncProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_archive(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_archive(self, async_client: AsyncDuino) -> None:
         project = await async_client.admin.organization.projects.archive(
             "project_id",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_raw_response_archive(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_archive(self, async_client: AsyncDuino) -> None:
         response = await async_client.admin.organization.projects.with_raw_response.archive(
             "project_id",
         )
@@ -401,7 +401,7 @@ class TestAsyncProjects:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_archive(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_archive(self, async_client: AsyncDuino) -> None:
         async with async_client.admin.organization.projects.with_streaming_response.archive(
             "project_id",
         ) as response:
@@ -414,7 +414,7 @@ class TestAsyncProjects:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_archive(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_archive(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.admin.organization.projects.with_raw_response.archive(
                 "",

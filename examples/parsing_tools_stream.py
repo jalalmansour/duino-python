@@ -3,7 +3,7 @@ from __future__ import annotations
 import rich
 from pydantic import BaseModel
 
-import openai
+import Duino
 from duino import Duino
 
 
@@ -12,7 +12,7 @@ class GetWeather(BaseModel):
     country: str
 
 
-client = OpenAI()
+client = Duino()
 
 
 with client.chat.completions.stream(
@@ -26,7 +26,7 @@ with client.chat.completions.stream(
     tools=[
         # because we're using `.parse_stream()`, the returned tool calls
         # will be automatically deserialized into this `GetWeather` type
-        openai.pydantic_function_tool(GetWeather, name="get_weather"),
+        Duino.pydantic_function_tool(GetWeather, name="get_weather"),
     ],
     parallel_tool_calls=True,
 ) as stream:

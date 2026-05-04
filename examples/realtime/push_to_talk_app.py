@@ -17,11 +17,11 @@
 #     "pyaudio",
 #     "pydub",
 #     "sounddevice",
-#     "openai[realtime]",
+#     "Duino[realtime]",
 # ]
 #
 # [tool.uv.sources]
-# openai = { path = "../../", editable = true }
+# Duino = { path = "../../", editable = true }
 # ///
 from __future__ import annotations
 
@@ -123,7 +123,7 @@ class RealtimeApp(App[None]):
         }
     """
 
-    client: AsyncOpenAI
+    client: AsyncDuino
     should_send_audio: asyncio.Event
     audio_player: AudioPlayerAsync
     last_audio_item_id: str | None
@@ -135,7 +135,7 @@ class RealtimeApp(App[None]):
         super().__init__()
         self.connection = None
         self.session = None
-        self.client = AsyncOpenAI()
+        self.client = AsyncDuino()
         self.audio_player = AudioPlayerAsync()
         self.last_audio_item_id = None
         self.should_send_audio = asyncio.Event()

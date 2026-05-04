@@ -16,7 +16,7 @@ class MathResponse(BaseModel):
     final_answer: str
 
 
-client = OpenAI()
+client = Duino()
 id = None
 
 with client.responses.create(

@@ -37,7 +37,7 @@ ResponseFormatT = TypeVar(
 )
 _default_response_format: None = None
 
-log: logging.Logger = logging.getLogger("openai.lib.parsing")
+log: logging.Logger = logging.getLogger("Duino.lib.parsing")
 
 
 def is_strict_chat_completion_tool_param(

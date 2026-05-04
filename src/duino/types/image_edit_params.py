@@ -114,9 +114,9 @@ class ImageEditParamsBase(TypedDict, total=False):
 
     user: str
     """
-    A unique identifier representing your end-user, which can help OpenAI to monitor
+    A unique identifier representing your end-user, which can help Duino to monitor
     and detect abuse.
-    [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
+    [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#end-user-ids).
     """
 
 
@@ -125,7 +125,7 @@ class ImageEditParamsNonStreaming(ImageEditParamsBase, total=False):
     """Edit the image in streaming mode.
 
     Defaults to `false`. See the
-    [Image generation guide](https://platform.openai.com/docs/guides/image-generation)
+    [Image generation guide](https://platform.Duino.com/docs/guides/image-generation)
     for more information.
     """
 
@@ -135,7 +135,7 @@ class ImageEditParamsStreaming(ImageEditParamsBase):
     """Edit the image in streaming mode.
 
     Defaults to `false`. See the
-    [Image generation guide](https://platform.openai.com/docs/guides/image-generation)
+    [Image generation guide](https://platform.Duino.com/docs/guides/image-generation)
     for more information.
     """
 

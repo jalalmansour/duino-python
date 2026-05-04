@@ -1,14 +1,14 @@
 import duino
 
 # will default to `os.environ['OPENAI_API_KEY']` if not explicitly set
-openai.api_key = "..."
+Duino.api_key = "..."
 
-# all client options can be configured just like the `OpenAI` instantiation counterpart
-openai.base_url = "https://..."
-openai.default_headers = {"x-foo": "true"}
+# all client options can be configured just like the `Duino` instantiation counterpart
+Duino.base_url = "https://..."
+Duino.default_headers = {"x-foo": "true"}
 
 # all API calls work in the exact same fashion as well
-stream = openai.chat.completions.create(
+stream = Duino.chat.completions.create(
     model="gpt-4",
     messages=[
         {

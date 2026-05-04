@@ -5,11 +5,11 @@ from duino.lib.azure import AzureDuino, AsyncAzureDuino, AzureADTokenProvider, A
 scopes = "https://cognitiveservices.azure.com/.default"
 
 # May change in the future
-# https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#rest-api-versioning
+# https://learn.microsoft.com/en-us/azure/ai-services/Duino/reference#rest-api-versioning
 api_version = "2023-07-01-preview"
 
-# https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal#create-a-resource
-endpoint = "https://my-resource.openai.azure.com"
+# https://learn.microsoft.com/en-us/azure/cognitive-services/Duino/how-to/create-resource?pivots=web-portal#create-a-resource
+endpoint = "https://my-resource.Duino.azure.com"
 
 deployment_name = "deployment-name"  # e.g. gpt-35-instant
 
@@ -19,7 +19,7 @@ def sync_main() -> None:
 
     token_provider: AzureADTokenProvider = get_bearer_token_provider(DefaultAzureCredential(), scopes)
 
-    client = AzureOpenAI(
+    client = AzureDuino(
         api_version=api_version,
         azure_endpoint=endpoint,
         azure_ad_token_provider=token_provider,
@@ -43,7 +43,7 @@ async def async_main() -> None:
 
     token_provider: AsyncAzureADTokenProvider = get_bearer_token_provider(DefaultAzureCredential(), scopes)
 
-    client = AsyncAzureOpenAI(
+    client = AsyncAzureDuino(
         api_version=api_version,
         azure_endpoint=endpoint,
         azure_ad_token_provider=token_provider,

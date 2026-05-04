@@ -10,7 +10,7 @@ import pytest
 from respx import MockRouter
 
 import duino._legacy_response as _legacy_response
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 
 # pyright: reportDeprecated=false
@@ -23,7 +23,7 @@ class TestCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         call = client.realtime.calls.create(
             sdp="sdp",
@@ -33,7 +33,7 @@ class TestCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_create_with_all_params(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_create_with_all_params(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         call = client.realtime.calls.create(
             sdp="sdp",
@@ -98,7 +98,7 @@ class TestCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_raw_response_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = client.realtime.calls.with_raw_response.create(
@@ -112,7 +112,7 @@ class TestCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_create(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_streaming_response_create(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         with client.realtime.calls.with_streaming_response.create(
             sdp="sdp",
@@ -126,7 +126,7 @@ class TestCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_accept(self, client: OpenAI) -> None:
+    def test_method_accept(self, client: Duino) -> None:
         call = client.realtime.calls.accept(
             call_id="call_id",
             type="realtime",
@@ -134,7 +134,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_method_accept_with_all_params(self, client: OpenAI) -> None:
+    def test_method_accept_with_all_params(self, client: Duino) -> None:
         call = client.realtime.calls.accept(
             call_id="call_id",
             type="realtime",
@@ -194,7 +194,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_raw_response_accept(self, client: OpenAI) -> None:
+    def test_raw_response_accept(self, client: Duino) -> None:
         response = client.realtime.calls.with_raw_response.accept(
             call_id="call_id",
             type="realtime",
@@ -206,7 +206,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_streaming_response_accept(self, client: OpenAI) -> None:
+    def test_streaming_response_accept(self, client: Duino) -> None:
         with client.realtime.calls.with_streaming_response.accept(
             call_id="call_id",
             type="realtime",
@@ -220,7 +220,7 @@ class TestCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_accept(self, client: OpenAI) -> None:
+    def test_path_params_accept(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             client.realtime.calls.with_raw_response.accept(
                 call_id="",
@@ -228,14 +228,14 @@ class TestCalls:
             )
 
     @parametrize
-    def test_method_hangup(self, client: OpenAI) -> None:
+    def test_method_hangup(self, client: Duino) -> None:
         call = client.realtime.calls.hangup(
             "call_id",
         )
         assert call is None
 
     @parametrize
-    def test_raw_response_hangup(self, client: OpenAI) -> None:
+    def test_raw_response_hangup(self, client: Duino) -> None:
         response = client.realtime.calls.with_raw_response.hangup(
             "call_id",
         )
@@ -246,7 +246,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_streaming_response_hangup(self, client: OpenAI) -> None:
+    def test_streaming_response_hangup(self, client: Duino) -> None:
         with client.realtime.calls.with_streaming_response.hangup(
             "call_id",
         ) as response:
@@ -259,14 +259,14 @@ class TestCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_hangup(self, client: OpenAI) -> None:
+    def test_path_params_hangup(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             client.realtime.calls.with_raw_response.hangup(
                 "",
             )
 
     @parametrize
-    def test_method_refer(self, client: OpenAI) -> None:
+    def test_method_refer(self, client: Duino) -> None:
         call = client.realtime.calls.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -274,7 +274,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_raw_response_refer(self, client: OpenAI) -> None:
+    def test_raw_response_refer(self, client: Duino) -> None:
         response = client.realtime.calls.with_raw_response.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -286,7 +286,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_streaming_response_refer(self, client: OpenAI) -> None:
+    def test_streaming_response_refer(self, client: Duino) -> None:
         with client.realtime.calls.with_streaming_response.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -300,7 +300,7 @@ class TestCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_refer(self, client: OpenAI) -> None:
+    def test_path_params_refer(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             client.realtime.calls.with_raw_response.refer(
                 call_id="",
@@ -308,14 +308,14 @@ class TestCalls:
             )
 
     @parametrize
-    def test_method_reject(self, client: OpenAI) -> None:
+    def test_method_reject(self, client: Duino) -> None:
         call = client.realtime.calls.reject(
             call_id="call_id",
         )
         assert call is None
 
     @parametrize
-    def test_method_reject_with_all_params(self, client: OpenAI) -> None:
+    def test_method_reject_with_all_params(self, client: Duino) -> None:
         call = client.realtime.calls.reject(
             call_id="call_id",
             status_code=486,
@@ -323,7 +323,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_raw_response_reject(self, client: OpenAI) -> None:
+    def test_raw_response_reject(self, client: Duino) -> None:
         response = client.realtime.calls.with_raw_response.reject(
             call_id="call_id",
         )
@@ -334,7 +334,7 @@ class TestCalls:
         assert call is None
 
     @parametrize
-    def test_streaming_response_reject(self, client: OpenAI) -> None:
+    def test_streaming_response_reject(self, client: Duino) -> None:
         with client.realtime.calls.with_streaming_response.reject(
             call_id="call_id",
         ) as response:
@@ -347,7 +347,7 @@ class TestCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_reject(self, client: OpenAI) -> None:
+    def test_path_params_reject(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             client.realtime.calls.with_raw_response.reject(
                 call_id="",
@@ -361,7 +361,7 @@ class TestAsyncCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         call = await async_client.realtime.calls.create(
             sdp="sdp",
@@ -371,7 +371,7 @@ class TestAsyncCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         call = await async_client.realtime.calls.create(
             sdp="sdp",
@@ -436,7 +436,7 @@ class TestAsyncCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
 
         response = await async_client.realtime.calls.with_raw_response.create(
@@ -450,7 +450,7 @@ class TestAsyncCalls:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.post("/realtime/calls").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
         async with async_client.realtime.calls.with_streaming_response.create(
             sdp="sdp",
@@ -464,7 +464,7 @@ class TestAsyncCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_accept(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_accept(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.accept(
             call_id="call_id",
             type="realtime",
@@ -472,7 +472,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_method_accept_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_accept_with_all_params(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.accept(
             call_id="call_id",
             type="realtime",
@@ -532,7 +532,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_raw_response_accept(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_accept(self, async_client: AsyncDuino) -> None:
         response = await async_client.realtime.calls.with_raw_response.accept(
             call_id="call_id",
             type="realtime",
@@ -544,7 +544,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_streaming_response_accept(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_accept(self, async_client: AsyncDuino) -> None:
         async with async_client.realtime.calls.with_streaming_response.accept(
             call_id="call_id",
             type="realtime",
@@ -558,7 +558,7 @@ class TestAsyncCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_accept(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_accept(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             await async_client.realtime.calls.with_raw_response.accept(
                 call_id="",
@@ -566,14 +566,14 @@ class TestAsyncCalls:
             )
 
     @parametrize
-    async def test_method_hangup(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_hangup(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.hangup(
             "call_id",
         )
         assert call is None
 
     @parametrize
-    async def test_raw_response_hangup(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_hangup(self, async_client: AsyncDuino) -> None:
         response = await async_client.realtime.calls.with_raw_response.hangup(
             "call_id",
         )
@@ -584,7 +584,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_streaming_response_hangup(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_hangup(self, async_client: AsyncDuino) -> None:
         async with async_client.realtime.calls.with_streaming_response.hangup(
             "call_id",
         ) as response:
@@ -597,14 +597,14 @@ class TestAsyncCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_hangup(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_hangup(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             await async_client.realtime.calls.with_raw_response.hangup(
                 "",
             )
 
     @parametrize
-    async def test_method_refer(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_refer(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -612,7 +612,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_raw_response_refer(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_refer(self, async_client: AsyncDuino) -> None:
         response = await async_client.realtime.calls.with_raw_response.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -624,7 +624,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_streaming_response_refer(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_refer(self, async_client: AsyncDuino) -> None:
         async with async_client.realtime.calls.with_streaming_response.refer(
             call_id="call_id",
             target_uri="tel:+14155550123",
@@ -638,7 +638,7 @@ class TestAsyncCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_refer(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_refer(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             await async_client.realtime.calls.with_raw_response.refer(
                 call_id="",
@@ -646,14 +646,14 @@ class TestAsyncCalls:
             )
 
     @parametrize
-    async def test_method_reject(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_reject(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.reject(
             call_id="call_id",
         )
         assert call is None
 
     @parametrize
-    async def test_method_reject_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_reject_with_all_params(self, async_client: AsyncDuino) -> None:
         call = await async_client.realtime.calls.reject(
             call_id="call_id",
             status_code=486,
@@ -661,7 +661,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_raw_response_reject(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_reject(self, async_client: AsyncDuino) -> None:
         response = await async_client.realtime.calls.with_raw_response.reject(
             call_id="call_id",
         )
@@ -672,7 +672,7 @@ class TestAsyncCalls:
         assert call is None
 
     @parametrize
-    async def test_streaming_response_reject(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_reject(self, async_client: AsyncDuino) -> None:
         async with async_client.realtime.calls.with_streaming_response.reject(
             call_id="call_id",
         ) as response:
@@ -685,7 +685,7 @@ class TestAsyncCalls:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_reject(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_reject(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `call_id` but received ''"):
             await async_client.realtime.calls.with_raw_response.reject(
                 call_id="",

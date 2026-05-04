@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import Upload
 
@@ -18,7 +18,7 @@ class TestUploads:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         upload = client.uploads.create(
             bytes=0,
             filename="filename",
@@ -28,7 +28,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         upload = client.uploads.create(
             bytes=0,
             filename="filename",
@@ -42,7 +42,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.uploads.with_raw_response.create(
             bytes=0,
             filename="filename",
@@ -56,7 +56,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.uploads.with_streaming_response.create(
             bytes=0,
             filename="filename",
@@ -72,14 +72,14 @@ class TestUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_cancel(self, client: OpenAI) -> None:
+    def test_method_cancel(self, client: Duino) -> None:
         upload = client.uploads.cancel(
             "upload_abc123",
         )
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: OpenAI) -> None:
+    def test_raw_response_cancel(self, client: Duino) -> None:
         response = client.uploads.with_raw_response.cancel(
             "upload_abc123",
         )
@@ -90,7 +90,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: OpenAI) -> None:
+    def test_streaming_response_cancel(self, client: Duino) -> None:
         with client.uploads.with_streaming_response.cancel(
             "upload_abc123",
         ) as response:
@@ -103,14 +103,14 @@ class TestUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: OpenAI) -> None:
+    def test_path_params_cancel(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             client.uploads.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    def test_method_complete(self, client: OpenAI) -> None:
+    def test_method_complete(self, client: Duino) -> None:
         upload = client.uploads.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -118,7 +118,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_method_complete_with_all_params(self, client: OpenAI) -> None:
+    def test_method_complete_with_all_params(self, client: Duino) -> None:
         upload = client.uploads.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -127,7 +127,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_raw_response_complete(self, client: OpenAI) -> None:
+    def test_raw_response_complete(self, client: Duino) -> None:
         response = client.uploads.with_raw_response.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -139,7 +139,7 @@ class TestUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    def test_streaming_response_complete(self, client: OpenAI) -> None:
+    def test_streaming_response_complete(self, client: Duino) -> None:
         with client.uploads.with_streaming_response.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -153,7 +153,7 @@ class TestUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_complete(self, client: OpenAI) -> None:
+    def test_path_params_complete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             client.uploads.with_raw_response.complete(
                 upload_id="",
@@ -167,7 +167,7 @@ class TestAsyncUploads:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         upload = await async_client.uploads.create(
             bytes=0,
             filename="filename",
@@ -177,7 +177,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         upload = await async_client.uploads.create(
             bytes=0,
             filename="filename",
@@ -191,7 +191,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.uploads.with_raw_response.create(
             bytes=0,
             filename="filename",
@@ -205,7 +205,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.uploads.with_streaming_response.create(
             bytes=0,
             filename="filename",
@@ -221,14 +221,14 @@ class TestAsyncUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_cancel(self, async_client: AsyncDuino) -> None:
         upload = await async_client.uploads.cancel(
             "upload_abc123",
         )
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncDuino) -> None:
         response = await async_client.uploads.with_raw_response.cancel(
             "upload_abc123",
         )
@@ -239,7 +239,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncDuino) -> None:
         async with async_client.uploads.with_streaming_response.cancel(
             "upload_abc123",
         ) as response:
@@ -252,14 +252,14 @@ class TestAsyncUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             await async_client.uploads.with_raw_response.cancel(
                 "",
             )
 
     @parametrize
-    async def test_method_complete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_complete(self, async_client: AsyncDuino) -> None:
         upload = await async_client.uploads.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -267,7 +267,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_method_complete_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_complete_with_all_params(self, async_client: AsyncDuino) -> None:
         upload = await async_client.uploads.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -276,7 +276,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_raw_response_complete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_complete(self, async_client: AsyncDuino) -> None:
         response = await async_client.uploads.with_raw_response.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -288,7 +288,7 @@ class TestAsyncUploads:
         assert_matches_type(Upload, upload, path=["response"])
 
     @parametrize
-    async def test_streaming_response_complete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_complete(self, async_client: AsyncDuino) -> None:
         async with async_client.uploads.with_streaming_response.complete(
             upload_id="upload_abc123",
             part_ids=["string"],
@@ -302,7 +302,7 @@ class TestAsyncUploads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_complete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_complete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             await async_client.uploads.with_raw_response.complete(
                 upload_id="",

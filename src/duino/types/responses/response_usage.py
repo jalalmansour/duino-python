@@ -11,7 +11,7 @@ class InputTokensDetails(BaseModel):
     cached_tokens: int
     """The number of tokens that were retrieved from the cache.
 
-    [More on prompt caching](https://platform.openai.com/docs/guides/prompt-caching).
+    [More on prompt caching](https://platform.Duino.com/docs/guides/prompt-caching).
     """
 
 

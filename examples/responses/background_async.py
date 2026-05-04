@@ -18,7 +18,7 @@ class MathResponse(BaseModel):
 
 
 async def main() -> None:
-    client = AsyncOpenAI()
+    client = AsyncDuino()
     id = None
 
     async with await client.responses.create(

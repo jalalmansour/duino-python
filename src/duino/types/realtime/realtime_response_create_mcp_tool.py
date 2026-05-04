@@ -85,7 +85,7 @@ RequireApproval: TypeAlias = Union[RequireApprovalMcpToolApprovalFilter, Literal
 class RealtimeResponseCreateMcpTool(BaseModel):
     """
     Give the model access to additional tools via remote Model Context Protocol
-    (MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+    (MCP) servers. [Learn more about MCP](https://platform.Duino.com/docs/guides/tools-remote-mcp).
     """
 
     server_label: str
@@ -120,7 +120,7 @@ class RealtimeResponseCreateMcpTool(BaseModel):
 
     One of `server_url` or `connector_id` must be provided. Learn more about service
     connectors
-    [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+    [here](https://platform.Duino.com/docs/guides/tools-remote-mcp#connectors).
 
     Currently supported `connector_id` values are:
 

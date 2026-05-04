@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.audio import TranscriptionCreateResponse
 
@@ -18,7 +18,7 @@ class TestTranscriptions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_overload_1(self, client: Duino) -> None:
         transcription = client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -26,7 +26,7 @@ class TestTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: Duino) -> None:
         transcription = client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -44,7 +44,7 @@ class TestTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    def test_raw_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_1(self, client: Duino) -> None:
         response = client.audio.transcriptions.with_raw_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -56,7 +56,7 @@ class TestTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_1(self, client: Duino) -> None:
         with client.audio.transcriptions.with_streaming_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -70,7 +70,7 @@ class TestTranscriptions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_create_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_overload_2(self, client: Duino) -> None:
         transcription_stream = client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -79,7 +79,7 @@ class TestTranscriptions:
         transcription_stream.response.close()
 
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: Duino) -> None:
         transcription_stream = client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -97,7 +97,7 @@ class TestTranscriptions:
         transcription_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_create_overload_2(self, client: Duino) -> None:
         response = client.audio.transcriptions.with_raw_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -109,7 +109,7 @@ class TestTranscriptions:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_create_overload_2(self, client: Duino) -> None:
         with client.audio.transcriptions.with_streaming_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -130,7 +130,7 @@ class TestAsyncTranscriptions:
     )
 
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncDuino) -> None:
         transcription = await async_client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -138,7 +138,7 @@ class TestAsyncTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         transcription = await async_client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -156,7 +156,7 @@ class TestAsyncTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         response = await async_client.audio.transcriptions.with_raw_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -168,7 +168,7 @@ class TestAsyncTranscriptions:
         assert_matches_type(TranscriptionCreateResponse, transcription, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncDuino) -> None:
         async with async_client.audio.transcriptions.with_streaming_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -182,7 +182,7 @@ class TestAsyncTranscriptions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncDuino) -> None:
         transcription_stream = await async_client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -191,7 +191,7 @@ class TestAsyncTranscriptions:
         await transcription_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         transcription_stream = await async_client.audio.transcriptions.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -209,7 +209,7 @@ class TestAsyncTranscriptions:
         await transcription_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         response = await async_client.audio.transcriptions.with_raw_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",
@@ -221,7 +221,7 @@ class TestAsyncTranscriptions:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncDuino) -> None:
         async with async_client.audio.transcriptions.with_streaming_response.create(
             file=b"Example data",
             model="gpt-4o-transcribe",

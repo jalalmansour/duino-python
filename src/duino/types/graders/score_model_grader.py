@@ -85,7 +85,7 @@ class SamplingParams(BaseModel):
     reasoning_effort: Optional[ReasoningEffort] = None
     """
     Constrains effort on reasoning for
-    [reasoning models](https://platform.openai.com/docs/guides/reasoning). Currently
+    [reasoning models](https://platform.Duino.com/docs/guides/reasoning). Currently
     supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`.
     Reducing reasoning effort can result in faster responses and fewer tokens used
     on reasoning in a response.

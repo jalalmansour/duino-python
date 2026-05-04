@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types import Skill, DeletedSkill
 from duino.pagination import SyncCursorPage, AsyncCursorPage
@@ -19,19 +19,19 @@ class TestSkills:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         skill = client.skills.create()
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         skill = client.skills.create(
             files=[b"Example data"],
         )
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.skills.with_raw_response.create()
 
         assert response.is_closed is True
@@ -40,7 +40,7 @@ class TestSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.skills.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -51,14 +51,14 @@ class TestSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         skill = client.skills.retrieve(
             "skill_123",
         )
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.skills.with_raw_response.retrieve(
             "skill_123",
         )
@@ -69,7 +69,7 @@ class TestSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.skills.with_streaming_response.retrieve(
             "skill_123",
         ) as response:
@@ -82,14 +82,14 @@ class TestSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             client.skills.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         skill = client.skills.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -97,7 +97,7 @@ class TestSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.skills.with_raw_response.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -109,7 +109,7 @@ class TestSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.skills.with_streaming_response.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -123,7 +123,7 @@ class TestSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             client.skills.with_raw_response.update(
                 skill_id="",
@@ -131,12 +131,12 @@ class TestSkills:
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         skill = client.skills.list()
         assert_matches_type(SyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         skill = client.skills.list(
             after="after",
             limit=0,
@@ -145,7 +145,7 @@ class TestSkills:
         assert_matches_type(SyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.skills.with_raw_response.list()
 
         assert response.is_closed is True
@@ -154,7 +154,7 @@ class TestSkills:
         assert_matches_type(SyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.skills.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -165,14 +165,14 @@ class TestSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         skill = client.skills.delete(
             "skill_123",
         )
         assert_matches_type(DeletedSkill, skill, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.skills.with_raw_response.delete(
             "skill_123",
         )
@@ -183,7 +183,7 @@ class TestSkills:
         assert_matches_type(DeletedSkill, skill, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.skills.with_streaming_response.delete(
             "skill_123",
         ) as response:
@@ -196,7 +196,7 @@ class TestSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             client.skills.with_raw_response.delete(
                 "",
@@ -209,19 +209,19 @@ class TestAsyncSkills:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.create()
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.create(
             files=[b"Example data"],
         )
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.skills.with_raw_response.create()
 
         assert response.is_closed is True
@@ -230,7 +230,7 @@ class TestAsyncSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.skills.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -241,14 +241,14 @@ class TestAsyncSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.retrieve(
             "skill_123",
         )
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.skills.with_raw_response.retrieve(
             "skill_123",
         )
@@ -259,7 +259,7 @@ class TestAsyncSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.skills.with_streaming_response.retrieve(
             "skill_123",
         ) as response:
@@ -272,14 +272,14 @@ class TestAsyncSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             await async_client.skills.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -287,7 +287,7 @@ class TestAsyncSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.skills.with_raw_response.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -299,7 +299,7 @@ class TestAsyncSkills:
         assert_matches_type(Skill, skill, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.skills.with_streaming_response.update(
             skill_id="skill_123",
             default_version="default_version",
@@ -313,7 +313,7 @@ class TestAsyncSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             await async_client.skills.with_raw_response.update(
                 skill_id="",
@@ -321,12 +321,12 @@ class TestAsyncSkills:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.list()
         assert_matches_type(AsyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.list(
             after="after",
             limit=0,
@@ -335,7 +335,7 @@ class TestAsyncSkills:
         assert_matches_type(AsyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.skills.with_raw_response.list()
 
         assert response.is_closed is True
@@ -344,7 +344,7 @@ class TestAsyncSkills:
         assert_matches_type(AsyncCursorPage[Skill], skill, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.skills.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -355,14 +355,14 @@ class TestAsyncSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         skill = await async_client.skills.delete(
             "skill_123",
         )
         assert_matches_type(DeletedSkill, skill, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.skills.with_raw_response.delete(
             "skill_123",
         )
@@ -373,7 +373,7 @@ class TestAsyncSkills:
         assert_matches_type(DeletedSkill, skill, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.skills.with_streaming_response.delete(
             "skill_123",
         ) as response:
@@ -386,7 +386,7 @@ class TestAsyncSkills:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `skill_id` but received ''"):
             await async_client.skills.with_raw_response.delete(
                 "",

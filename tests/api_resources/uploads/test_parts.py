@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.uploads import UploadPart
 
@@ -18,7 +18,7 @@ class TestParts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         part = client.uploads.parts.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -26,7 +26,7 @@ class TestParts:
         assert_matches_type(UploadPart, part, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.uploads.parts.with_raw_response.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -38,7 +38,7 @@ class TestParts:
         assert_matches_type(UploadPart, part, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.uploads.parts.with_streaming_response.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -52,7 +52,7 @@ class TestParts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create(self, client: OpenAI) -> None:
+    def test_path_params_create(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             client.uploads.parts.with_raw_response.create(
                 upload_id="",
@@ -66,7 +66,7 @@ class TestAsyncParts:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         part = await async_client.uploads.parts.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -74,7 +74,7 @@ class TestAsyncParts:
         assert_matches_type(UploadPart, part, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.uploads.parts.with_raw_response.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -86,7 +86,7 @@ class TestAsyncParts:
         assert_matches_type(UploadPart, part, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.uploads.parts.with_streaming_response.create(
             upload_id="upload_abc123",
             data=b"Example data",
@@ -100,7 +100,7 @@ class TestAsyncParts:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_create(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             await async_client.uploads.parts.with_raw_response.create(
                 upload_id="",

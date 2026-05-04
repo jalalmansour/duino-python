@@ -428,7 +428,7 @@ __all__ = [
     "not_given",
     "Omit",
     "omit",
-    "OpenAIError",
+    "DuinoError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -452,8 +452,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "OpenAI",
-    "AsyncOpenAI",
+    "Duino",
+    "AsyncDuino",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -473,7 +473,7 @@ if not _t.TYPE_CHECKING:
 
 from .lib import azure as _azure, pydantic_function_tool as pydantic_function_tool
 from .version import VERSION as VERSION
-from .lib.azure import AzureOpenAI as AzureOpenAI, AsyncAzureOpenAI as AsyncAzureOpenAI
+from .lib.azure import AzureDuino as AzureDuino, AsyncAzureDuino as AsyncAzureDuino
 from .lib._old_api import *
 from .lib.streaming import (
     AssistantEventHandler as AssistantEventHandler,
@@ -485,12 +485,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# openai._exceptions.NotFoundError -> openai.NotFoundError
+# Duino._exceptions.NotFoundError -> Duino.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "openai"
+            __locals[__name].__module__ = "Duino"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
@@ -525,7 +525,7 @@ default_query: _t.Mapping[str, object] | None = None
 
 http_client: _httpx.Client | None = None
 
-_ApiType = _te.Literal["openai", "azure"]
+_ApiType = _te.Literal["Duino", "azure"]
 
 api_type: _ApiType | None = _t.cast(_ApiType, _os.environ.get("OPENAI_API_TYPE"))
 
@@ -538,7 +538,7 @@ azure_ad_token: str | None = _os.environ.get("AZURE_OPENAI_AD_TOKEN")
 azure_ad_token_provider: _azure.AzureADTokenProvider | None = None
 
 
-class _ModuleClient(OpenAI):
+class _ModuleClient(Duino):
     # Note: we have to use type: ignores here as overriding class members
     # with properties is technically unsafe but it is fine for our use case
 
@@ -665,14 +665,14 @@ class _ModuleClient(OpenAI):
         http_client = value
 
 
-class _AzureModuleClient(_ModuleClient, AzureOpenAI):  # type: ignore
+class _AzureModuleClient(_ModuleClient, AzureDuino):  # type: ignore
     ...
 
 
-class _AmbiguousModuleClientUsageError(OpenAIError):
+class _AmbiguousModuleClientUsageError(DuinoError):
     def __init__(self) -> None:
         super().__init__(
-            "Ambiguous use of module client; please set `openai.api_type` or the `OPENAI_API_TYPE` environment variable to `openai` or `azure`"
+            "Ambiguous use of module client; please set `Duino.api_type` or the `OPENAI_API_TYPE` environment variable to `Duino` or `azure`"
         )
 
 
@@ -692,10 +692,10 @@ def _has_azure_ad_credentials() -> bool:
     )
 
 
-_client: OpenAI | None = None
+_client: Duino | None = None
 
 
-def _load_client() -> OpenAI:  # type: ignore[reportUnusedFunction]
+def _load_client() -> Duino:  # type: ignore[reportUnusedFunction]
     global _client
 
     if _client is None:
@@ -726,7 +726,7 @@ def _load_client() -> OpenAI:  # type: ignore[reportUnusedFunction]
             if has_azure or has_azure_ad:
                 api_type = "azure"
             else:
-                api_type = "openai"
+                api_type = "Duino"
 
         if api_type == "azure":
             _client = _AzureModuleClient(  # type: ignore

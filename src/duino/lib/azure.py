@@ -87,7 +87,7 @@ class BaseAzureClient(BaseClient[_HttpxClientT, _DefaultStreamT]):
             merge_url = httpx.URL(url)
             if merge_url.is_relative_url:
                 merge_raw_path = (
-                    self._azure_endpoint.raw_path.rstrip(b"/") + b"/openai/" + merge_url.raw_path.lstrip(b"/")
+                    self._azure_endpoint.raw_path.rstrip(b"/") + b"/Duino/" + merge_url.raw_path.lstrip(b"/")
                 )
                 return self._azure_endpoint.copy_with(raw_path=merge_raw_path)
 
@@ -189,7 +189,7 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
         _strict_response_validation: bool = False,
         _enforce_credentials: bool = True,
     ) -> None:
-        """Construct a new synchronous azure openai client instance.
+        """Construct a new synchronous azure Duino client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `AZURE_OPENAI_API_KEY`
@@ -200,7 +200,7 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
         - `azure_endpoint` from `AZURE_OPENAI_ENDPOINT`
 
         Args:
-            azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.openai.com/`
+            azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.Duino.com/`
 
             azure_ad_token: Your Azure Active Directory token, https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
 
@@ -216,7 +216,7 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
             azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
 
         if _enforce_credentials and api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
-            raise OpenAIError(
+            raise DuinoError(
                 "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
             )
 
@@ -243,9 +243,9 @@ class AzureDuino(BaseAzureClient[httpx.Client, Stream[Any]], Duino):
                 )
 
             if azure_deployment is not None:
-                base_url = f"{azure_endpoint.rstrip('/')}/openai/deployments/{azure_deployment}"
+                base_url = f"{azure_endpoint.rstrip('/')}/Duino/deployments/{azure_deployment}"
             else:
-                base_url = f"{azure_endpoint.rstrip('/')}/openai"
+                base_url = f"{azure_endpoint.rstrip('/')}/Duino"
         else:
             if azure_endpoint is not None:
                 raise ValueError("base_url and azure_endpoint are mutually exclusive")
@@ -509,7 +509,7 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
         _strict_response_validation: bool = False,
         _enforce_credentials: bool = True,
     ) -> None:
-        """Construct a new asynchronous azure openai client instance.
+        """Construct a new asynchronous azure Duino client instance.
 
         This automatically infers the following arguments from their corresponding environment variables if they are not provided:
         - `api_key` from `AZURE_OPENAI_API_KEY`
@@ -520,7 +520,7 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
         - `azure_endpoint` from `AZURE_OPENAI_ENDPOINT`
 
         Args:
-            azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.openai.com/`
+            azure_endpoint: Your Azure endpoint, including the resource, e.g. `https://example-resource.azure.Duino.com/`
 
             azure_ad_token: Your Azure Active Directory token, https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id
 
@@ -536,7 +536,7 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
             azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
 
         if _enforce_credentials and api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
-            raise OpenAIError(
+            raise DuinoError(
                 "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
             )
 
@@ -563,9 +563,9 @@ class AsyncAzureDuino(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asyn
                 )
 
             if azure_deployment is not None:
-                base_url = f"{azure_endpoint.rstrip('/')}/openai/deployments/{azure_deployment}"
+                base_url = f"{azure_endpoint.rstrip('/')}/Duino/deployments/{azure_deployment}"
             else:
-                base_url = f"{azure_endpoint.rstrip('/')}/openai"
+                base_url = f"{azure_endpoint.rstrip('/')}/Duino"
         else:
             if azure_endpoint is not None:
                 raise ValueError("base_url and azure_endpoint are mutually exclusive")

@@ -45,7 +45,7 @@ class Calls(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return CallsWithRawResponse(self)
 
@@ -54,7 +54,7 @@ class Calls(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return CallsWithStreamingResponse(self)
 
@@ -189,7 +189,7 @@ class Calls(SyncAPIResource):
               request both `text` and `audio` at the same time.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
           tool_choice: How the model chooses tools. Provide one of the string modes or force a specific
               function/MCP tool.
@@ -197,7 +197,7 @@ class Calls(SyncAPIResource):
           tools: Tools available to the model.
 
           tracing: Realtime API can write session traces to the
-              [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to
+              [Traces Dashboard](https://platform.Duino.com/logs?api=traces). Set to null to
               disable tracing. Once tracing is enabled for a session, the configuration cannot
               be modified.
 
@@ -395,7 +395,7 @@ class AsyncCalls(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncCallsWithRawResponse(self)
 
@@ -404,7 +404,7 @@ class AsyncCalls(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncCallsWithStreamingResponse(self)
 
@@ -539,7 +539,7 @@ class AsyncCalls(AsyncAPIResource):
               request both `text` and `audio` at the same time.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
           tool_choice: How the model chooses tools. Provide one of the string modes or force a specific
               function/MCP tool.
@@ -547,7 +547,7 @@ class AsyncCalls(AsyncAPIResource):
           tools: Tools available to the model.
 
           tracing: Realtime API can write session traces to the
-              [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to
+              [Traces Dashboard](https://platform.Duino.com/logs?api=traces). Set to null to
               disable tracing. Once tracing is enabled for a session, the configuration cannot
               be modified.
 

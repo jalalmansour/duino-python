@@ -35,11 +35,11 @@ __all__ = ["Evals", "AsyncEvals"]
 
 
 class Evals(SyncAPIResource):
-    """Manage and run evals in the OpenAI platform."""
+    """Manage and run evals in the Duino platform."""
 
     @cached_property
     def runs(self) -> Runs:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return Runs(self._client)
 
     @cached_property
@@ -48,7 +48,7 @@ class Evals(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return EvalsWithRawResponse(self)
 
@@ -57,7 +57,7 @@ class Evals(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return EvalsWithStreamingResponse(self)
 
@@ -81,7 +81,7 @@ class Evals(SyncAPIResource):
         data source, which dictates the schema of the data used in the evaluation. After
         creating an evaluation, you can run it on different models and model parameters.
         We support several types of graders and datasources. For more information, see
-        the [Evals guide](https://platform.openai.com/docs/guides/evals).
+        the [Evals guide](https://platform.Duino.com/docs/guides/evals).
 
         Args:
           data_source_config: The configuration for the data source used for the evaluation runs. Dictates the
@@ -319,11 +319,11 @@ class Evals(SyncAPIResource):
 
 
 class AsyncEvals(AsyncAPIResource):
-    """Manage and run evals in the OpenAI platform."""
+    """Manage and run evals in the Duino platform."""
 
     @cached_property
     def runs(self) -> AsyncRuns:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncRuns(self._client)
 
     @cached_property
@@ -332,7 +332,7 @@ class AsyncEvals(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncEvalsWithRawResponse(self)
 
@@ -341,7 +341,7 @@ class AsyncEvals(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncEvalsWithStreamingResponse(self)
 
@@ -365,7 +365,7 @@ class AsyncEvals(AsyncAPIResource):
         data source, which dictates the schema of the data used in the evaluation. After
         creating an evaluation, you can run it on different models and model parameters.
         We support several types of graders and datasources. For more information, see
-        the [Evals guide](https://platform.openai.com/docs/guides/evals).
+        the [Evals guide](https://platform.Duino.com/docs/guides/evals).
 
         Args:
           data_source_config: The configuration for the data source used for the evaluation runs. Dictates the
@@ -624,7 +624,7 @@ class EvalsWithRawResponse:
 
     @cached_property
     def runs(self) -> RunsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return RunsWithRawResponse(self._evals.runs)
 
 
@@ -650,7 +650,7 @@ class AsyncEvalsWithRawResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsWithRawResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncRunsWithRawResponse(self._evals.runs)
 
 
@@ -676,7 +676,7 @@ class EvalsWithStreamingResponse:
 
     @cached_property
     def runs(self) -> RunsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return RunsWithStreamingResponse(self._evals.runs)
 
 
@@ -702,5 +702,5 @@ class AsyncEvalsWithStreamingResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsWithStreamingResponse:
-        """Manage and run evals in the OpenAI platform."""
+        """Manage and run evals in the Duino platform."""
         return AsyncRunsWithStreamingResponse(self._evals.runs)

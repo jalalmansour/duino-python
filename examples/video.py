@@ -4,7 +4,7 @@ import asyncio
 
 from duino import AsyncDuino
 
-client = AsyncOpenAI()
+client = AsyncDuino()
 
 
 async def main() -> None:

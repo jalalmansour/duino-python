@@ -18,13 +18,13 @@ from duino.lib.azure import AzureDuino, AsyncAzureDuino
 Client = Union[AzureDuino, AsyncAzureDuino]
 
 
-sync_client = AzureOpenAI(
+sync_client = AzureDuino(
     api_version="2023-07-01",
     api_key="example API key",
     azure_endpoint="https://example-resource.azure.duino.com",
 )
 
-async_client = AsyncAzureOpenAI(
+async_client = AsyncAzureDuino(
     api_version="2023-07-01",
     api_key="example API key",
     azure_endpoint="https://example-resource.azure.duino.com",
@@ -46,7 +46,7 @@ def test_implicit_deployment_path(client: Client) -> None:
     )
     assert (
         req.url
-        == "https://example-resource.azure.duino.com/openai/deployments/my-deployment-model/chat/completions?api-version=2023-07-01"
+        == "https://example-resource.azure.duino.com/Duino/deployments/my-deployment-model/chat/completions?api-version=2023-07-01"
     )
 
 
@@ -81,7 +81,7 @@ def test_client_copying_override_options(client: Client) -> None:
 
 def test_enforce_credentials_false_sync() -> None:
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        AzureOpenAI(
+        AzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -94,11 +94,11 @@ def test_enforce_credentials_false_sync() -> None:
 @pytest.mark.respx()
 def test_enforce_credentials_false_sync_uses_default_api_key_header(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        client = AzureOpenAI(
+        client = AzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -117,11 +117,11 @@ def test_enforce_credentials_false_sync_uses_default_api_key_header(respx_mock: 
 @pytest.mark.respx()
 def test_enforce_credentials_false_sync_uses_request_authorization_header(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        client = AzureOpenAI(
+        client = AzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -142,8 +142,8 @@ def test_enforce_credentials_false_sync_uses_request_authorization_header(respx_
 
 def test_enforce_credentials_true_sync() -> None:
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        with pytest.raises(OpenAIError, match="Missing credentials"):
-            AzureOpenAI(
+        with pytest.raises(DuinoError, match="Missing credentials"):
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key=None,
                 azure_ad_token=None,
@@ -154,7 +154,7 @@ def test_enforce_credentials_true_sync() -> None:
 
 def test_enforce_credentials_false_async() -> None:
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        AsyncAzureOpenAI(
+        AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -168,11 +168,11 @@ def test_enforce_credentials_false_async() -> None:
 @pytest.mark.respx()
 async def test_enforce_credentials_false_async_uses_default_api_key_header(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        client = AsyncAzureOpenAI(
+        client = AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -192,11 +192,11 @@ async def test_enforce_credentials_false_async_uses_default_api_key_header(respx
 @pytest.mark.respx()
 async def test_enforce_credentials_false_async_uses_request_authorization_header(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        client = AsyncAzureOpenAI(
+        client = AsyncAzureDuino(
             api_version="2024-02-01",
             api_key=None,
             azure_ad_token=None,
@@ -217,8 +217,8 @@ async def test_enforce_credentials_false_async_uses_request_authorization_header
 
 def test_enforce_credentials_true_async() -> None:
     with update_env(AZURE_OPENAI_API_KEY=Omit(), AZURE_OPENAI_AD_TOKEN=Omit()):
-        with pytest.raises(OpenAIError, match="Missing credentials"):
-            AsyncAzureOpenAI(
+        with pytest.raises(DuinoError, match="Missing credentials"):
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key=None,
                 azure_ad_token=None,
@@ -230,7 +230,7 @@ def test_enforce_credentials_true_async() -> None:
 @pytest.mark.respx()
 def test_client_token_provider_refresh_sync(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(
         side_effect=[
             httpx.Response(500, json={"error": "server error"}),
@@ -250,7 +250,7 @@ def test_client_token_provider_refresh_sync(respx_mock: MockRouter) -> None:
 
         return "second"
 
-    client = AzureOpenAI(
+    client = AzureDuino(
         api_version="2024-02-01",
         azure_ad_token_provider=token_provider,
         azure_endpoint="https://example-resource.azure.duino.com",
@@ -269,7 +269,7 @@ def test_client_token_provider_refresh_sync(respx_mock: MockRouter) -> None:
 @pytest.mark.respx()
 async def test_client_token_provider_refresh_async(respx_mock: MockRouter) -> None:
     respx_mock.post(
-        "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-02-01"
+        "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-02-01"
     ).mock(
         side_effect=[
             httpx.Response(500, json={"error": "server error"}),
@@ -289,7 +289,7 @@ async def test_client_token_provider_refresh_async(respx_mock: MockRouter) -> No
 
         return "second"
 
-    client = AsyncAzureOpenAI(
+    client = AsyncAzureDuino(
         api_version="2024-02-01",
         azure_ad_token_provider=token_provider,
         azure_endpoint="https://example-resource.azure.duino.com",
@@ -308,7 +308,7 @@ async def test_client_token_provider_refresh_async(respx_mock: MockRouter) -> No
 class TestAzureLogging:
     @pytest.fixture(autouse=True)
     def logger_with_filter(self) -> logging.Logger:
-        logger = logging.getLogger("openai")
+        logger = logging.getLogger("Duino")
         logger.setLevel(logging.DEBUG)
         logger.addFilter(SensitiveHeadersFilter())
         return logger
@@ -316,10 +316,10 @@ class TestAzureLogging:
     @pytest.mark.respx()
     def test_azure_api_key_redacted(self, respx_mock: MockRouter, caplog: pytest.LogCaptureFixture) -> None:
         respx_mock.post(
-            "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-06-01"
+            "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-06-01"
         ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-        client = AzureOpenAI(
+        client = AzureDuino(
             api_version="2024-06-01",
             api_key="example_api_key",
             azure_endpoint="https://example-resource.azure.duino.com",
@@ -335,10 +335,10 @@ class TestAzureLogging:
     @pytest.mark.respx()
     def test_azure_bearer_token_redacted(self, respx_mock: MockRouter, caplog: pytest.LogCaptureFixture) -> None:
         respx_mock.post(
-            "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-06-01"
+            "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-06-01"
         ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-        client = AzureOpenAI(
+        client = AzureDuino(
             api_version="2024-06-01",
             azure_ad_token="example_token",
             azure_endpoint="https://example-resource.azure.duino.com",
@@ -355,10 +355,10 @@ class TestAzureLogging:
     @pytest.mark.respx()
     async def test_azure_api_key_redacted_async(self, respx_mock: MockRouter, caplog: pytest.LogCaptureFixture) -> None:
         respx_mock.post(
-            "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-06-01"
+            "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-06-01"
         ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-        client = AsyncAzureOpenAI(
+        client = AsyncAzureDuino(
             api_version="2024-06-01",
             api_key="example_api_key",
             azure_endpoint="https://example-resource.azure.duino.com",
@@ -377,10 +377,10 @@ class TestAzureLogging:
         self, respx_mock: MockRouter, caplog: pytest.LogCaptureFixture
     ) -> None:
         respx_mock.post(
-            "https://example-resource.azure.duino.com/openai/deployments/gpt-4/chat/completions?api-version=2024-06-01"
+            "https://example-resource.azure.duino.com/Duino/deployments/gpt-4/chat/completions?api-version=2024-06-01"
         ).mock(return_value=httpx.Response(200, json={"model": "gpt-4"}))
 
-        client = AsyncAzureOpenAI(
+        client = AsyncAzureDuino(
             api_version="2024-06-01",
             azure_ad_token="example_token",
             azure_endpoint="https://example-resource.azure.duino.com",
@@ -398,59 +398,59 @@ class TestAzureLogging:
     "client,base_url,api,json_data,expected",
     [
         # Deployment-based endpoints
-        # AzureOpenAI: No deployment specified
+        # AzureDuino: No deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-body/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-body/chat/completions?api-version=2024-02-01",
         ),
-        # AzureOpenAI: Deployment specified
+        # AzureDuino: Deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/chat/completions?api-version=2024-02-01",
         ),
-        # AzureOpenAI: "deployments" in the DNS name
+        # AzureDuino: "deployments" in the DNS name
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.example-resource.azure.duino.com",
             ),
-            "https://deployments.example-resource.azure.duino.com/openai/",
+            "https://deployments.example-resource.azure.duino.com/Duino/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://deployments.example-resource.azure.duino.com/openai/deployments/deployment-body/chat/completions?api-version=2024-02-01",
+            "https://deployments.example-resource.azure.duino.com/Duino/deployments/deployment-body/chat/completions?api-version=2024-02-01",
         ),
-        # AzureOpenAI: Deployment called deployments
+        # AzureDuino: Deployment called deployments
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/chat/completions?api-version=2024-02-01",
         ),
-        # AzureOpenAI: base_url and azure_deployment specified; ignored b/c not supported
+        # AzureDuino: base_url and azure_deployment specified; ignored b/c not supported
         (
-            AzureOpenAI(  # type: ignore
+            AzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -461,59 +461,59 @@ class TestAzureLogging:
             {"model": "deployment-body"},
             "https://example.azure-api.net/PTU/deployments/deployment-body/chat/completions?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: No deployment specified
+        # AsyncAzureDuino: No deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-body/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-body/chat/completions?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: Deployment specified
+        # AsyncAzureDuino: Deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/chat/completions?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: "deployments" in the DNS name
+        # AsyncAzureDuino: "deployments" in the DNS name
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.example-resource.azure.duino.com",
             ),
-            "https://deployments.example-resource.azure.duino.com/openai/",
+            "https://deployments.example-resource.azure.duino.com/Duino/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://deployments.example-resource.azure.duino.com/openai/deployments/deployment-body/chat/completions?api-version=2024-02-01",
+            "https://deployments.example-resource.azure.duino.com/Duino/deployments/deployment-body/chat/completions?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: Deployment called deployments
+        # AsyncAzureDuino: Deployment called deployments
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             "/chat/completions",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/chat/completions?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/chat/completions?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
+        # AsyncAzureDuino: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
         (
-            AsyncAzureOpenAI(  # type: ignore
+            AsyncAzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -544,84 +544,84 @@ def test_prepare_url_deployment_endpoint(
     "client,base_url,api,json_data,expected",
     [
         # Non-deployment endpoints
-        # AzureOpenAI: No deployment specified
+        # AzureDuino: No deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AzureOpenAI: No deployment specified
+        # AzureDuino: No deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/assistants",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/assistants?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/assistants?api-version=2024-02-01",
         ),
-        # AzureOpenAI: Deployment specified
+        # AzureDuino: Deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AzureOpenAI: Deployment specified
+        # AzureDuino: Deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/assistants",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/assistants?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/assistants?api-version=2024-02-01",
         ),
-        # AzureOpenAI: "deployments" in the DNS name
+        # AzureDuino: "deployments" in the DNS name
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.example-resource.azure.duino.com",
             ),
-            "https://deployments.example-resource.azure.duino.com/openai/",
+            "https://deployments.example-resource.azure.duino.com/Duino/",
             "/models",
             {},
-            "https://deployments.example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://deployments.example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AzureOpenAI: Deployment called "deployments"
+        # AzureDuino: Deployment called "deployments"
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AzureOpenAI: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
+        # AzureDuino: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
         (
-            AzureOpenAI(  # type: ignore
+            AzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -632,84 +632,84 @@ def test_prepare_url_deployment_endpoint(
             {},
             "https://example.azure-api.net/PTU/models?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: No deployment specified
+        # AsyncAzureDuino: No deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: No deployment specified
+        # AsyncAzureDuino: No deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             "/assistants",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/assistants?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/assistants?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: Deployment specified
+        # AsyncAzureDuino: Deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: Deployment specified
+        # AsyncAzureDuino: Deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             "/assistants",
             {"model": "deployment-body"},
-            "https://example-resource.azure.duino.com/openai/assistants?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/assistants?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: "deployments" in the DNS name
+        # AsyncAzureDuino: "deployments" in the DNS name
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.example-resource.azure.duino.com",
             ),
-            "https://deployments.example-resource.azure.duino.com/openai/",
+            "https://deployments.example-resource.azure.duino.com/Duino/",
             "/models",
             {},
-            "https://deployments.example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://deployments.example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: Deployment called "deployments"
+        # AsyncAzureDuino: Deployment called "deployments"
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             "/models",
             {},
-            "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01",
+            "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01",
         ),
-        # AsyncAzureOpenAI: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
+        # AsyncAzureDuino: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
         (
-            AsyncAzureOpenAI(  # type: ignore
+            AsyncAzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -740,55 +740,55 @@ def test_prepare_url_nondeployment_endpoint(
     "client,base_url,json_data,expected",
     [
         # Realtime endpoint
-        # AzureOpenAI: No deployment specified
+        # AzureDuino: No deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-body",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AzureOpenAI: Deployment specified
+        # AzureDuino: Deployment specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-client",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-client",
         ),
-        # AzureOpenAI: "deployments" in the DNS name
+        # AzureDuino: "deployments" in the DNS name
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.azure.duino.com",
             ),
-            "https://deployments.azure.duino.com/openai/",
+            "https://deployments.azure.duino.com/Duino/",
             {"model": "deployment-body"},
-            "wss://deployments.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-body",
+            "wss://deployments.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AzureOpenAI: Deployment called "deployments"
+        # AzureDuino: Deployment called "deployments"
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployments",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployments",
         ),
-        # AzureOpenAI: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
+        # AzureDuino: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
         (
-            AzureOpenAI(  # type: ignore
+            AzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -798,21 +798,21 @@ def test_prepare_url_nondeployment_endpoint(
             {"model": "deployment-body"},
             "wss://example.azure-api.net/PTU/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AzureOpenAI: websocket_base_url specified
+        # AzureDuino: websocket_base_url specified
         (
-            AzureOpenAI(
+            AzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 websocket_base_url="wss://example-resource.azure.duino.com/base",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             {"model": "deployment-body"},
             "wss://example-resource.azure.duino.com/base/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
     ],
 )
-def test_prepare_url_realtime(client: AzureOpenAI, base_url: str, json_data: dict[str, str], expected: str) -> None:
+def test_prepare_url_realtime(client: AzureDuino, base_url: str, json_data: dict[str, str], expected: str) -> None:
     url, _ = client._configure_realtime(json_data["model"], {})
     assert str(url) == expected
     assert client.base_url == base_url
@@ -821,55 +821,55 @@ def test_prepare_url_realtime(client: AzureOpenAI, base_url: str, json_data: dic
 @pytest.mark.parametrize(
     "client,base_url,json_data,expected",
     [
-        # AsyncAzureOpenAI: No deployment specified
+        # AsyncAzureDuino: No deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-body",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AsyncAzureOpenAI: Deployment specified
+        # AsyncAzureDuino: Deployment specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployment-client",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployment-client/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployment-client/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-client",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-client",
         ),
-        # AsyncAzureOpenAI: "deployments" in the DNS name
+        # AsyncAzureDuino: "deployments" in the DNS name
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://deployments.azure.duino.com",
             ),
-            "https://deployments.azure.duino.com/openai/",
+            "https://deployments.azure.duino.com/Duino/",
             {"model": "deployment-body"},
-            "wss://deployments.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployment-body",
+            "wss://deployments.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AsyncAzureOpenAI: Deployment called "deployments"
+        # AsyncAzureDuino: Deployment called "deployments"
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 azure_deployment="deployments",
             ),
-            "https://example-resource.azure.duino.com/openai/deployments/deployments/",
+            "https://example-resource.azure.duino.com/Duino/deployments/deployments/",
             {"model": "deployment-body"},
-            "wss://example-resource.azure.duino.com/openai/realtime?api-version=2024-02-01&deployment=deployments",
+            "wss://example-resource.azure.duino.com/Duino/realtime?api-version=2024-02-01&deployment=deployments",
         ),
-        # AsyncAzureOpenAI: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
+        # AsyncAzureDuino: base_url and azure_deployment specified; azure_deployment ignored b/c not supported
         (
-            AsyncAzureOpenAI(  # type: ignore
+            AsyncAzureDuino(  # type: ignore
                 api_version="2024-02-01",
                 api_key="example API key",
                 base_url="https://example.azure-api.net/PTU/",
@@ -879,22 +879,22 @@ def test_prepare_url_realtime(client: AzureOpenAI, base_url: str, json_data: dic
             {"model": "deployment-body"},
             "wss://example.azure-api.net/PTU/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
-        # AsyncAzureOpenAI: websocket_base_url specified
+        # AsyncAzureDuino: websocket_base_url specified
         (
-            AsyncAzureOpenAI(
+            AsyncAzureDuino(
                 api_version="2024-02-01",
                 api_key="example API key",
                 azure_endpoint="https://example-resource.azure.duino.com",
                 websocket_base_url="wss://example-resource.azure.duino.com/base",
             ),
-            "https://example-resource.azure.duino.com/openai/",
+            "https://example-resource.azure.duino.com/Duino/",
             {"model": "deployment-body"},
             "wss://example-resource.azure.duino.com/base/realtime?api-version=2024-02-01&deployment=deployment-body",
         ),
     ],
 )
 async def test_prepare_url_realtime_async(
-    client: AsyncAzureOpenAI, base_url: str, json_data: dict[str, str], expected: str
+    client: AsyncAzureDuino, base_url: str, json_data: dict[str, str], expected: str
 ) -> None:
     url, _ = await client._configure_realtime(json_data["model"], {})
     assert str(url) == expected
@@ -902,16 +902,16 @@ async def test_prepare_url_realtime_async(
 
 
 def test_client_sets_base_url(client: Client) -> None:
-    client = AzureOpenAI(
+    client = AzureDuino(
         api_version="2024-02-01",
         api_key="example API key",
         azure_endpoint="https://example-resource.azure.duino.com",
         azure_deployment="my-deployment",
     )
-    assert client.base_url == "https://example-resource.azure.duino.com/openai/deployments/my-deployment/"
+    assert client.base_url == "https://example-resource.azure.duino.com/Duino/deployments/my-deployment/"
 
     # (not recommended) user sets base_url to target different deployment
-    client.base_url = "https://example-resource.azure.duino.com/openai/deployments/different-deployment/"
+    client.base_url = "https://example-resource.azure.duino.com/Duino/deployments/different-deployment/"
     req = client._build_request(
         FinalRequestOptions.construct(
             method="post",
@@ -921,7 +921,7 @@ def test_client_sets_base_url(client: Client) -> None:
     )
     assert (
         req.url
-        == "https://example-resource.azure.duino.com/openai/deployments/different-deployment/chat/completions?api-version=2024-02-01"
+        == "https://example-resource.azure.duino.com/Duino/deployments/different-deployment/chat/completions?api-version=2024-02-01"
     )
     req = client._build_request(
         FinalRequestOptions.construct(
@@ -930,10 +930,10 @@ def test_client_sets_base_url(client: Client) -> None:
             json_data={},
         )
     )
-    assert req.url == "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01"
+    assert req.url == "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01"
 
     # (not recommended) user sets base_url to remove deployment
-    client.base_url = "https://example-resource.azure.duino.com/openai/"
+    client.base_url = "https://example-resource.azure.duino.com/Duino/"
     req = client._build_request(
         FinalRequestOptions.construct(
             method="post",
@@ -943,7 +943,7 @@ def test_client_sets_base_url(client: Client) -> None:
     )
     assert (
         req.url
-        == "https://example-resource.azure.duino.com/openai/deployments/deployment/chat/completions?api-version=2024-02-01"
+        == "https://example-resource.azure.duino.com/Duino/deployments/deployment/chat/completions?api-version=2024-02-01"
     )
     req = client._build_request(
         FinalRequestOptions.construct(
@@ -952,4 +952,4 @@ def test_client_sets_base_url(client: Client) -> None:
             json_data={},
         )
     )
-    assert req.url == "https://example-resource.azure.duino.com/openai/models?api-version=2024-02-01"
+    assert req.url == "https://example-resource.azure.duino.com/Duino/models?api-version=2024-02-01"

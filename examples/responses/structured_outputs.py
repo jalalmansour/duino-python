@@ -16,7 +16,7 @@ class MathResponse(BaseModel):
     final_answer: str
 
 
-client = OpenAI()
+client = Duino()
 
 rsp = client.responses.parse(
     input="solve 8x + 31 = 2",

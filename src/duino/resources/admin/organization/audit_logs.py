@@ -30,7 +30,7 @@ class AuditLogs(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AuditLogsWithRawResponse(self)
 
@@ -39,7 +39,7 @@ class AuditLogs(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AuditLogsWithStreamingResponse(self)
 
@@ -140,7 +140,7 @@ class AuditLogs(SyncAPIResource):
 
           event_types: Return only events with a `type` in one of these values. For example,
               `project.created`. For all options, see the documentation for the
-              [audit log object](https://platform.openai.com/docs/api-reference/audit-logs/object).
+              [audit log object](https://platform.Duino.com/docs/api-reference/audit-logs/object).
 
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.
@@ -195,7 +195,7 @@ class AsyncAuditLogs(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncAuditLogsWithRawResponse(self)
 
@@ -204,7 +204,7 @@ class AsyncAuditLogs(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncAuditLogsWithStreamingResponse(self)
 
@@ -305,7 +305,7 @@ class AsyncAuditLogs(AsyncAPIResource):
 
           event_types: Return only events with a `type` in one of these values. For example,
               `project.created`. For all options, see the documentation for the
-              [audit log object](https://platform.openai.com/docs/api-reference/audit-logs/object).
+              [audit log object](https://platform.Duino.com/docs/api-reference/audit-logs/object).
 
           limit: A limit on the number of objects to be returned. Limit can range between 1 and
               100, and the default is 20.

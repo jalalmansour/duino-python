@@ -53,7 +53,7 @@ from .input_tokens import (
     InputTokensWithStreamingResponse,
     AsyncInputTokensWithStreamingResponse,
 )
-from ..._exceptions import OpenAIError, WebSocketConnectionClosedError
+from ..._exceptions import DuinoError, WebSocketConnectionClosedError
 from ..._send_queue import SendQueue
 from ..._base_client import _merge_mappings, make_request_options
 from ..._event_handler import EventHandlerRegistry
@@ -93,7 +93,7 @@ if TYPE_CHECKING:
     from websockets.sync.client import ClientConnection as WebSocketConnection
     from websockets.asyncio.client import ClientConnection as AsyncWebSocketConnection
 
-    from ..._client import OpenAI, AsyncOpenAI
+    from ..._client import Duino, AsyncDuino
 
 __all__ = ["Responses", "AsyncResponses"]
 
@@ -115,7 +115,7 @@ class Responses(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return ResponsesWithRawResponse(self)
 
@@ -124,7 +124,7 @@ class Responses(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return ResponsesWithStreamingResponse(self)
 
@@ -171,20 +171,20 @@ class Responses(SyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -216,11 +216,11 @@ class Responses(SyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -230,7 +230,7 @@ class Responses(SyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -244,42 +244,42 @@ class Responses(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -288,8 +288,8 @@ class Responses(SyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -304,7 +304,7 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           stream_options: Options for streaming responses. Only set this when you set `stream: true`.
@@ -317,8 +317,8 @@ class Responses(SyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -329,19 +329,19 @@ class Responses(SyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -364,8 +364,8 @@ class Responses(SyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -420,15 +420,15 @@ class Responses(SyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
@@ -436,11 +436,11 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -472,11 +472,11 @@ class Responses(SyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -486,7 +486,7 @@ class Responses(SyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -500,42 +500,42 @@ class Responses(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -544,8 +544,8 @@ class Responses(SyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -566,8 +566,8 @@ class Responses(SyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -578,19 +578,19 @@ class Responses(SyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -613,8 +613,8 @@ class Responses(SyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -669,15 +669,15 @@ class Responses(SyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
@@ -685,11 +685,11 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -721,11 +721,11 @@ class Responses(SyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -735,7 +735,7 @@ class Responses(SyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -749,42 +749,42 @@ class Responses(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -793,8 +793,8 @@ class Responses(SyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -815,8 +815,8 @@ class Responses(SyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -827,19 +827,19 @@ class Responses(SyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -862,8 +862,8 @@ class Responses(SyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -1358,7 +1358,7 @@ class Responses(SyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -1366,7 +1366,7 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           extra_headers: Send extra headers
@@ -1403,7 +1403,7 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           include: Additional fields to include in the response. See the `include` parameter for
@@ -1414,7 +1414,7 @@ class Responses(SyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -1452,7 +1452,7 @@ class Responses(SyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           include: Additional fields to include in the response. See the `include` parameter for
@@ -1463,7 +1463,7 @@ class Responses(SyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -1570,7 +1570,7 @@ class Responses(SyncAPIResource):
 
         Only responses created with the
         `background` parameter set to `true` can be cancelled.
-        [Learn more](https://platform.openai.com/docs/guides/background).
+        [Learn more](https://platform.Duino.com/docs/guides/background).
 
         Args:
           extra_headers: Send extra headers
@@ -1713,15 +1713,15 @@ class Responses(SyncAPIResource):
         Returns a compacted response object.
 
         Learn when and how to compact long-running conversations in the
-        [conversation state guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
+        [conversation state guide](https://platform.Duino.com/docs/guides/conversation-state#managing-the-context-window).
         For ZDR-compatible compaction details, see
-        [Compaction (advanced)](https://platform.openai.com/docs/guides/conversation-state#compaction-advanced).
+        [Compaction (advanced)](https://platform.Duino.com/docs/guides/conversation-state#compaction-advanced).
 
         Args:
-          model: Model ID used to generate the response, like `gpt-5` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-5` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           input: Text, image, or file inputs to the model, used to generate a response
@@ -1733,7 +1733,7 @@ class Responses(SyncAPIResource):
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt_cache_key: A key to use when reading from or writing to the prompt cache.
@@ -1814,7 +1814,7 @@ class AsyncResponses(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncResponsesWithRawResponse(self)
 
@@ -1823,7 +1823,7 @@ class AsyncResponses(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncResponsesWithStreamingResponse(self)
 
@@ -1870,20 +1870,20 @@ class AsyncResponses(AsyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -1915,11 +1915,11 @@ class AsyncResponses(AsyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -1929,7 +1929,7 @@ class AsyncResponses(AsyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -1943,42 +1943,42 @@ class AsyncResponses(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -1987,8 +1987,8 @@ class AsyncResponses(AsyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -2003,7 +2003,7 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           stream_options: Options for streaming responses. Only set this when you set `stream: true`.
@@ -2016,8 +2016,8 @@ class AsyncResponses(AsyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -2028,19 +2028,19 @@ class AsyncResponses(AsyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -2063,8 +2063,8 @@ class AsyncResponses(AsyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -2119,15 +2119,15 @@ class AsyncResponses(AsyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
@@ -2135,11 +2135,11 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -2171,11 +2171,11 @@ class AsyncResponses(AsyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -2185,7 +2185,7 @@ class AsyncResponses(AsyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -2199,42 +2199,42 @@ class AsyncResponses(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -2243,8 +2243,8 @@ class AsyncResponses(AsyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -2265,8 +2265,8 @@ class AsyncResponses(AsyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -2277,19 +2277,19 @@ class AsyncResponses(AsyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -2312,8 +2312,8 @@ class AsyncResponses(AsyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -2368,15 +2368,15 @@ class AsyncResponses(AsyncAPIResource):
         """Creates a model response.
 
         Provide
-        [text](https://platform.openai.com/docs/guides/text) or
-        [image](https://platform.openai.com/docs/guides/images) inputs to generate
-        [text](https://platform.openai.com/docs/guides/text) or
-        [JSON](https://platform.openai.com/docs/guides/structured-outputs) outputs. Have
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [image](https://platform.Duino.com/docs/guides/images) inputs to generate
+        [text](https://platform.Duino.com/docs/guides/text) or
+        [JSON](https://platform.Duino.com/docs/guides/structured-outputs) outputs. Have
         the model call your own
-        [custom code](https://platform.openai.com/docs/guides/function-calling) or use
-        built-in [tools](https://platform.openai.com/docs/guides/tools) like
-        [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-        [file search](https://platform.openai.com/docs/guides/tools-file-search) to use
+        [custom code](https://platform.Duino.com/docs/guides/function-calling) or use
+        built-in [tools](https://platform.Duino.com/docs/guides/tools) like
+        [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+        [file search](https://platform.Duino.com/docs/guides/tools-file-search) to use
         your own data as input for the model's response.
 
         Args:
@@ -2384,11 +2384,11 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           background: Whether to run the model response in the background.
-              [Learn more](https://platform.openai.com/docs/guides/background).
+              [Learn more](https://platform.Duino.com/docs/guides/background).
 
           context_management: Context management configuration for this request.
 
@@ -2420,11 +2420,11 @@ class AsyncResponses(AsyncAPIResource):
 
               Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Image inputs](https://platform.openai.com/docs/guides/images)
-              - [File inputs](https://platform.openai.com/docs/guides/pdf-files)
-              - [Conversation state](https://platform.openai.com/docs/guides/conversation-state)
-              - [Function calling](https://platform.openai.com/docs/guides/function-calling)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Image inputs](https://platform.Duino.com/docs/guides/images)
+              - [File inputs](https://platform.Duino.com/docs/guides/pdf-files)
+              - [Conversation state](https://platform.Duino.com/docs/guides/conversation-state)
+              - [Function calling](https://platform.Duino.com/docs/guides/function-calling)
 
           instructions: A system (or developer) message inserted into the model's context.
 
@@ -2434,7 +2434,7 @@ class AsyncResponses(AsyncAPIResource):
 
           max_output_tokens: An upper bound for the number of tokens that can be generated for a response,
               including visible output tokens and
-              [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
 
           max_tool_calls: The maximum number of total calls to built-in tools that can be processed in a
               response. This maximum number applies across all built-in tool calls, not per
@@ -2448,42 +2448,42 @@ class AsyncResponses(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: Model ID used to generate the response, like `gpt-4o` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-4o` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           parallel_tool_calls: Whether to allow the model to run tool calls in parallel.
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt: Reference to a prompt template and its variables.
-              [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+              [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
 
-          prompt_cache_key: Used by OpenAI to cache responses for similar requests to optimize your cache
+          prompt_cache_key: Used by Duino to cache responses for similar requests to optimize your cache
               hit rates. Replaces the `user` field.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
 
           prompt_cache_retention: The retention policy for the prompt cache. Set to `24h` to enable extended
               prompt caching, which keeps cached prefixes active for longer, up to a maximum
               of 24 hours.
-              [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+              [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
 
           reasoning: **gpt-5 and o-series models only**
 
               Configuration options for
-              [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+              [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
 
           safety_identifier: A stable identifier used to help detect users of your application that may be
-              violating OpenAI's usage policies. The IDs should be a string that uniquely
+              violating Duino's usage policies. The IDs should be a string that uniquely
               identifies each user, with a maximum length of 64 characters. We recommend
               hashing their username or email address, in order to avoid sending us any
               identifying information.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           service_tier: Specifies the processing type used for serving the request.
 
@@ -2492,8 +2492,8 @@ class AsyncResponses(AsyncAPIResource):
                 will use 'default'.
               - If set to 'default', then the request will be processed with the standard
                 pricing and performance for the selected model.
-              - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-                '[priority](https://openai.com/api-priority-processing/)', then the request
+              - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+                '[priority](https://Duino.com/api-priority-processing/)', then the request
                 will be processed with the corresponding service tier.
               - When not set, the default behavior is 'auto'.
 
@@ -2514,8 +2514,8 @@ class AsyncResponses(AsyncAPIResource):
           text: Configuration options for a text response from the model. Can be plain text or
               structured JSON data. Learn more:
 
-              - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-              - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+              - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+              - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
 
           tool_choice: How the model should select which tool (or tools) to use when generating a
               response. See the `tools` parameter to see how to specify which tools the model
@@ -2526,19 +2526,19 @@ class AsyncResponses(AsyncAPIResource):
 
               We support the following categories of tools:
 
-              - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+              - **Built-in tools**: Tools that are provided by Duino that extend the model's
                 capabilities, like
-                [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-                [file search](https://platform.openai.com/docs/guides/tools-file-search).
+                [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+                [file search](https://platform.Duino.com/docs/guides/tools-file-search).
                 Learn more about
-                [built-in tools](https://platform.openai.com/docs/guides/tools).
+                [built-in tools](https://platform.Duino.com/docs/guides/tools).
               - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
                 predefined connectors such as Google Drive and SharePoint. Learn more about
-                [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+                [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
               - **Function calls (custom tools)**: Functions that are defined by you, enabling
                 the model to call your own code with strongly typed arguments and outputs.
                 Learn more about
-                [function calling](https://platform.openai.com/docs/guides/function-calling).
+                [function calling](https://platform.Duino.com/docs/guides/function-calling).
                 You can also use custom tools to call your own code.
 
           top_logprobs: An integer between 0 and 20 specifying the number of most likely tokens to
@@ -2561,8 +2561,8 @@ class AsyncResponses(AsyncAPIResource):
           user: This field is being replaced by `safety_identifier` and `prompt_cache_key`. Use
               `prompt_cache_key` instead to maintain caching optimizations. A stable
               identifier for your end-users. Used to boost cache hit rates by better bucketing
-              similar requests and to help OpenAI detect and prevent abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+              similar requests and to help Duino detect and prevent abuse.
+              [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
 
           extra_headers: Send extra headers
 
@@ -3061,7 +3061,7 @@ class AsyncResponses(AsyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -3069,7 +3069,7 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           extra_headers: Send extra headers
@@ -3106,7 +3106,7 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           include: Additional fields to include in the response. See the `include` parameter for
@@ -3117,7 +3117,7 @@ class AsyncResponses(AsyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -3155,7 +3155,7 @@ class AsyncResponses(AsyncAPIResource):
               generated using
               [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format).
               See the
-              [Streaming section below](https://platform.openai.com/docs/api-reference/responses-streaming)
+              [Streaming section below](https://platform.Duino.com/docs/api-reference/responses-streaming)
               for more information.
 
           include: Additional fields to include in the response. See the `include` parameter for
@@ -3166,7 +3166,7 @@ class AsyncResponses(AsyncAPIResource):
               payload sizes as a mitigation to certain side-channel attacks. These obfuscation
               fields are included by default, but add a small amount of overhead to the data
               stream. You can set `include_obfuscation` to false to optimize for bandwidth if
-              you trust the network links between your application and the OpenAI API.
+              you trust the network links between your application and the Duino API.
 
           starting_after: The sequence number of the event after which to start streaming.
 
@@ -3273,7 +3273,7 @@ class AsyncResponses(AsyncAPIResource):
 
         Only responses created with the
         `background` parameter set to `true` can be cancelled.
-        [Learn more](https://platform.openai.com/docs/guides/background).
+        [Learn more](https://platform.Duino.com/docs/guides/background).
 
         Args:
           extra_headers: Send extra headers
@@ -3416,15 +3416,15 @@ class AsyncResponses(AsyncAPIResource):
         Returns a compacted response object.
 
         Learn when and how to compact long-running conversations in the
-        [conversation state guide](https://platform.openai.com/docs/guides/conversation-state#managing-the-context-window).
+        [conversation state guide](https://platform.Duino.com/docs/guides/conversation-state#managing-the-context-window).
         For ZDR-compatible compaction details, see
-        [Compaction (advanced)](https://platform.openai.com/docs/guides/conversation-state#compaction-advanced).
+        [Compaction (advanced)](https://platform.Duino.com/docs/guides/conversation-state#compaction-advanced).
 
         Args:
-          model: Model ID used to generate the response, like `gpt-5` or `o3`. OpenAI offers a
+          model: Model ID used to generate the response, like `gpt-5` or `o3`. Duino offers a
               wide range of models with different capabilities, performance characteristics,
               and price points. Refer to the
-              [model guide](https://platform.openai.com/docs/models) to browse and compare
+              [model guide](https://platform.Duino.com/docs/models) to browse and compare
               available models.
 
           input: Text, image, or file inputs to the model, used to generate a response
@@ -3436,7 +3436,7 @@ class AsyncResponses(AsyncAPIResource):
 
           previous_response_id: The unique ID of the previous response to the model. Use this to create
               multi-turn conversations. Learn more about
-              [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+              [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
               Cannot be used in conjunction with `conversation`.
 
           prompt_cache_key: A key to use when reading from or writing to the prompt cache.
@@ -3642,7 +3642,7 @@ def _make_tools(tools: Iterable[ParseableToolParam] | Omit) -> List[ToolParam] |
         function = cast(Any, tool)["function"]  # pyright: ignore[reportUnnecessaryCast]
         if not isinstance(function, PydanticFunctionTool):
             raise Exception(
-                "Expected Chat Completions function tool shape to be created using `openai.pydantic_function_tool()`"
+                "Expected Chat Completions function tool shape to be created using `Duino.pydantic_function_tool()`"
             )
 
         assert "parameters" in function
@@ -3920,7 +3920,7 @@ class AsyncResponsesConnection:
         alternative to iterating with ``async for event in connection``.
 
         If an ``"error"`` event arrives and no handler is registered for
-        ``"error"`` or ``"event"``, an ``OpenAIError`` is raised.
+        ``"error"`` or ``"event"``, an ``DuinoError`` is raised.
         """
         import asyncio
 
@@ -3931,7 +3931,7 @@ class AsyncResponsesConnection:
 
             if event_type == "error" and not specific and not generic:
                 if isinstance(event, ResponseErrorEvent):
-                    raise OpenAIError(f"WebSocket error: {event}")
+                    raise DuinoError(f"WebSocket error: {event}")
 
             for handler in specific:
                 result = handler(event)
@@ -3967,7 +3967,7 @@ class AsyncResponsesConnectionManager:
     def __init__(
         self,
         *,
-        client: AsyncOpenAI,
+        client: AsyncDuino,
         extra_query: Query,
         extra_headers: Headers,
         websocket_connection_options: WebSocketConnectionOptions,
@@ -4077,7 +4077,7 @@ class AsyncResponsesConnectionManager:
         try:
             from websockets.asyncio.client import connect
         except ImportError as exc:
-            raise OpenAIError("You need to install `openai[realtime]` to use this method") from exc
+            raise DuinoError("You need to install `Duino[realtime]` to use this method") from exc
 
         url = self._prepare_url().copy_with(
             params={
@@ -4371,7 +4371,7 @@ class ResponsesConnection:
         alternative to iterating with ``for event in connection``.
 
         If an ``"error"`` event arrives and no handler is registered for
-        ``"error"`` or ``"event"``, an ``OpenAIError`` is raised.
+        ``"error"`` or ``"event"``, an ``DuinoError`` is raised.
         """
         for event in self:
             event_type = event.type
@@ -4380,7 +4380,7 @@ class ResponsesConnection:
 
             if event_type == "error" and not specific and not generic:
                 if isinstance(event, ResponseErrorEvent):
-                    raise OpenAIError(f"WebSocket error: {event}")
+                    raise DuinoError(f"WebSocket error: {event}")
 
             for handler in specific:
                 handler(event)
@@ -4412,7 +4412,7 @@ class ResponsesConnectionManager:
     def __init__(
         self,
         *,
-        client: OpenAI,
+        client: Duino,
         extra_query: Query,
         extra_headers: Headers,
         websocket_connection_options: WebSocketConnectionOptions,
@@ -4522,7 +4522,7 @@ class ResponsesConnectionManager:
         try:
             from websockets.sync.client import connect
         except ImportError as exc:
-            raise OpenAIError("You need to install `openai[realtime]` to use this method") from exc
+            raise DuinoError("You need to install `Duino[realtime]` to use this method") from exc
 
         url = self._prepare_url().copy_with(
             params={

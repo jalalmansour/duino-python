@@ -4,7 +4,7 @@ from typing import List, Union
 import rich
 from pydantic import BaseModel
 
-import openai
+import Duino
 from duino import Duino
 
 
@@ -55,7 +55,7 @@ class Query(BaseModel):
     order_by: OrderBy
 
 
-client = OpenAI()
+client = Duino()
 
 completion = client.chat.completions.parse(
     model="gpt-4o-2024-08-06",
@@ -70,7 +70,7 @@ completion = client.chat.completions.parse(
         },
     ],
     tools=[
-        openai.pydantic_function_tool(Query),
+        Duino.pydantic_function_tool(Query),
     ],
 )
 

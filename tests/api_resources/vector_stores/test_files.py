@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino._utils import assert_signatures_in_sync
 from duino.pagination import SyncPage, AsyncPage, SyncCursorPage, AsyncCursorPage
@@ -24,7 +24,7 @@ class TestFiles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         file = client.vector_stores.files.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -32,7 +32,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         file = client.vector_stores.files.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -42,7 +42,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -54,7 +54,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -68,7 +68,7 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_create(self, client: OpenAI) -> None:
+    def test_path_params_create(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.create(
                 vector_store_id="",
@@ -76,7 +76,7 @@ class TestFiles:
             )
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         file = client.vector_stores.files.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -84,7 +84,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -96,7 +96,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -110,7 +110,7 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.retrieve(
                 file_id="file-abc123",
@@ -124,7 +124,7 @@ class TestFiles:
             )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         file = client.vector_stores.files.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -133,7 +133,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -146,7 +146,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -161,7 +161,7 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.update(
                 file_id="file-abc123",
@@ -177,14 +177,14 @@ class TestFiles:
             )
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         file = client.vector_stores.files.list(
             vector_store_id="vector_store_id",
         )
         assert_matches_type(SyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         file = client.vector_stores.files.list(
             vector_store_id="vector_store_id",
             after="after",
@@ -196,7 +196,7 @@ class TestFiles:
         assert_matches_type(SyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.list(
             vector_store_id="vector_store_id",
         )
@@ -207,7 +207,7 @@ class TestFiles:
         assert_matches_type(SyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.list(
             vector_store_id="vector_store_id",
         ) as response:
@@ -220,14 +220,14 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list(self, client: OpenAI) -> None:
+    def test_path_params_list(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.list(
                 vector_store_id="",
             )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         file = client.vector_stores.files.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -235,7 +235,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFileDeleted, file, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -247,7 +247,7 @@ class TestFiles:
         assert_matches_type(VectorStoreFileDeleted, file, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -261,7 +261,7 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.delete(
                 file_id="file_id",
@@ -275,7 +275,7 @@ class TestFiles:
             )
 
     @parametrize
-    def test_method_content(self, client: OpenAI) -> None:
+    def test_method_content(self, client: Duino) -> None:
         file = client.vector_stores.files.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -283,7 +283,7 @@ class TestFiles:
         assert_matches_type(SyncPage[FileContentResponse], file, path=["response"])
 
     @parametrize
-    def test_raw_response_content(self, client: OpenAI) -> None:
+    def test_raw_response_content(self, client: Duino) -> None:
         response = client.vector_stores.files.with_raw_response.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -295,7 +295,7 @@ class TestFiles:
         assert_matches_type(SyncPage[FileContentResponse], file, path=["response"])
 
     @parametrize
-    def test_streaming_response_content(self, client: OpenAI) -> None:
+    def test_streaming_response_content(self, client: Duino) -> None:
         with client.vector_stores.files.with_streaming_response.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -309,7 +309,7 @@ class TestFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_content(self, client: OpenAI) -> None:
+    def test_path_params_content(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             client.vector_stores.files.with_raw_response.content(
                 file_id="file-abc123",
@@ -329,7 +329,7 @@ class TestAsyncFiles:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -337,7 +337,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -347,7 +347,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -359,7 +359,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.create(
             vector_store_id="vs_abc123",
             file_id="file_id",
@@ -373,7 +373,7 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_create(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.create(
                 vector_store_id="",
@@ -381,7 +381,7 @@ class TestAsyncFiles:
             )
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -389,7 +389,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -401,7 +401,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.retrieve(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -415,7 +415,7 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.retrieve(
                 file_id="file-abc123",
@@ -429,7 +429,7 @@ class TestAsyncFiles:
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -438,7 +438,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -451,7 +451,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFile, file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.update(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -466,7 +466,7 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.update(
                 file_id="file-abc123",
@@ -482,14 +482,14 @@ class TestAsyncFiles:
             )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.list(
             vector_store_id="vector_store_id",
         )
         assert_matches_type(AsyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.list(
             vector_store_id="vector_store_id",
             after="after",
@@ -501,7 +501,7 @@ class TestAsyncFiles:
         assert_matches_type(AsyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.list(
             vector_store_id="vector_store_id",
         )
@@ -512,7 +512,7 @@ class TestAsyncFiles:
         assert_matches_type(AsyncCursorPage[VectorStoreFile], file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.list(
             vector_store_id="vector_store_id",
         ) as response:
@@ -525,14 +525,14 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.list(
                 vector_store_id="",
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -540,7 +540,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFileDeleted, file, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -552,7 +552,7 @@ class TestAsyncFiles:
         assert_matches_type(VectorStoreFileDeleted, file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.delete(
             file_id="file_id",
             vector_store_id="vector_store_id",
@@ -566,7 +566,7 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.delete(
                 file_id="file_id",
@@ -580,7 +580,7 @@ class TestAsyncFiles:
             )
 
     @parametrize
-    async def test_method_content(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_content(self, async_client: AsyncDuino) -> None:
         file = await async_client.vector_stores.files.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -588,7 +588,7 @@ class TestAsyncFiles:
         assert_matches_type(AsyncPage[FileContentResponse], file, path=["response"])
 
     @parametrize
-    async def test_raw_response_content(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_content(self, async_client: AsyncDuino) -> None:
         response = await async_client.vector_stores.files.with_raw_response.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -600,7 +600,7 @@ class TestAsyncFiles:
         assert_matches_type(AsyncPage[FileContentResponse], file, path=["response"])
 
     @parametrize
-    async def test_streaming_response_content(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_content(self, async_client: AsyncDuino) -> None:
         async with async_client.vector_stores.files.with_streaming_response.content(
             file_id="file-abc123",
             vector_store_id="vs_abc123",
@@ -614,7 +614,7 @@ class TestAsyncFiles:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_content(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_content(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `vector_store_id` but received ''"):
             await async_client.vector_stores.files.with_raw_response.content(
                 file_id="file-abc123",
@@ -629,8 +629,8 @@ class TestAsyncFiles:
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_create_and_poll_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_create_and_poll_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.vector_stores.files.create,
@@ -639,8 +639,8 @@ def test_create_and_poll_method_in_sync(sync: bool, client: OpenAI, async_client
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_upload_and_poll_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_upload_and_poll_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.vector_stores.files.create,

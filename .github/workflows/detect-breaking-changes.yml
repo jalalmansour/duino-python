@@ -9,7 +9,7 @@ jobs:
   detect_breaking_changes:
     runs-on: 'ubuntu-latest'
     name: detect-breaking-changes
-    if: github.repository == 'openai/openai-python'
+    if: github.repository == 'Duino/Duino-python'
     steps:
       - name: Calculate fetch-depth
         run: |
@@ -40,30 +40,30 @@ jobs:
   agents_sdk:
     runs-on: 'ubuntu-latest'
     name: Detect Agents SDK regressions
-    if: github.repository == 'openai/openai-python'
+    if: github.repository == 'Duino/Duino-python'
     steps:
       # Setup this sdk
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          path: openai-python
+          path: Duino-python
 
       - name: Set up Rye
         uses: eifinger/setup-rye@c694239a43768373e87d0103d7f547027a23f3c8
         with:
           version: '0.44.0'
           enable-cache: true
-          working-directory: openai-python
+          working-directory: Duino-python
 
       - name: Install dependencies
-        working-directory: openai-python
+        working-directory: Duino-python
         run: |
           rye sync --all-features
 
       # Setup the agents lib
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
-          repository: openai/openai-agents-python
-          path: openai-agents-python
+          repository: Duino/Duino-agents-python
+          path: Duino-agents-python
 
       - name: Setup uv
         uses: astral-sh/setup-uv@e58605a9b6da7c637471fab8847a5e5a6b8df081 # v5
@@ -71,13 +71,13 @@ jobs:
           enable-cache: true
 
       - name: Link to local SDK
-        working-directory: openai-agents-python
-        run: uv add ../openai-python
+        working-directory: Duino-agents-python
+        run: uv add ../Duino-python
 
       - name: Install dependencies
-        working-directory: openai-agents-python
+        working-directory: Duino-agents-python
         run: make sync
 
       - name: Run integration type checks
-        working-directory: openai-agents-python
+        working-directory: Duino-agents-python
         run: make mypy

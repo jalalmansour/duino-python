@@ -36,54 +36,54 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_unwrap_with_secret(self, client: duino.OpenAI) -> None:
+    def test_unwrap_with_secret(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         unwrapped = client.webhooks.unwrap(TEST_PAYLOAD, headers, secret=TEST_SECRET)
         assert unwrapped.id == "evt_685c059ae3a481909bdc86819b066fb6"
         assert unwrapped.created_at == 1750861210
 
     @parametrize
-    def test_unwrap_without_secret(self, client: duino.OpenAI) -> None:
+    def test_unwrap_without_secret(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         with pytest.raises(ValueError, match="The webhook secret must either be set"):
             client.webhooks.unwrap(TEST_PAYLOAD, headers)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_valid(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_valid(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         # Should not raise - this is a truly valid signature for this timestamp
         client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    def test_verify_signature_invalid_secret_format(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_invalid_secret_format(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         with pytest.raises(ValueError, match="The webhook secret must either be set"):
             client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=None)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_invalid(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_invalid(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         with pytest.raises(InvalidWebhookSignatureError, match="The given webhook signature does not match"):
             client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret="invalid_secret")
 
     @parametrize
-    def test_verify_signature_missing_webhook_signature_header(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_missing_webhook_signature_header(self, client: duino.Duino) -> None:
         headers = create_test_headers(signature=None)
         del headers["webhook-signature"]
         with pytest.raises(ValueError, match="Could not find webhook-signature header"):
             client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    def test_verify_signature_missing_webhook_timestamp_header(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_missing_webhook_timestamp_header(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         del headers["webhook-timestamp"]
         with pytest.raises(ValueError, match="Could not find webhook-timestamp header"):
             client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    def test_verify_signature_missing_webhook_id_header(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_missing_webhook_id_header(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         del headers["webhook-id"]
         with pytest.raises(ValueError, match="Could not find webhook-id header"):
@@ -91,13 +91,13 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_payload_bytes(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_payload_bytes(self, client: duino.Duino) -> None:
         headers = create_test_headers()
         client.webhooks.verify_signature(TEST_PAYLOAD.encode("utf-8"), headers, secret=TEST_SECRET)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     def test_unwrap_with_client_secret(self) -> None:
-        test_client = duino.OpenAI(base_url=base_url, api_key="test-api-key", webhook_secret=TEST_SECRET)
+        test_client = duino.Duino(base_url=base_url, api_key="test-api-key", webhook_secret=TEST_SECRET)
         headers = create_test_headers()
 
         unwrapped = test_client.webhooks.unwrap(TEST_PAYLOAD, headers)
@@ -105,7 +105,7 @@ class TestWebhooks:
         assert unwrapped.created_at == 1750861210
 
     @parametrize
-    def test_verify_signature_timestamp_too_old(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_timestamp_too_old(self, client: duino.Duino) -> None:
         # Use a timestamp that's older than 5 minutes from our test timestamp
         old_timestamp = TEST_TIMESTAMP - 400  # 6 minutes 40 seconds ago
         headers = create_test_headers(timestamp=old_timestamp, signature="v1,dummy_signature")
@@ -115,7 +115,7 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_timestamp_too_new(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_timestamp_too_new(self, client: duino.Duino) -> None:
         # Use a timestamp that's in the future beyond tolerance from our test timestamp
         future_timestamp = TEST_TIMESTAMP + 400  # 6 minutes 40 seconds in the future
         headers = create_test_headers(timestamp=future_timestamp, signature="v1,dummy_signature")
@@ -125,7 +125,7 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_custom_tolerance(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_custom_tolerance(self, client: duino.Duino) -> None:
         # Use a timestamp that's older than default tolerance but within custom tolerance
         old_timestamp = TEST_TIMESTAMP - 400  # 6 minutes 40 seconds ago from test timestamp
         headers = create_test_headers(timestamp=old_timestamp, signature="v1,dummy_signature")
@@ -140,7 +140,7 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_recent_timestamp_succeeds(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_recent_timestamp_succeeds(self, client: duino.Duino) -> None:
         # Use a recent timestamp with dummy signature
         headers = create_test_headers(signature="v1,dummy_signature")
 
@@ -150,7 +150,7 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_multiple_signatures_one_valid(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_multiple_signatures_one_valid(self, client: duino.Duino) -> None:
         # Test multiple signatures: one invalid, one valid
         multiple_signatures = f"v1,invalid_signature {TEST_SIGNATURE}"
         headers = create_test_headers(signature=multiple_signatures)
@@ -160,7 +160,7 @@ class TestWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    def test_verify_signature_multiple_signatures_all_invalid(self, client: duino.OpenAI) -> None:
+    def test_verify_signature_multiple_signatures_all_invalid(self, client: duino.Duino) -> None:
         # Test multiple invalid signatures
         multiple_invalid_signatures = "v1,invalid_signature1 v1,invalid_signature2"
         headers = create_test_headers(signature=multiple_invalid_signatures)
@@ -176,54 +176,54 @@ class TestAsyncWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_unwrap_with_secret(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_unwrap_with_secret(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         unwrapped = async_client.webhooks.unwrap(TEST_PAYLOAD, headers, secret=TEST_SECRET)
         assert unwrapped.id == "evt_685c059ae3a481909bdc86819b066fb6"
         assert unwrapped.created_at == 1750861210
 
     @parametrize
-    async def test_unwrap_without_secret(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_unwrap_without_secret(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         with pytest.raises(ValueError, match="The webhook secret must either be set"):
             async_client.webhooks.unwrap(TEST_PAYLOAD, headers)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_valid(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_valid(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         # Should not raise - this is a truly valid signature for this timestamp
         async_client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    async def test_verify_signature_invalid_secret_format(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_invalid_secret_format(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         with pytest.raises(ValueError, match="The webhook secret must either be set"):
             async_client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=None)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_invalid(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_invalid(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         with pytest.raises(InvalidWebhookSignatureError, match="The given webhook signature does not match"):
             async_client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret="invalid_secret")
 
     @parametrize
-    async def test_verify_signature_missing_webhook_signature_header(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_missing_webhook_signature_header(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         del headers["webhook-signature"]
         with pytest.raises(ValueError, match="Could not find webhook-signature header"):
             async_client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    async def test_verify_signature_missing_webhook_timestamp_header(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_missing_webhook_timestamp_header(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         del headers["webhook-timestamp"]
         with pytest.raises(ValueError, match="Could not find webhook-timestamp header"):
             async_client.webhooks.verify_signature(TEST_PAYLOAD, headers, secret=TEST_SECRET)
 
     @parametrize
-    async def test_verify_signature_missing_webhook_id_header(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_missing_webhook_id_header(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         del headers["webhook-id"]
         with pytest.raises(ValueError, match="Could not find webhook-id header"):
@@ -231,13 +231,13 @@ class TestAsyncWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_payload_bytes(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_payload_bytes(self, async_client: duino.AsyncDuino) -> None:
         headers = create_test_headers()
         async_client.webhooks.verify_signature(TEST_PAYLOAD.encode("utf-8"), headers, secret=TEST_SECRET)
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     async def test_unwrap_with_client_secret(self) -> None:
-        test_async_client = duino.AsyncOpenAI(base_url=base_url, api_key="test-api-key", webhook_secret=TEST_SECRET)
+        test_async_client = duino.AsyncDuino(base_url=base_url, api_key="test-api-key", webhook_secret=TEST_SECRET)
         headers = create_test_headers()
 
         unwrapped = test_async_client.webhooks.unwrap(TEST_PAYLOAD, headers)
@@ -245,7 +245,7 @@ class TestAsyncWebhooks:
         assert unwrapped.created_at == 1750861210
 
     @parametrize
-    async def test_verify_signature_timestamp_too_old(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_timestamp_too_old(self, async_client: duino.AsyncDuino) -> None:
         # Use a timestamp that's older than 5 minutes from our test timestamp
         old_timestamp = TEST_TIMESTAMP - 400  # 6 minutes 40 seconds ago
         headers = create_test_headers(timestamp=old_timestamp, signature="v1,dummy_signature")
@@ -255,7 +255,7 @@ class TestAsyncWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_timestamp_too_new(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_timestamp_too_new(self, async_client: duino.AsyncDuino) -> None:
         # Use a timestamp that's in the future beyond tolerance from our test timestamp
         future_timestamp = TEST_TIMESTAMP + 400  # 6 minutes 40 seconds in the future
         headers = create_test_headers(timestamp=future_timestamp, signature="v1,dummy_signature")
@@ -265,7 +265,7 @@ class TestAsyncWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_multiple_signatures_one_valid(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_multiple_signatures_one_valid(self, async_client: duino.AsyncDuino) -> None:
         # Test multiple signatures: one invalid, one valid
         multiple_signatures = f"v1,invalid_signature {TEST_SIGNATURE}"
         headers = create_test_headers(signature=multiple_signatures)
@@ -275,7 +275,7 @@ class TestAsyncWebhooks:
 
     @mock.patch("time.time", mock.MagicMock(return_value=TEST_TIMESTAMP))
     @parametrize
-    async def test_verify_signature_multiple_signatures_all_invalid(self, async_client: duino.AsyncOpenAI) -> None:
+    async def test_verify_signature_multiple_signatures_all_invalid(self, async_client: duino.AsyncDuino) -> None:
         # Test multiple invalid signatures
         multiple_invalid_signatures = "v1,invalid_signature1 v1,invalid_signature2"
         headers = create_test_headers(signature=multiple_invalid_signatures)

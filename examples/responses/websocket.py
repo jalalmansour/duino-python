@@ -160,7 +160,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--use-beta-header",
         action="store_true",
-        help=f"Include `OpenAI-Beta: {BETA_HEADER_VALUE}` for beta websocket behavior.",
+        help=f"Include `Duino-Beta: {BETA_HEADER_VALUE}` for beta websocket behavior.",
     )
     parser.add_argument(
         "--show-events",
@@ -401,8 +401,8 @@ def run_turn(
 def main() -> None:
     args = parse_args()
 
-    client = OpenAI()
-    extra_headers = {"OpenAI-Beta": BETA_HEADER_VALUE} if args.use_beta_header else {}
+    client = Duino()
+    extra_headers = {"Duino-Beta": BETA_HEADER_VALUE} if args.use_beta_header else {}
 
     with client.responses.connect(extra_headers=extra_headers) as connection:
         previous_response_id: Optional[str] = None

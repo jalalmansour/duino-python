@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.conversations import (
     Conversation,
@@ -21,12 +21,12 @@ class TestConversations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         conversation = client.conversations.create()
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         conversation = client.conversations.create(
             items=[
                 {
@@ -41,7 +41,7 @@ class TestConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.conversations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -50,7 +50,7 @@ class TestConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.conversations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -61,14 +61,14 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         conversation = client.conversations.retrieve(
             "conv_123",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         response = client.conversations.with_raw_response.retrieve(
             "conv_123",
         )
@@ -79,7 +79,7 @@ class TestConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with client.conversations.with_streaming_response.retrieve(
             "conv_123",
         ) as response:
@@ -92,14 +92,14 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         conversation = client.conversations.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -107,7 +107,7 @@ class TestConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         response = client.conversations.with_raw_response.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -119,7 +119,7 @@ class TestConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with client.conversations.with_streaming_response.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -133,7 +133,7 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.update(
                 conversation_id="",
@@ -141,14 +141,14 @@ class TestConversations:
             )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         conversation = client.conversations.delete(
             "conv_123",
         )
         assert_matches_type(ConversationDeletedResource, conversation, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         response = client.conversations.with_raw_response.delete(
             "conv_123",
         )
@@ -159,7 +159,7 @@ class TestConversations:
         assert_matches_type(ConversationDeletedResource, conversation, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with client.conversations.with_streaming_response.delete(
             "conv_123",
         ) as response:
@@ -172,7 +172,7 @@ class TestConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.conversations.with_raw_response.delete(
                 "",
@@ -185,12 +185,12 @@ class TestAsyncConversations:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         conversation = await async_client.conversations.create()
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         conversation = await async_client.conversations.create(
             items=[
                 {
@@ -205,7 +205,7 @@ class TestAsyncConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.conversations.with_raw_response.create()
 
         assert response.is_closed is True
@@ -214,7 +214,7 @@ class TestAsyncConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.conversations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -225,14 +225,14 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         conversation = await async_client.conversations.retrieve(
             "conv_123",
         )
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         response = await async_client.conversations.with_raw_response.retrieve(
             "conv_123",
         )
@@ -243,7 +243,7 @@ class TestAsyncConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         async with async_client.conversations.with_streaming_response.retrieve(
             "conv_123",
         ) as response:
@@ -256,14 +256,14 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         conversation = await async_client.conversations.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -271,7 +271,7 @@ class TestAsyncConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         response = await async_client.conversations.with_raw_response.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -283,7 +283,7 @@ class TestAsyncConversations:
         assert_matches_type(Conversation, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         async with async_client.conversations.with_streaming_response.update(
             conversation_id="conv_123",
             metadata={"foo": "string"},
@@ -297,7 +297,7 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.update(
                 conversation_id="",
@@ -305,14 +305,14 @@ class TestAsyncConversations:
             )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         conversation = await async_client.conversations.delete(
             "conv_123",
         )
         assert_matches_type(ConversationDeletedResource, conversation, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         response = await async_client.conversations.with_raw_response.delete(
             "conv_123",
         )
@@ -323,7 +323,7 @@ class TestAsyncConversations:
         assert_matches_type(ConversationDeletedResource, conversation, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         async with async_client.conversations.with_streaming_response.delete(
             "conv_123",
         ) as response:
@@ -336,7 +336,7 @@ class TestAsyncConversations:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.conversations.with_raw_response.delete(
                 "",

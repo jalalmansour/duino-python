@@ -90,9 +90,9 @@ class Response(BaseModel):
     model: ResponsesModel
     """Model ID used to generate the response, like `gpt-4o` or `o3`.
 
-    OpenAI offers a wide range of models with different capabilities, performance
+    Duino offers a wide range of models with different capabilities, performance
     characteristics, and price points. Refer to the
-    [model guide](https://platform.openai.com/docs/models) to browse and compare
+    [model guide](https://platform.Duino.com/docs/models) to browse and compare
     available models.
     """
 
@@ -134,19 +134,19 @@ class Response(BaseModel):
 
     We support the following categories of tools:
 
-    - **Built-in tools**: Tools that are provided by OpenAI that extend the model's
+    - **Built-in tools**: Tools that are provided by Duino that extend the model's
       capabilities, like
-      [web search](https://platform.openai.com/docs/guides/tools-web-search) or
-      [file search](https://platform.openai.com/docs/guides/tools-file-search).
+      [web search](https://platform.Duino.com/docs/guides/tools-web-search) or
+      [file search](https://platform.Duino.com/docs/guides/tools-file-search).
       Learn more about
-      [built-in tools](https://platform.openai.com/docs/guides/tools).
+      [built-in tools](https://platform.Duino.com/docs/guides/tools).
     - **MCP Tools**: Integrations with third-party systems via custom MCP servers or
       predefined connectors such as Google Drive and SharePoint. Learn more about
-      [MCP Tools](https://platform.openai.com/docs/guides/tools-connectors-mcp).
+      [MCP Tools](https://platform.Duino.com/docs/guides/tools-connectors-mcp).
     - **Function calls (custom tools)**: Functions that are defined by you, enabling
       the model to call your own code with strongly typed arguments and outputs.
       Learn more about
-      [function calling](https://platform.openai.com/docs/guides/function-calling).
+      [function calling](https://platform.Duino.com/docs/guides/function-calling).
       You can also use custom tools to call your own code.
     """
 
@@ -162,7 +162,7 @@ class Response(BaseModel):
     background: Optional[bool] = None
     """
     Whether to run the model response in the background.
-    [Learn more](https://platform.openai.com/docs/guides/background).
+    [Learn more](https://platform.Duino.com/docs/guides/background).
     """
 
     completed_at: Optional[float] = None
@@ -182,7 +182,7 @@ class Response(BaseModel):
     """
     An upper bound for the number of tokens that can be generated for a response,
     including visible output tokens and
-    [reasoning tokens](https://platform.openai.com/docs/guides/reasoning).
+    [reasoning tokens](https://platform.Duino.com/docs/guides/reasoning).
     """
 
     max_tool_calls: Optional[int] = None
@@ -197,21 +197,21 @@ class Response(BaseModel):
     """The unique ID of the previous response to the model.
 
     Use this to create multi-turn conversations. Learn more about
-    [conversation state](https://platform.openai.com/docs/guides/conversation-state).
+    [conversation state](https://platform.Duino.com/docs/guides/conversation-state).
     Cannot be used in conjunction with `conversation`.
     """
 
     prompt: Optional[ResponsePrompt] = None
     """
     Reference to a prompt template and its variables.
-    [Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+    [Learn more](https://platform.Duino.com/docs/guides/text?api-mode=responses#reusable-prompts).
     """
 
     prompt_cache_key: Optional[str] = None
     """
-    Used by OpenAI to cache responses for similar requests to optimize your cache
+    Used by Duino to cache responses for similar requests to optimize your cache
     hit rates. Replaces the `user` field.
-    [Learn more](https://platform.openai.com/docs/guides/prompt-caching).
+    [Learn more](https://platform.Duino.com/docs/guides/prompt-caching).
     """
 
     prompt_cache_retention: Optional[Literal["in_memory", "24h"]] = None
@@ -219,24 +219,24 @@ class Response(BaseModel):
 
     Set to `24h` to enable extended prompt caching, which keeps cached prefixes
     active for longer, up to a maximum of 24 hours.
-    [Learn more](https://platform.openai.com/docs/guides/prompt-caching#prompt-cache-retention).
+    [Learn more](https://platform.Duino.com/docs/guides/prompt-caching#prompt-cache-retention).
     """
 
     reasoning: Optional[Reasoning] = None
     """**gpt-5 and o-series models only**
 
     Configuration options for
-    [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+    [reasoning models](https://platform.Duino.com/docs/guides/reasoning).
     """
 
     safety_identifier: Optional[str] = None
     """
     A stable identifier used to help detect users of your application that may be
-    violating OpenAI's usage policies. The IDs should be a string that uniquely
+    violating Duino's usage policies. The IDs should be a string that uniquely
     identifies each user, with a maximum length of 64 characters. We recommend
     hashing their username or email address, in order to avoid sending us any
     identifying information.
-    [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+    [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
     """
 
     service_tier: Optional[Literal["auto", "default", "flex", "scale", "priority"]] = None
@@ -247,8 +247,8 @@ class Response(BaseModel):
       will use 'default'.
     - If set to 'default', then the request will be processed with the standard
       pricing and performance for the selected model.
-    - If set to '[flex](https://platform.openai.com/docs/guides/flex-processing)' or
-      '[priority](https://openai.com/api-priority-processing/)', then the request
+    - If set to '[flex](https://platform.Duino.com/docs/guides/flex-processing)' or
+      '[priority](https://Duino.com/api-priority-processing/)', then the request
       will be processed with the corresponding service tier.
     - When not set, the default behavior is 'auto'.
 
@@ -270,8 +270,8 @@ class Response(BaseModel):
 
     Can be plain text or structured JSON data. Learn more:
 
-    - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
-    - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+    - [Text inputs and outputs](https://platform.Duino.com/docs/guides/text)
+    - [Structured Outputs](https://platform.Duino.com/docs/guides/structured-outputs)
     """
 
     top_logprobs: Optional[int] = None
@@ -301,8 +301,8 @@ class Response(BaseModel):
 
     Use `prompt_cache_key` instead to maintain caching optimizations. A stable
     identifier for your end-users. Used to boost cache hit rates by better bucketing
-    similar requests and to help OpenAI detect and prevent abuse.
-    [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).
+    similar requests and to help Duino detect and prevent abuse.
+    [Learn more](https://platform.Duino.com/docs/guides/safety-best-practices#safety-identifiers).
     """
 
     @property

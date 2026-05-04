@@ -10,7 +10,7 @@ from pydantic import Field, BaseModel
 from inline_snapshot import snapshot
 
 import duino
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from duino._utils import assert_signatures_in_sync
 from duino._compat import PYDANTIC_V1
 
@@ -29,7 +29,7 @@ _T = TypeVar("_T")
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_nothing(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_nothing(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     completion = make_snapshot_request(
         lambda c: c.chat.completions.parse(
             model="gpt-4o-2024-08-06",
@@ -93,7 +93,7 @@ recommend checking a reliable weather website or app like the Weather Channel or
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_model(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_model(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -163,7 +163,7 @@ ParsedChatCompletion(
 
 @pytest.mark.respx(base_url=base_url)
 def test_parse_pydantic_model_optional_default(
-    client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
+    client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     class Location(BaseModel):
         city: str
@@ -233,7 +233,7 @@ ParsedChatCompletion(
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_model_enum(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_model_enum(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Color(Enum):
         """The detected color"""
 
@@ -287,7 +287,7 @@ ParsedChoice(
 
 @pytest.mark.respx(base_url=base_url)
 def test_parse_pydantic_model_multiple_choices(
-    client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
+    client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     class Location(BaseModel):
         city: str
@@ -369,7 +369,7 @@ def test_parse_pydantic_model_multiple_choices(
 
 @pytest.mark.respx(base_url=base_url)
 @pytest.mark.skipif(PYDANTIC_V1, reason="dataclasses only supported in v2")
-def test_parse_pydantic_dataclass(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_dataclass(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     from pydantic.dataclasses import dataclass
 
     @dataclass
@@ -439,7 +439,7 @@ ParsedChatCompletion(
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_pydantic_tool_model_all_types(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_pydantic_tool_model_all_types(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     completion = make_snapshot_request(
         lambda c: c.chat.completions.parse(
             model="gpt-4o-2024-08-06",
@@ -519,7 +519,7 @@ r":"<=","value":"2022-05-31"},{"column":"status","operator":"=","value":"fulfill
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_max_tokens_reached(client: OpenAI, respx_mock: MockRouter) -> None:
+def test_parse_max_tokens_reached(client: Duino, respx_mock: MockRouter) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -548,7 +548,7 @@ def test_parse_max_tokens_reached(client: OpenAI, respx_mock: MockRouter) -> Non
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_model_refusal(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_model_refusal(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -597,7 +597,7 @@ def test_parse_pydantic_model_refusal(client: OpenAI, respx_mock: MockRouter, mo
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_tool(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_tool(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class GetWeatherArgs(BaseModel):
         city: str
         country: str
@@ -658,7 +658,7 @@ def test_parse_pydantic_tool(client: OpenAI, respx_mock: MockRouter, monkeypatch
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_multiple_pydantic_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_multiple_pydantic_tools(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class GetWeatherArgs(BaseModel):
         """Get the temperature for the given country/city combo"""
 
@@ -741,7 +741,7 @@ def test_parse_multiple_pydantic_tools(client: OpenAI, respx_mock: MockRouter, m
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_strict_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_strict_tools(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     completion = make_snapshot_request(
         lambda c: c.chat.completions.parse(
             model="gpt-4o-2024-08-06",
@@ -814,7 +814,7 @@ def test_parse_strict_tools(client: OpenAI, respx_mock: MockRouter, monkeypatch:
     )
 
 
-def test_parse_non_strict_tools(client: OpenAI) -> None:
+def test_parse_non_strict_tools(client: Duino) -> None:
     with pytest.raises(
         ValueError, match="`get_weather` is not strict. Only `strict` function tools can be auto-parsed"
     ):
@@ -834,7 +834,7 @@ def test_parse_non_strict_tools(client: OpenAI) -> None:
 
 
 @pytest.mark.respx(base_url=base_url)
-def test_parse_pydantic_raw_response(client: OpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_parse_pydantic_raw_response(client: Duino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch) -> None:
     class Location(BaseModel):
         city: str
         temperature: float
@@ -910,7 +910,7 @@ ParsedChatCompletion(
 @pytest.mark.respx(base_url=base_url)
 @pytest.mark.asyncio
 async def test_async_parse_pydantic_raw_response(
-    async_client: AsyncOpenAI, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
+    async_client: AsyncDuino, respx_mock: MockRouter, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     class Location(BaseModel):
         city: str
@@ -985,8 +985,8 @@ ParsedChatCompletion(
 
 
 @pytest.mark.parametrize("sync", [True, False], ids=["sync", "async"])
-def test_parse_method_in_sync(sync: bool, client: OpenAI, async_client: AsyncOpenAI) -> None:
-    checking_client: OpenAI | AsyncOpenAI = client if sync else async_client
+def test_parse_method_in_sync(sync: bool, client: Duino, async_client: AsyncDuino) -> None:
+    checking_client: Duino | AsyncDuino = client if sync else async_client
 
     assert_signatures_in_sync(
         checking_client.chat.completions.create,

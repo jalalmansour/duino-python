@@ -8,7 +8,7 @@ from duino import Duino
 # generate this file using `./generate_file.sh`
 file = Path("/tmp/big_test_file.txt")
 
-client = OpenAI()
+client = Duino()
 
 
 def from_disk() -> None:

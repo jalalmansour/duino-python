@@ -54,18 +54,18 @@ def main() -> None:
         raise RuntimeError("You must specify a base ref to run breaking change detection against") from err
 
     package = griffe.load(
-        "openai",
+        "Duino",
         search_paths=[Path(__file__).parent.parent.joinpath("src")],
     )
     old_package = griffe.load_git(
-        "openai",
+        "Duino",
         ref=against_ref,
         search_paths=["src"],
     )
     assert isinstance(package, griffe.Module)
     assert isinstance(old_package, griffe.Module)
 
-    output = list(find_breaking_changes(package, old_package, path=["openai"]))
+    output = list(find_breaking_changes(package, old_package, path=["Duino"]))
     if output:
         rich.print(Text("Breaking changes detected!", style=Style(color="rgb(165, 79, 87)")))
         rich.print()

@@ -3,7 +3,7 @@
 Types:
 
 ```python
-from openai.types.webhooks import (
+from Duino.types.webhooks import (
     BatchCancelledWebhookEvent,
     BatchCompletedWebhookEvent,
     BatchExpiredWebhookEvent,

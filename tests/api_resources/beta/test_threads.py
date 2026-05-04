@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.beta import (
     Thread,
@@ -24,14 +24,14 @@ class TestThreads:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.create()
 
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.create(
                 messages=[
@@ -66,7 +66,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.create()
 
@@ -76,7 +76,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.create() as response:
                 assert not response.is_closed
@@ -88,7 +88,7 @@ class TestThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_retrieve(self, client: OpenAI) -> None:
+    def test_method_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.retrieve(
                 "thread_id",
@@ -97,7 +97,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_raw_response_retrieve(self, client: OpenAI) -> None:
+    def test_raw_response_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.retrieve(
                 "thread_id",
@@ -109,7 +109,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpenAI) -> None:
+    def test_streaming_response_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.retrieve(
                 "thread_id",
@@ -123,7 +123,7 @@ class TestThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 client.beta.threads.with_raw_response.retrieve(
@@ -131,7 +131,7 @@ class TestThreads:
                 )
 
     @parametrize
-    def test_method_update(self, client: OpenAI) -> None:
+    def test_method_update(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.update(
                 thread_id="thread_id",
@@ -140,7 +140,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_method_update_with_all_params(self, client: OpenAI) -> None:
+    def test_method_update_with_all_params(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.update(
                 thread_id="thread_id",
@@ -154,7 +154,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_raw_response_update(self, client: OpenAI) -> None:
+    def test_raw_response_update(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.update(
                 thread_id="thread_id",
@@ -166,7 +166,7 @@ class TestThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    def test_streaming_response_update(self, client: OpenAI) -> None:
+    def test_streaming_response_update(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.update(
                 thread_id="thread_id",
@@ -180,7 +180,7 @@ class TestThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_update(self, client: OpenAI) -> None:
+    def test_path_params_update(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 client.beta.threads.with_raw_response.update(
@@ -188,7 +188,7 @@ class TestThreads:
                 )
 
     @parametrize
-    def test_method_delete(self, client: OpenAI) -> None:
+    def test_method_delete(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.delete(
                 "thread_id",
@@ -197,7 +197,7 @@ class TestThreads:
         assert_matches_type(ThreadDeleted, thread, path=["response"])
 
     @parametrize
-    def test_raw_response_delete(self, client: OpenAI) -> None:
+    def test_raw_response_delete(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.delete(
                 "thread_id",
@@ -209,7 +209,7 @@ class TestThreads:
         assert_matches_type(ThreadDeleted, thread, path=["response"])
 
     @parametrize
-    def test_streaming_response_delete(self, client: OpenAI) -> None:
+    def test_streaming_response_delete(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.delete(
                 "thread_id",
@@ -223,7 +223,7 @@ class TestThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_delete(self, client: OpenAI) -> None:
+    def test_path_params_delete(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 client.beta.threads.with_raw_response.delete(
@@ -231,7 +231,7 @@ class TestThreads:
                 )
 
     @parametrize
-    def test_method_create_and_run_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_and_run_overload_1(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -240,7 +240,7 @@ class TestThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    def test_method_create_and_run_with_all_params_overload_1(self, client: OpenAI) -> None:
+    def test_method_create_and_run_with_all_params_overload_1(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -298,7 +298,7 @@ class TestThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    def test_raw_response_create_and_run_overload_1(self, client: OpenAI) -> None:
+    def test_raw_response_create_and_run_overload_1(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.create_and_run(
                 assistant_id="assistant_id",
@@ -310,7 +310,7 @@ class TestThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_and_run_overload_1(self, client: OpenAI) -> None:
+    def test_streaming_response_create_and_run_overload_1(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.create_and_run(
                 assistant_id="assistant_id",
@@ -324,7 +324,7 @@ class TestThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_create_and_run_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_and_run_overload_2(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread_stream = client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -334,7 +334,7 @@ class TestThreads:
         thread_stream.response.close()
 
     @parametrize
-    def test_method_create_and_run_with_all_params_overload_2(self, client: OpenAI) -> None:
+    def test_method_create_and_run_with_all_params_overload_2(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             thread_stream = client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -392,7 +392,7 @@ class TestThreads:
         thread_stream.response.close()
 
     @parametrize
-    def test_raw_response_create_and_run_overload_2(self, client: OpenAI) -> None:
+    def test_raw_response_create_and_run_overload_2(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.threads.with_raw_response.create_and_run(
                 assistant_id="assistant_id",
@@ -404,7 +404,7 @@ class TestThreads:
         stream.close()
 
     @parametrize
-    def test_streaming_response_create_and_run_overload_2(self, client: OpenAI) -> None:
+    def test_streaming_response_create_and_run_overload_2(self, client: Duino) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.threads.with_streaming_response.create_and_run(
                 assistant_id="assistant_id",
@@ -425,14 +425,14 @@ class TestAsyncThreads:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.create()
 
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.create(
                 messages=[
@@ -467,7 +467,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.create()
 
@@ -477,7 +477,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.create() as response:
                 assert not response.is_closed
@@ -489,7 +489,7 @@ class TestAsyncThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.retrieve(
                 "thread_id",
@@ -498,7 +498,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.retrieve(
                 "thread_id",
@@ -510,7 +510,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.retrieve(
                 "thread_id",
@@ -524,7 +524,7 @@ class TestAsyncThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 await async_client.beta.threads.with_raw_response.retrieve(
@@ -532,7 +532,7 @@ class TestAsyncThreads:
                 )
 
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.update(
                 thread_id="thread_id",
@@ -541,7 +541,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.update(
                 thread_id="thread_id",
@@ -555,7 +555,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.update(
                 thread_id="thread_id",
@@ -567,7 +567,7 @@ class TestAsyncThreads:
         assert_matches_type(Thread, thread, path=["response"])
 
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.update(
                 thread_id="thread_id",
@@ -581,7 +581,7 @@ class TestAsyncThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_update(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 await async_client.beta.threads.with_raw_response.update(
@@ -589,7 +589,7 @@ class TestAsyncThreads:
                 )
 
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_delete(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.delete(
                 "thread_id",
@@ -598,7 +598,7 @@ class TestAsyncThreads:
         assert_matches_type(ThreadDeleted, thread, path=["response"])
 
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.delete(
                 "thread_id",
@@ -610,7 +610,7 @@ class TestAsyncThreads:
         assert_matches_type(ThreadDeleted, thread, path=["response"])
 
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.delete(
                 "thread_id",
@@ -624,7 +624,7 @@ class TestAsyncThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `thread_id` but received ''"):
                 await async_client.beta.threads.with_raw_response.delete(
@@ -632,7 +632,7 @@ class TestAsyncThreads:
                 )
 
     @parametrize
-    async def test_method_create_and_run_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_and_run_overload_1(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -641,7 +641,7 @@ class TestAsyncThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    async def test_method_create_and_run_with_all_params_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_and_run_with_all_params_overload_1(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread = await async_client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -699,7 +699,7 @@ class TestAsyncThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_and_run_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_and_run_overload_1(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.create_and_run(
                 assistant_id="assistant_id",
@@ -711,7 +711,7 @@ class TestAsyncThreads:
         assert_matches_type(Run, thread, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_and_run_overload_1(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_and_run_overload_1(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.create_and_run(
                 assistant_id="assistant_id",
@@ -725,7 +725,7 @@ class TestAsyncThreads:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_create_and_run_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_and_run_overload_2(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread_stream = await async_client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -735,7 +735,7 @@ class TestAsyncThreads:
         await thread_stream.response.aclose()
 
     @parametrize
-    async def test_method_create_and_run_with_all_params_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_and_run_with_all_params_overload_2(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             thread_stream = await async_client.beta.threads.create_and_run(
                 assistant_id="assistant_id",
@@ -793,7 +793,7 @@ class TestAsyncThreads:
         await thread_stream.response.aclose()
 
     @parametrize
-    async def test_raw_response_create_and_run_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create_and_run_overload_2(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.threads.with_raw_response.create_and_run(
                 assistant_id="assistant_id",
@@ -805,7 +805,7 @@ class TestAsyncThreads:
         await stream.close()
 
     @parametrize
-    async def test_streaming_response_create_and_run_overload_2(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create_and_run_overload_2(self, async_client: AsyncDuino) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.threads.with_streaming_response.create_and_run(
                 assistant_id="assistant_id",

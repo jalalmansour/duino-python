@@ -24,7 +24,7 @@ class ResponseCustomToolCall(BaseModel):
     """The type of the custom tool call. Always `custom_tool_call`."""
 
     id: Optional[str] = None
-    """The unique ID of the custom tool call in the OpenAI platform."""
+    """The unique ID of the custom tool call in the Duino platform."""
 
     namespace: Optional[str] = None
     """The namespace of the custom tool being called."""

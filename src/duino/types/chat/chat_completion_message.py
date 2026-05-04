@@ -69,14 +69,14 @@ class ChatCompletionMessage(BaseModel):
     annotations: Optional[List[Annotation]] = None
     """
     Annotations for the message, when applicable, as when using the
-    [web search tool](https://platform.openai.com/docs/guides/tools-web-search?api-mode=chat).
+    [web search tool](https://platform.Duino.com/docs/guides/tools-web-search?api-mode=chat).
     """
 
     audio: Optional[ChatCompletionAudio] = None
     """
     If the audio output modality is requested, this object contains data about the
     audio response from the model.
-    [Learn more](https://platform.openai.com/docs/guides/audio).
+    [Learn more](https://platform.Duino.com/docs/guides/audio).
     """
 
     function_call: Optional[FunctionCall] = None

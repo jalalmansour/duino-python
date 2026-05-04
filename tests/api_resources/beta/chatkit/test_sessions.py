@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.beta.chatkit import (
     ChatSession,
@@ -20,7 +20,7 @@ class TestSessions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_create(self, client: OpenAI) -> None:
+    def test_method_create(self, client: Duino) -> None:
         session = client.beta.chatkit.sessions.create(
             user="x",
             workflow={"id": "id"},
@@ -28,7 +28,7 @@ class TestSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    def test_method_create_with_all_params(self, client: OpenAI) -> None:
+    def test_method_create_with_all_params(self, client: Duino) -> None:
         session = client.beta.chatkit.sessions.create(
             user="x",
             workflow={
@@ -58,7 +58,7 @@ class TestSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    def test_raw_response_create(self, client: OpenAI) -> None:
+    def test_raw_response_create(self, client: Duino) -> None:
         response = client.beta.chatkit.sessions.with_raw_response.create(
             user="x",
             workflow={"id": "id"},
@@ -70,7 +70,7 @@ class TestSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    def test_streaming_response_create(self, client: OpenAI) -> None:
+    def test_streaming_response_create(self, client: Duino) -> None:
         with client.beta.chatkit.sessions.with_streaming_response.create(
             user="x",
             workflow={"id": "id"},
@@ -84,14 +84,14 @@ class TestSessions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_method_cancel(self, client: OpenAI) -> None:
+    def test_method_cancel(self, client: Duino) -> None:
         session = client.beta.chatkit.sessions.cancel(
             "cksess_123",
         )
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    def test_raw_response_cancel(self, client: OpenAI) -> None:
+    def test_raw_response_cancel(self, client: Duino) -> None:
         response = client.beta.chatkit.sessions.with_raw_response.cancel(
             "cksess_123",
         )
@@ -102,7 +102,7 @@ class TestSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    def test_streaming_response_cancel(self, client: OpenAI) -> None:
+    def test_streaming_response_cancel(self, client: Duino) -> None:
         with client.beta.chatkit.sessions.with_streaming_response.cancel(
             "cksess_123",
         ) as response:
@@ -115,7 +115,7 @@ class TestSessions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_cancel(self, client: OpenAI) -> None:
+    def test_path_params_cancel(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.beta.chatkit.sessions.with_raw_response.cancel(
                 "",
@@ -128,7 +128,7 @@ class TestAsyncSessions:
     )
 
     @parametrize
-    async def test_method_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create(self, async_client: AsyncDuino) -> None:
         session = await async_client.beta.chatkit.sessions.create(
             user="x",
             workflow={"id": "id"},
@@ -136,7 +136,7 @@ class TestAsyncSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncDuino) -> None:
         session = await async_client.beta.chatkit.sessions.create(
             user="x",
             workflow={
@@ -166,7 +166,7 @@ class TestAsyncSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncDuino) -> None:
         response = await async_client.beta.chatkit.sessions.with_raw_response.create(
             user="x",
             workflow={"id": "id"},
@@ -178,7 +178,7 @@ class TestAsyncSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncDuino) -> None:
         async with async_client.beta.chatkit.sessions.with_streaming_response.create(
             user="x",
             workflow={"id": "id"},
@@ -192,14 +192,14 @@ class TestAsyncSessions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_cancel(self, async_client: AsyncDuino) -> None:
         session = await async_client.beta.chatkit.sessions.cancel(
             "cksess_123",
         )
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncDuino) -> None:
         response = await async_client.beta.chatkit.sessions.with_raw_response.cancel(
             "cksess_123",
         )
@@ -210,7 +210,7 @@ class TestAsyncSessions:
         assert_matches_type(ChatSession, session, path=["response"])
 
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncDuino) -> None:
         async with async_client.beta.chatkit.sessions.with_streaming_response.cancel(
             "cksess_123",
         ) as response:
@@ -223,7 +223,7 @@ class TestAsyncSessions:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.beta.chatkit.sessions.with_raw_response.cancel(
                 "",

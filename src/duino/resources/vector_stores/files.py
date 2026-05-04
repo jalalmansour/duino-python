@@ -32,7 +32,7 @@ class Files(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return FilesWithRawResponse(self)
 
@@ -41,7 +41,7 @@ class Files(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return FilesWithStreamingResponse(self)
 
@@ -61,14 +61,14 @@ class Files(SyncAPIResource):
     ) -> VectorStoreFile:
         """
         Create a vector store file by attaching a
-        [File](https://platform.openai.com/docs/api-reference/files) to a
-        [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object).
+        [File](https://platform.Duino.com/docs/api-reference/files) to a
+        [vector store](https://platform.Duino.com/docs/api-reference/vector-stores/object).
 
         Args:
-          file_id: A [File](https://platform.openai.com/docs/api-reference/files) ID that the
+          file_id: A [File](https://platform.Duino.com/docs/api-reference/files) ID that the
               vector store should use. Useful for tools like `file_search` that can access
               files. For multi-file ingestion, we recommend
-              [`file_batches`](https://platform.openai.com/docs/api-reference/vector-stores-file-batches/createBatch)
+              [`file_batches`](https://platform.Duino.com/docs/api-reference/vector-stores-file-batches/createBatch)
               to minimize per-vector-store write requests.
 
           attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
@@ -90,7 +90,7 @@ class Files(SyncAPIResource):
         """
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/vector_stores/{vector_store_id}/files", vector_store_id=vector_store_id),
             body=maybe_transform(
@@ -139,7 +139,7 @@ class Files(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -189,7 +189,7 @@ class Files(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -253,7 +253,7 @@ class Files(SyncAPIResource):
         """
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/vector_stores/{vector_store_id}/files", vector_store_id=vector_store_id),
             page=SyncCursorPage[VectorStoreFile],
@@ -293,7 +293,7 @@ class Files(SyncAPIResource):
 
         This will remove the file from the vector store but
         the file itself will not be deleted. To delete the file, use the
-        [delete file](https://platform.openai.com/docs/api-reference/files/delete)
+        [delete file](https://platform.Duino.com/docs/api-reference/files/delete)
         endpoint.
 
         Args:
@@ -309,7 +309,7 @@ class Files(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._delete(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -383,7 +383,7 @@ class Files(SyncAPIResource):
             file = response.parse()
             if file.status == "in_progress":
                 if not is_given(poll_interval_ms):
-                    from_header = response.headers.get("openai-poll-after-ms")
+                    from_header = response.headers.get("Duino-poll-after-ms")
                     if from_header is not None:
                         poll_interval_ms = int(from_header)
                     else:
@@ -460,7 +460,7 @@ class Files(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}/content",
@@ -486,7 +486,7 @@ class AsyncFiles(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncFilesWithRawResponse(self)
 
@@ -495,7 +495,7 @@ class AsyncFiles(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncFilesWithStreamingResponse(self)
 
@@ -515,14 +515,14 @@ class AsyncFiles(AsyncAPIResource):
     ) -> VectorStoreFile:
         """
         Create a vector store file by attaching a
-        [File](https://platform.openai.com/docs/api-reference/files) to a
-        [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object).
+        [File](https://platform.Duino.com/docs/api-reference/files) to a
+        [vector store](https://platform.Duino.com/docs/api-reference/vector-stores/object).
 
         Args:
-          file_id: A [File](https://platform.openai.com/docs/api-reference/files) ID that the
+          file_id: A [File](https://platform.Duino.com/docs/api-reference/files) ID that the
               vector store should use. Useful for tools like `file_search` that can access
               files. For multi-file ingestion, we recommend
-              [`file_batches`](https://platform.openai.com/docs/api-reference/vector-stores-file-batches/createBatch)
+              [`file_batches`](https://platform.Duino.com/docs/api-reference/vector-stores-file-batches/createBatch)
               to minimize per-vector-store write requests.
 
           attributes: Set of 16 key-value pairs that can be attached to an object. This can be useful
@@ -544,7 +544,7 @@ class AsyncFiles(AsyncAPIResource):
         """
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/vector_stores/{vector_store_id}/files", vector_store_id=vector_store_id),
             body=await async_maybe_transform(
@@ -593,7 +593,7 @@ class AsyncFiles(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._get(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -643,7 +643,7 @@ class AsyncFiles(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -707,7 +707,7 @@ class AsyncFiles(AsyncAPIResource):
         """
         if not vector_store_id:
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template("/vector_stores/{vector_store_id}/files", vector_store_id=vector_store_id),
             page=AsyncCursorPage[VectorStoreFile],
@@ -747,7 +747,7 @@ class AsyncFiles(AsyncAPIResource):
 
         This will remove the file from the vector store but
         the file itself will not be deleted. To delete the file, use the
-        [delete file](https://platform.openai.com/docs/api-reference/files/delete)
+        [delete file](https://platform.Duino.com/docs/api-reference/files/delete)
         endpoint.
 
         Args:
@@ -763,7 +763,7 @@ class AsyncFiles(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._delete(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}", vector_store_id=vector_store_id, file_id=file_id
@@ -837,7 +837,7 @@ class AsyncFiles(AsyncAPIResource):
             file = response.parse()
             if file.status == "in_progress":
                 if not is_given(poll_interval_ms):
-                    from_header = response.headers.get("openai-poll-after-ms")
+                    from_header = response.headers.get("Duino-poll-after-ms")
                     if from_header is not None:
                         poll_interval_ms = int(from_header)
                     else:
@@ -916,7 +916,7 @@ class AsyncFiles(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `vector_store_id` but received {vector_store_id!r}")
         if not file_id:
             raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get_api_list(
             path_template(
                 "/vector_stores/{vector_store_id}/files/{file_id}/content",

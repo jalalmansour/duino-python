@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.pagination import SyncCursorPage, AsyncCursorPage
 from duino.types.chat import ChatCompletionStoreMessage
@@ -19,14 +19,14 @@ class TestMessages:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_list(self, client: OpenAI) -> None:
+    def test_method_list(self, client: Duino) -> None:
         message = client.chat.completions.messages.list(
             completion_id="completion_id",
         )
         assert_matches_type(SyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    def test_method_list_with_all_params(self, client: OpenAI) -> None:
+    def test_method_list_with_all_params(self, client: Duino) -> None:
         message = client.chat.completions.messages.list(
             completion_id="completion_id",
             after="after",
@@ -36,7 +36,7 @@ class TestMessages:
         assert_matches_type(SyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    def test_raw_response_list(self, client: OpenAI) -> None:
+    def test_raw_response_list(self, client: Duino) -> None:
         response = client.chat.completions.messages.with_raw_response.list(
             completion_id="completion_id",
         )
@@ -47,7 +47,7 @@ class TestMessages:
         assert_matches_type(SyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    def test_streaming_response_list(self, client: OpenAI) -> None:
+    def test_streaming_response_list(self, client: Duino) -> None:
         with client.chat.completions.messages.with_streaming_response.list(
             completion_id="completion_id",
         ) as response:
@@ -60,7 +60,7 @@ class TestMessages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_list(self, client: OpenAI) -> None:
+    def test_path_params_list(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             client.chat.completions.messages.with_raw_response.list(
                 completion_id="",
@@ -73,14 +73,14 @@ class TestAsyncMessages:
     )
 
     @parametrize
-    async def test_method_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list(self, async_client: AsyncDuino) -> None:
         message = await async_client.chat.completions.messages.list(
             completion_id="completion_id",
         )
         assert_matches_type(AsyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncDuino) -> None:
         message = await async_client.chat.completions.messages.list(
             completion_id="completion_id",
             after="after",
@@ -90,7 +90,7 @@ class TestAsyncMessages:
         assert_matches_type(AsyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncDuino) -> None:
         response = await async_client.chat.completions.messages.with_raw_response.list(
             completion_id="completion_id",
         )
@@ -101,7 +101,7 @@ class TestAsyncMessages:
         assert_matches_type(AsyncCursorPage[ChatCompletionStoreMessage], message, path=["response"])
 
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncDuino) -> None:
         async with async_client.chat.completions.messages.with_streaming_response.list(
             completion_id="completion_id",
         ) as response:
@@ -114,7 +114,7 @@ class TestAsyncMessages:
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_list(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_list(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `completion_id` but received ''"):
             await async_client.chat.completions.messages.with_raw_response.list(
                 completion_id="",

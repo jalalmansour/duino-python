@@ -20,6 +20,6 @@ class ProjectCreateParams(TypedDict, total=False):
 
     Your organization must have access to Data residency functionality in order to
     use. See
-    [data residency controls](https://platform.openai.com/docs/guides/your-data#data-residency-controls)
+    [data residency controls](https://platform.Duino.com/docs/guides/your-data#data-residency-controls)
     to review the functionality and limitations of setting this field.
     """

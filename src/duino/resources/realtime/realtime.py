@@ -32,7 +32,7 @@ from ..._utils import (
 from ..._compat import cached_property
 from ..._models import construct_type_unchecked
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._exceptions import OpenAIError, WebSocketConnectionClosedError
+from ..._exceptions import DuinoError, WebSocketConnectionClosedError
 from ..._send_queue import SendQueue
 from ..._base_client import _merge_mappings
 from .client_secrets import (
@@ -58,7 +58,7 @@ if TYPE_CHECKING:
     from websockets.sync.client import ClientConnection as WebSocketConnection
     from websockets.asyncio.client import ClientConnection as AsyncWebSocketConnection
 
-    from ..._client import OpenAI, AsyncOpenAI
+    from ..._client import Duino, AsyncDuino
 
 __all__ = ["Realtime", "AsyncRealtime"]
 
@@ -82,7 +82,7 @@ class Realtime(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return RealtimeWithRawResponse(self)
 
@@ -91,7 +91,7 @@ class Realtime(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return RealtimeWithStreamingResponse(self)
 
@@ -152,7 +152,7 @@ class AsyncRealtime(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncRealtimeWithRawResponse(self)
 
@@ -161,7 +161,7 @@ class AsyncRealtime(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncRealtimeWithStreamingResponse(self)
 
@@ -522,7 +522,7 @@ class AsyncRealtimeConnection:
         alternative to iterating with ``async for event in connection``.
 
         If an ``"error"`` event arrives and no handler is registered for
-        ``"error"`` or ``"event"``, an ``OpenAIError`` is raised.
+        ``"error"`` or ``"event"``, an ``DuinoError`` is raised.
         """
         import asyncio
 
@@ -533,7 +533,7 @@ class AsyncRealtimeConnection:
 
             if event_type == "error" and not specific and not generic:
                 if isinstance(event, RealtimeErrorEvent):
-                    raise OpenAIError(f"WebSocket error: {event}")
+                    raise DuinoError(f"WebSocket error: {event}")
 
             for handler in specific:
                 result = handler(event)
@@ -569,7 +569,7 @@ class AsyncRealtimeConnectionManager:
     def __init__(
         self,
         *,
-        client: AsyncOpenAI,
+        client: AsyncDuino,
         call_id: str | Omit = omit,
         model: str | Omit = omit,
         extra_query: Query,
@@ -683,7 +683,7 @@ class AsyncRealtimeConnectionManager:
         try:
             from websockets.asyncio.client import connect
         except ImportError as exc:
-            raise OpenAIError("You need to install `openai[realtime]` to use this method") from exc
+            raise DuinoError("You need to install `Duino[realtime]` to use this method") from exc
 
         await self.__client._refresh_api_key()
         auth_headers = self.__client.auth_headers
@@ -692,7 +692,7 @@ class AsyncRealtimeConnectionManager:
         if is_async_azure_client(self.__client):
             model = self.__model
             if not model:
-                raise OpenAIError("`model` is required for Azure Realtime API")
+                raise DuinoError("`model` is required for Azure Realtime API")
             else:
                 url, auth_headers = await self.__client._configure_realtime(model, extra_query)
         else:
@@ -996,7 +996,7 @@ class RealtimeConnection:
         alternative to iterating with ``for event in connection``.
 
         If an ``"error"`` event arrives and no handler is registered for
-        ``"error"`` or ``"event"``, an ``OpenAIError`` is raised.
+        ``"error"`` or ``"event"``, an ``DuinoError`` is raised.
         """
         for event in self:
             event_type = event.type
@@ -1005,7 +1005,7 @@ class RealtimeConnection:
 
             if event_type == "error" and not specific and not generic:
                 if isinstance(event, RealtimeErrorEvent):
-                    raise OpenAIError(f"WebSocket error: {event}")
+                    raise DuinoError(f"WebSocket error: {event}")
 
             for handler in specific:
                 handler(event)
@@ -1037,7 +1037,7 @@ class RealtimeConnectionManager:
     def __init__(
         self,
         *,
-        client: OpenAI,
+        client: Duino,
         call_id: str | Omit = omit,
         model: str | Omit = omit,
         extra_query: Query,
@@ -1151,7 +1151,7 @@ class RealtimeConnectionManager:
         try:
             from websockets.sync.client import connect
         except ImportError as exc:
-            raise OpenAIError("You need to install `openai[realtime]` to use this method") from exc
+            raise DuinoError("You need to install `Duino[realtime]` to use this method") from exc
 
         self.__client._refresh_api_key()
         auth_headers = self.__client.auth_headers
@@ -1160,7 +1160,7 @@ class RealtimeConnectionManager:
         if is_azure_client(self.__client):
             model = self.__model
             if not model:
-                raise OpenAIError("`model` is required for Azure Realtime API")
+                raise DuinoError("`model` is required for Azure Realtime API")
             else:
                 url, auth_headers = self.__client._configure_realtime(model, extra_query)
         else:
@@ -1431,7 +1431,7 @@ class RealtimeOutputAudioBufferResource(BaseRealtimeConnectionResource):
         stop generating audio and emit a `output_audio_buffer.cleared` event. This
         event should be preceded by a `response.cancel` client event to stop the
         generation of the current response.
-        [Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+        [Learn more](https://platform.Duino.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
         """
         self._connection.send(
             cast(RealtimeClientEventParam, strip_not_given({"type": "output_audio_buffer.clear", "event_id": event_id}))
@@ -1668,7 +1668,7 @@ class AsyncRealtimeOutputAudioBufferResource(BaseAsyncRealtimeConnectionResource
         stop generating audio and emit a `output_audio_buffer.cleared` event. This
         event should be preceded by a `response.cancel` client event to stop the
         generation of the current response.
-        [Learn more](https://platform.openai.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
+        [Learn more](https://platform.Duino.com/docs/guides/realtime-conversations#client-and-server-events-for-audio-in-webrtc).
         """
         await self._connection.send(
             cast(RealtimeClientEventParam, strip_not_given({"type": "output_audio_buffer.clear", "event_id": event_id}))

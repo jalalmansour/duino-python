@@ -78,7 +78,7 @@ class Threads(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return ThreadsWithRawResponse(self)
 
@@ -87,7 +87,7 @@ class Threads(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return ThreadsWithStreamingResponse(self)
 
@@ -109,7 +109,7 @@ class Threads(SyncAPIResource):
         Create a thread.
 
         Args:
-          messages: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to
+          messages: A list of [messages](https://platform.Duino.com/docs/api-reference/messages) to
               start the thread with.
 
           metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
@@ -132,7 +132,7 @@ class Threads(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             "/threads",
             body=maybe_transform(
@@ -179,7 +179,7 @@ class Threads(SyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._get(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             options=make_request_options(
@@ -232,7 +232,7 @@ class Threads(SyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             body=maybe_transform(
@@ -278,7 +278,7 @@ class Threads(SyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._delete(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             options=make_request_options(
@@ -324,7 +324,7 @@ class Threads(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           instructions: Override the default system message of the assistant. This is useful for
@@ -349,24 +349,24 @@ class Threads(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -458,7 +458,7 @@ class Threads(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -487,24 +487,24 @@ class Threads(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -592,7 +592,7 @@ class Threads(SyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -621,24 +621,24 @@ class Threads(SyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -722,7 +722,7 @@ class Threads(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run | Stream[AssistantStreamEvent]:
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return self._post(
             "/threads/runs",
             body=maybe_transform(
@@ -790,7 +790,7 @@ class Threads(SyncAPIResource):
         """
         A helper to create a thread, start a run and then poll for a terminal state.
         More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = self.create_and_run(  # pyright: ignore[reportDeprecated]
             assistant_id=assistant_id,
@@ -903,7 +903,7 @@ class Threads(SyncAPIResource):
     ) -> AssistantStreamManager[AssistantEventHandler] | AssistantStreamManager[AssistantEventHandlerT]:
         """Create a thread and stream the run back"""
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.create_and_run_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),
@@ -965,7 +965,7 @@ class AsyncThreads(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/openai/openai-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/Duino/Duino-python#accessing-raw-response-data-eg-headers
         """
         return AsyncThreadsWithRawResponse(self)
 
@@ -974,7 +974,7 @@ class AsyncThreads(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/openai/openai-python#with_streaming_response
+        For more information, see https://www.github.com/Duino/Duino-python#with_streaming_response
         """
         return AsyncThreadsWithStreamingResponse(self)
 
@@ -996,7 +996,7 @@ class AsyncThreads(AsyncAPIResource):
         Create a thread.
 
         Args:
-          messages: A list of [messages](https://platform.openai.com/docs/api-reference/messages) to
+          messages: A list of [messages](https://platform.Duino.com/docs/api-reference/messages) to
               start the thread with.
 
           metadata: Set of 16 key-value pairs that can be attached to an object. This can be useful
@@ -1019,7 +1019,7 @@ class AsyncThreads(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             "/threads",
             body=await async_maybe_transform(
@@ -1066,7 +1066,7 @@ class AsyncThreads(AsyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._get(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             options=make_request_options(
@@ -1119,7 +1119,7 @@ class AsyncThreads(AsyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             body=await async_maybe_transform(
@@ -1165,7 +1165,7 @@ class AsyncThreads(AsyncAPIResource):
         """
         if not thread_id:
             raise ValueError(f"Expected a non-empty value for `thread_id` but received {thread_id!r}")
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._delete(
             path_template("/threads/{thread_id}", thread_id=thread_id),
             options=make_request_options(
@@ -1211,7 +1211,7 @@ class AsyncThreads(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           instructions: Override the default system message of the assistant. This is useful for
@@ -1236,24 +1236,24 @@ class AsyncThreads(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -1345,7 +1345,7 @@ class AsyncThreads(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -1374,24 +1374,24 @@ class AsyncThreads(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -1479,7 +1479,7 @@ class AsyncThreads(AsyncAPIResource):
 
         Args:
           assistant_id: The ID of the
-              [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to
+              [assistant](https://platform.Duino.com/docs/api-reference/assistants) to use to
               execute this run.
 
           stream: If `true`, returns a stream of events that happen during the Run as server-sent
@@ -1508,24 +1508,24 @@ class AsyncThreads(AsyncAPIResource):
               Keys are strings with a maximum length of 64 characters. Values are strings with
               a maximum length of 512 characters.
 
-          model: The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to
+          model: The ID of the [Model](https://platform.Duino.com/docs/api-reference/models) to
               be used to execute this run. If a value is provided here, it will override the
               model associated with the assistant. If not, the model associated with the
               assistant will be used.
 
           parallel_tool_calls: Whether to enable
-              [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling)
+              [parallel function calling](https://platform.Duino.com/docs/guides/function-calling#configuring-parallel-function-calling)
               during tool use.
 
           response_format: Specifies the format that the model must output. Compatible with
-              [GPT-4o](https://platform.openai.com/docs/models#gpt-4o),
-              [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4),
+              [GPT-4o](https://platform.Duino.com/docs/models#gpt-4o),
+              [GPT-4 Turbo](https://platform.Duino.com/docs/models#gpt-4-turbo-and-gpt-4),
               and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
 
               Setting to `{ "type": "json_schema", "json_schema": {...} }` enables Structured
               Outputs which ensures the model will match your supplied JSON schema. Learn more
               in the
-              [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+              [Structured Outputs guide](https://platform.Duino.com/docs/guides/structured-outputs).
 
               Setting to `{ "type": "json_object" }` enables JSON mode, which ensures the
               message the model generates is valid JSON.
@@ -1609,7 +1609,7 @@ class AsyncThreads(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Run | AsyncStream[AssistantStreamEvent]:
-        extra_headers = {"OpenAI-Beta": "assistants=v2", **(extra_headers or {})}
+        extra_headers = {"Duino-Beta": "assistants=v2", **(extra_headers or {})}
         return await self._post(
             "/threads/runs",
             body=await async_maybe_transform(
@@ -1677,7 +1677,7 @@ class AsyncThreads(AsyncAPIResource):
         """
         A helper to create a thread, start a run and then poll for a terminal state.
         More information on Run lifecycles can be found here:
-        https://platform.openai.com/docs/assistants/how-it-works/runs-and-run-steps
+        https://platform.Duino.com/docs/assistants/how-it-works/runs-and-run-steps
         """
         run = await self.create_and_run(  # pyright: ignore[reportDeprecated]
             assistant_id=assistant_id,
@@ -1795,7 +1795,7 @@ class AsyncThreads(AsyncAPIResource):
     ):
         """Create a thread and stream the run back"""
         extra_headers = {
-            "OpenAI-Beta": "assistants=v2",
+            "Duino-Beta": "assistants=v2",
             "X-Stainless-Stream-Helper": "threads.create_and_run_stream",
             "X-Stainless-Custom-Event-Handler": "true" if event_handler else "false",
             **(extra_headers or {}),

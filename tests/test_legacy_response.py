@@ -17,7 +17,7 @@ from .utils import rich_print_str
 class PydanticModel(pydantic.BaseModel): ...
 
 
-def test_response_parse_mismatched_basemodel(client: OpenAI) -> None:
+def test_response_parse_mismatched_basemodel(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -45,7 +45,7 @@ def test_response_parse_mismatched_basemodel(client: OpenAI) -> None:
         ("FalSe", False),
     ],
 )
-def test_response_parse_bool(client: OpenAI, content: str, expected: bool) -> None:
+def test_response_parse_bool(client: Duino, content: str, expected: bool) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=content),
         client=client,
@@ -59,7 +59,7 @@ def test_response_parse_bool(client: OpenAI, content: str, expected: bool) -> No
     assert result is expected
 
 
-def test_response_parse_custom_stream(client: OpenAI) -> None:
+def test_response_parse_custom_stream(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -78,7 +78,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: OpenAI) -> None:
+def test_response_parse_custom_model(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -93,7 +93,7 @@ def test_response_parse_custom_model(client: OpenAI) -> None:
     assert obj.bar == 2
 
 
-def test_response_basemodel_request_id(client: OpenAI) -> None:
+def test_response_basemodel_request_id(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(
             200,
@@ -116,7 +116,7 @@ def test_response_basemodel_request_id(client: OpenAI) -> None:
     assert "__exclude_fields__" not in rich_print_str(obj)
 
 
-def test_response_parse_annotated_type(client: OpenAI) -> None:
+def test_response_parse_annotated_type(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -138,7 +138,7 @@ class OtherModel(pydantic.BaseModel):
 
 
 @pytest.mark.parametrize("client", [False], indirect=True)  # loose validation
-def test_response_parse_expect_model_union_non_json_content(client: OpenAI) -> None:
+def test_response_parse_expect_model_union_non_json_content(client: Duino) -> None:
     response = LegacyAPIResponse(
         raw=httpx.Response(200, content=b"foo", headers={"Content-Type": "application/text"}),
         client=client,

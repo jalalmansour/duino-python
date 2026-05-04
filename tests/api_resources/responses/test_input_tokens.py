@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 from duino.types.responses import InputTokenCountResponse
 
@@ -18,12 +18,12 @@ class TestInputTokens:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
-    def test_method_count(self, client: OpenAI) -> None:
+    def test_method_count(self, client: Duino) -> None:
         input_token = client.responses.input_tokens.count()
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    def test_method_count_with_all_params(self, client: OpenAI) -> None:
+    def test_method_count_with_all_params(self, client: Duino) -> None:
         input_token = client.responses.input_tokens.count(
             conversation="string",
             input="string",
@@ -56,7 +56,7 @@ class TestInputTokens:
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    def test_raw_response_count(self, client: OpenAI) -> None:
+    def test_raw_response_count(self, client: Duino) -> None:
         response = client.responses.input_tokens.with_raw_response.count()
 
         assert response.is_closed is True
@@ -65,7 +65,7 @@ class TestInputTokens:
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    def test_streaming_response_count(self, client: OpenAI) -> None:
+    def test_streaming_response_count(self, client: Duino) -> None:
         with client.responses.input_tokens.with_streaming_response.count() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -82,12 +82,12 @@ class TestAsyncInputTokens:
     )
 
     @parametrize
-    async def test_method_count(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_count(self, async_client: AsyncDuino) -> None:
         input_token = await async_client.responses.input_tokens.count()
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    async def test_method_count_with_all_params(self, async_client: AsyncOpenAI) -> None:
+    async def test_method_count_with_all_params(self, async_client: AsyncDuino) -> None:
         input_token = await async_client.responses.input_tokens.count(
             conversation="string",
             input="string",
@@ -120,7 +120,7 @@ class TestAsyncInputTokens:
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    async def test_raw_response_count(self, async_client: AsyncOpenAI) -> None:
+    async def test_raw_response_count(self, async_client: AsyncDuino) -> None:
         response = await async_client.responses.input_tokens.with_raw_response.count()
 
         assert response.is_closed is True
@@ -129,7 +129,7 @@ class TestAsyncInputTokens:
         assert_matches_type(InputTokenCountResponse, input_token, path=["response"])
 
     @parametrize
-    async def test_streaming_response_count(self, async_client: AsyncOpenAI) -> None:
+    async def test_streaming_response_count(self, async_client: AsyncDuino) -> None:
         async with async_client.responses.input_tokens.with_streaming_response.count() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

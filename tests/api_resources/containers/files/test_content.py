@@ -10,7 +10,7 @@ import pytest
 from respx import MockRouter
 
 import duino._legacy_response as _legacy_response
-from duino import duino, AsyncOpenAI
+from duino import duino, AsyncDuino
 from tests.utils import assert_matches_type
 
 # pyright: reportDeprecated=false
@@ -23,7 +23,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_method_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_method_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -36,7 +36,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_raw_response_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_raw_response_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -53,7 +53,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_streaming_response_retrieve(self, client: OpenAI, respx_mock: MockRouter) -> None:
+    def test_streaming_response_retrieve(self, client: Duino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -71,7 +71,7 @@ class TestContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    def test_path_params_retrieve(self, client: OpenAI) -> None:
+    def test_path_params_retrieve(self, client: Duino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `container_id` but received ''"):
             client.containers.files.content.with_raw_response.retrieve(
                 file_id="file_id",
@@ -92,7 +92,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_method_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_method_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -105,7 +105,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_raw_response_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -122,7 +122,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpenAI, respx_mock: MockRouter) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncDuino, respx_mock: MockRouter) -> None:
         respx_mock.get("/containers/container_id/files/file_id/content").mock(
             return_value=httpx.Response(200, json={"foo": "bar"})
         )
@@ -140,7 +140,7 @@ class TestAsyncContent:
 
     @parametrize
     @pytest.mark.respx(base_url=base_url)
-    async def test_path_params_retrieve(self, async_client: AsyncOpenAI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncDuino) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `container_id` but received ''"):
             await async_client.containers.files.content.with_raw_response.retrieve(
                 file_id="file_id",
