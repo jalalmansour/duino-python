@@ -16,7 +16,7 @@ client = Duino()
 
 
 with client.chat.completions.stream(
-    model="gpt-4o-2024-08-06",
+    model="DuinoBot",
     messages=[
         {
             "role": "user",

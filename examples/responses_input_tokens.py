@@ -41,7 +41,7 @@ def main() -> None:
     ]
 
     response = client.responses.input_tokens.count(
-        model="gpt-5",
+        model="DuinoBot",
         instructions="You are a concise assistant.",
         input=input_items,
         tools=tools,

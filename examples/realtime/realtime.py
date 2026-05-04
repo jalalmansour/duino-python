@@ -20,7 +20,7 @@ async def main() -> None:
 
     client = AsyncDuino()
     async with client.realtime.connect(
-        model="gpt-realtime",
+        model="DuinoBot",
     ) as connection:
         await connection.session.update(
             session={

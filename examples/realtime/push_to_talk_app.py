@@ -154,7 +154,7 @@ class RealtimeApp(App[None]):
         self.run_worker(self.send_mic_audio())
 
     async def handle_realtime_connection(self) -> None:
-        async with self.client.realtime.connect(model="gpt-realtime") as conn:
+        async with self.client.realtime.connect(model="DuinoBot") as conn:
             self.connection = conn
             self.connected.set()
 

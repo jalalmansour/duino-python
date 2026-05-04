@@ -58,7 +58,7 @@ class Query(BaseModel):
 client = Duino()
 
 response = client.responses.parse(
-    model="gpt-4o-2024-08-06",
+    model="DuinoBot",
     input="look up all my orders in november of last year that were fulfilled but not delivered on time",
     tools=[
         Duino.pydantic_function_tool(Query),

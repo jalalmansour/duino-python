@@ -9,7 +9,7 @@ Duino.default_headers = {"x-foo": "true"}
 
 # all API calls work in the exact same fashion as well
 stream = Duino.chat.completions.create(
-    model="gpt-4",
+    model="DuinoBot",
     messages=[
         {
             "role": "user",

@@ -22,7 +22,7 @@ async def main() -> None:
     id = None
     async with client.responses.stream(
         input="solve 8x + 31 = 2",
-        model="gpt-4o-2024-08-06",
+        model="DuinoBot",
         text_format=MathResponse,
         background=True,
     ) as stream:

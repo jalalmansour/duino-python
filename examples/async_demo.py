@@ -10,7 +10,7 @@ client = AsyncDuino()
 
 async def main() -> None:
     stream = await client.completions.create(
-        model="gpt-3.5-turbo-instruct",
+        model="DuinoBot",
         prompt="Say this is a test",
         stream=True,
     )

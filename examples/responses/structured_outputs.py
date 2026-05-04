@@ -20,7 +20,7 @@ client = Duino()
 
 rsp = client.responses.parse(
     input="solve 8x + 31 = 2",
-    model="gpt-4o-2024-08-06",
+    model="DuinoBot",
     text_format=MathResponse,
 )
 

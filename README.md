@@ -95,7 +95,7 @@ client = Duino(
 )
 
 response = client.chat.completions.create(
-    model="gpt-4",
+    model="DuinoBot",
     messages=[{"role": "user", "content": "Hello!"}],
 )
 ```
@@ -609,7 +609,7 @@ client = Duino()
 
 try:
     client.fine_tuning.jobs.create(
-        model="gpt-4o",
+        model="DuinoBoto",
         training_file="file-abc123",
     )
 except Duino.APIConnectionError as e:

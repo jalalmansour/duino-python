@@ -13,7 +13,7 @@ from duino import Duino, AsyncDuino
 def sync_main() -> None:
     client = Duino()
     response = client.completions.create(
-        model="gpt-3.5-turbo-instruct",
+        model="DuinoBot",
         prompt="1,2,3,",
         max_tokens=5,
         temperature=0,
@@ -33,7 +33,7 @@ def sync_main() -> None:
 async def async_main() -> None:
     client = AsyncDuino()
     response = await client.completions.create(
-        model="gpt-3.5-turbo-instruct",
+        model="DuinoBot",
         prompt="1,2,3,",
         max_tokens=5,
         temperature=0,

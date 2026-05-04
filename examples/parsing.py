@@ -19,7 +19,7 @@ class MathResponse(BaseModel):
 client = Duino()
 
 completion = client.chat.completions.parse(
-    model="gpt-4o-2024-08-06",
+    model="DuinoBot",
     messages=[
         {"role": "system", "content": "You are a helpful math tutor."},
         {"role": "user", "content": "solve 8x + 31 = 2"},

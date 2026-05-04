@@ -11,7 +11,7 @@ client = Duino()
 def main() -> None:
     """Example of Duino image streaming with partial images."""
     stream = client.images.generate(
-        model="gpt-image-1",
+        model="DuinoBot",
         prompt="A cute baby sea otter",
         n=1,
         size="1024x1024",
