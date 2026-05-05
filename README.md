@@ -1,7 +1,7 @@
 # Duino Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/Duino.svg?label=pypi%20(stable))](https://pypi.org/project/Duino/)
+[![PyPI version](https://img.shields.io/pypi/v/duinopy.svg?label=pypi%20(stable))](https://pypi.org/project/duinopy/)
 
 The Duino Python library provides convenient access to the Duino REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -17,7 +17,7 @@ The REST API documentation can be found on [platform.Duino.com](https://platform
 
 ```sh
 # install from PyPI
-pip install Duino
+pip install duinopy
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ The primary API for interacting with Duino models is the [Responses API](https:/
 
 ```python
 import os
-from Duino import Duino
+from duino import Duino
 
 client = Duino(
     # This is the default and can be omitted
@@ -47,9 +47,9 @@ print(response.output_text)
 The previous standard (supported indefinitely) for generating text is the [Chat Completions API](https://platform.Duino.com/docs/api-reference/chat). You can use that API to generate text from the model with the code below.
 
 ```python
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 completion = client.chat.completions.create(
     model="gpt-5.2",
@@ -78,8 +78,8 @@ For secure, automated environments like cloud-managed Kubernetes, Azure, and Goo
 #### Kubernetes (service account tokens)
 
 ```python
-from Duino import Duino
-from Duino.auth import k8s_service_account_token_provider
+from duino import Duino
+from duino.auth import k8s_service_account_token_provider
 
 client = Duino(
     workload_identity={
@@ -95,7 +95,7 @@ client = Duino(
 )
 
 response = client.chat.completions.create(
-    model="DuinoBot",
+    model="duinobot",
     messages=[{"role": "user", "content": "Hello!"}],
 )
 ```
@@ -103,8 +103,8 @@ response = client.chat.completions.create(
 #### Azure (managed identity)
 
 ```python
-from Duino import Duino
-from Duino.auth import azure_managed_identity_token_provider
+from duino import Duino
+from duino.auth import azure_managed_identity_token_provider
 
 client = Duino(
     workload_identity={
@@ -121,15 +121,15 @@ client = Duino(
 #### Google Cloud Platform (compute engine metadata)
 
 ```python
-from Duino import Duino
-from Duino.auth import gcp_id_token_provider
+from duino import Duino
+from duino.auth import gcp_id_token_provider
 
 client = Duino(
     workload_identity={
         "client_id": "your-client-id",
         "identity_provider_id": "idp-123",
         "service_account_id": "sa-456",
-        "provider": gcp_id_token_provider(audience="https://api.Duino.com/v1"),
+        "provider": gcp_id_token_provider(audience="https://api.duino.ai/v1"),
     },
 )
 ```
@@ -137,7 +137,7 @@ client = Duino(
 #### Custom subject token provider
 
 ```python
-from Duino import Duino
+from duino import Duino
 
 
 def get_custom_token() -> str:
@@ -160,8 +160,8 @@ client = Duino(
 You can also customize the token refresh buffer (default is 1200 seconds (20 minutes) before expiration):
 
 ```python
-from Duino import Duino
-from Duino.auth import k8s_service_account_token_provider
+from duino import Duino
+from duino.auth import k8s_service_account_token_provider
 
 client = Duino(
     workload_identity={
@@ -200,9 +200,9 @@ With the image as a base64 encoded string:
 
 ```python
 import base64
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 prompt = "What is in this image?"
 with open("path/to/image.png", "rb") as image_file:
@@ -229,7 +229,7 @@ Simply import `AsyncDuino` instead of `Duino` and use `await` with each API call
 ```python
 import os
 import asyncio
-from Duino import AsyncDuino
+from duino import AsyncDuino
 
 client = AsyncDuino(
     # This is the default and can be omitted
@@ -257,7 +257,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install Duino[aiohttp]
+pip install duinopy[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -265,8 +265,8 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 ```python
 import os
 import asyncio
-from Duino import DefaultAioHttpClient
-from Duino import AsyncDuino
+from duino import DefaultAioHttpClient
+from duino import AsyncDuino
 
 
 async def main() -> None:
@@ -293,9 +293,9 @@ asyncio.run(main())
 We provide support for streaming responses using Server Side Events (SSE).
 
 ```python
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 stream = client.responses.create(
     model="gpt-5.2",
@@ -311,7 +311,7 @@ The async client uses the exact same interface.
 
 ```python
 import asyncio
-from Duino import AsyncDuino
+from duino import AsyncDuino
 
 client = AsyncDuino()
 
@@ -342,7 +342,7 @@ Basic text based example:
 
 ```py
 import asyncio
-from Duino import AsyncDuino
+from duino import AsyncDuino
 
 async def main():
     client = AsyncDuino()
@@ -374,7 +374,7 @@ async def main():
 asyncio.run(main())
 ```
 
-However the real magic of the Realtime API is handling audio inputs / outputs, see this example [TUI script](https://github.com/Duino/Duino-python/blob/main/examples/realtime/push_to_talk_app.py) for a fully fledged example.
+However the real magic of the Realtime API is handling audio inputs / outputs, see this example [TUI script](https://github.com/jalalmansour/duino-python/blob/main/examples/realtime/push_to_talk_app.py) for a fully fledged example.
 
 ### Realtime error handling
 
@@ -409,9 +409,9 @@ List methods in the Duino API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 all_jobs = []
 # Automatically fetches more pages as needed.
@@ -427,7 +427,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from Duino import AsyncDuino
+from duino import AsyncDuino
 
 client = AsyncDuino()
 
@@ -478,9 +478,9 @@ for job in first_page.data:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 response = client.chat.responses.create(
     input=[
@@ -500,9 +500,9 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 
 client.files.create(
     file=Path("input.jsonl"),
@@ -525,11 +525,11 @@ For most use cases, you will likely want to verify the webhook and parse the pay
 Note that the `body` parameter must be the raw JSON string sent from the server (do not parse it first). The `.unwrap()` method will parse this JSON for you into an event object after verifying the webhook was sent from Duino.
 
 ```python
-from Duino import Duino
+from duino import Duino
 from flask import Flask, request
 
 app = Flask(__name__)
-client = Duino()  # Duino_WEBHOOK_SECRET environment variable is used by default
+client = duino()  # DUINO_WEBHOOK_SECRET environment variable is used by default
 
 
 @app.route("/webhook", methods=["POST"])
@@ -564,11 +564,11 @@ Note that the `body` parameter must be the raw JSON string sent from the server 
 
 ```python
 import json
-from Duino import Duino
+from duino import Duino
 from flask import Flask, request
 
 app = Flask(__name__)
-client = Duino()  # Duino_WEBHOOK_SECRET environment variable is used by default
+client = duino()  # DUINO_WEBHOOK_SECRET environment variable is used by default
 
 
 @app.route("/webhook", methods=["POST"])
@@ -602,22 +602,21 @@ response), a subclass of `Duino.APIStatusError` is raised, containing `status_co
 All errors inherit from `Duino.APIError`.
 
 ```python
-import Duino
-from Duino import Duino
+from duino import Duino
 
 client = Duino()
 
 try:
     client.fine_tuning.jobs.create(
-        model="DuinoBoto",
+        model="duinobot",
         training_file="file-abc123",
     )
-except Duino.APIConnectionError as e:
+except duino.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except Duino.RateLimitError as e:
+except duino.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except Duino.APIStatusError as e:
+except duino.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -664,7 +663,7 @@ try:
     completion = await client.chat.completions.create(
         messages=[{"role": "user", "content": "Say this is a test"}], model="gpt-5.2"
     )
-except Duino.APIStatusError as exc:
+except duino.APIStatusError as exc:
     print(exc.request_id)  # req_123
     raise exc
 ```
@@ -678,7 +677,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from Duino import Duino
+from duino import Duino
 
 # Configure the default for all requests:
 client = Duino(
@@ -704,7 +703,7 @@ By default requests time out after 10 minutes. You can configure this with a `ti
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from Duino import Duino
+from duino import Duino
 
 # Configure the default for all requests:
 client = Duino(
@@ -739,13 +738,11 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `Duino_LOG` to `info`.
+You can enable logging by setting the environment variable `DUINO_LOG` to `info`.
 
 ```shell
-$ export Duino_LOG=info
+$ export DUINO_LOG=info
 ```
-
-Or to `debug` for more verbose logging.
 
 ### How to tell whether `None` means `null` or missing
 
@@ -764,9 +761,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from Duino import Duino
+from duino import Duino
 
-client = Duino()
+client = duino()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
         "role": "user",
@@ -780,7 +777,7 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion)
 ```
 
-These methods return a [`LegacyAPIResponse`](https://github.com/Duino/Duino-python/tree/main/src/Duino/_legacy_response.py) object. This is a legacy class as we're changing it slightly in the next major version.
+These methods return a [`LegacyAPIResponse`](https://github.com/jalalmansour/duino-python/tree/main/src/duino/_legacy_response.py) object. This is a legacy class as we're changing it slightly in the next major version.
 
 For the sync client this will mostly be the same with the exception
 of `content` & `text` will be methods instead of properties. In the
@@ -795,7 +792,7 @@ The above interface eagerly reads the full response body when you make the reque
 
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
-As such, `.with_streaming_response` methods return a different [`APIResponse`](https://github.com/Duino/Duino-python/tree/main/src/Duino/_response.py) object, and the async client returns an [`AsyncAPIResponse`](https://github.com/Duino/Duino-python/tree/main/src/Duino/_response.py) object.
+As such, `.with_streaming_response` methods return a different [`APIResponse`](https://github.com/jalalmansour/duino-python/tree/main/src/duino/_response.py) object, and the async client returns an [`AsyncAPIResponse`](https://github.com/jalalmansour/duino-python/tree/main/src/duino/_response.py) object.
 
 ```python
 with client.chat.completions.with_streaming_response.create(
@@ -859,10 +856,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from Duino import Duino, DefaultHttpxClient
+from duino import Duino, DefaultHttpxClient
 
 client = Duino(
-    # Or use the `Duino_BASE_URL` env var
+    # Or use the `DUINO_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083/v1",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -882,7 +879,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from Duino import Duino
+from duino import Duino
 
 with Duino() as client:
   # make requests here
@@ -901,14 +898,14 @@ class instead of the `Duino` class.
 > won't always be correct.
 
 ```py
-from Duino import AzureDuino
+from duino import AzureDuino
 
 # gets the API Key from environment variable AZURE_DUINO_API_KEY
 client = AzureDuino(
     # https://learn.microsoft.com/azure/ai-services/Duino/reference#rest-api-versioning
     api_version="2023-07-01-preview",
     # https://learn.microsoft.com/azure/cognitive-services/Duino/how-to/create-resource?pivots=web-portal#create-a-resource
-    azure_endpoint="https://example-endpoint.Duino.azure.com",
+    azure_endpoint="https://example-endpoint.duino.azure.com",
 )
 
 completion = client.chat.completions.create(
@@ -925,13 +922,13 @@ print(completion.to_json())
 
 In addition to the options provided in the base `Duino` client, the following options are provided:
 
-- `azure_endpoint` (or the `AZURE_Duino_ENDPOINT` environment variable)
+- `azure_endpoint` (or the `AZURE_DUINO_ENDPOINT` environment variable)
 - `azure_deployment`
-- `api_version` (or the `Duino_API_VERSION` environment variable)
-- `azure_ad_token` (or the `AZURE_Duino_AD_TOKEN` environment variable)
+- `api_version` (or the `DUINO_API_VERSION` environment variable)
+- `azure_ad_token` (or the `AZURE_DUINO_AD_TOKEN` environment variable)
 - `azure_ad_token_provider`
 
-An example of using the client with Microsoft Entra ID (formerly known as Azure Active Directory) can be found [here](https://github.com/Duino/Duino-python/blob/main/examples/azure_ad.py).
+An example of using the client with Microsoft Entra ID (formerly known as Azure Active Directory) can be found [here](https://github.com/jalalmansour/duino-python/blob/main/examples/azure_ad.py).
 
 ## Versioning
 
@@ -943,7 +940,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/Duino/Duino-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://github.com/jalalmansour/duino-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -952,7 +949,7 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import Duino
+from duino import Duino
 print(Duino.__version__)
 ```
 
